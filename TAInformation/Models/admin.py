@@ -1,23 +1,23 @@
-from TAInformation.Models.user import User
+from TAInformation.Models import user
+from TAInformation.models import User, Course
 
 
-class UserAdmin(User):
+class UserAdmin(user.User):
 
     # precondition: none
-    # post condition: return an array of all Courses
+    # post condition: returns a  return n array of [String] for all course's name, instructor name, lab names as [String], semester,
     def display_courses(self):
-        all_courses = Course.objects.all()
-        course_content = []
-        for course in all_courses:
-            course_content.append(course.course_name)
-        return course_content
+        return
 
     # precondition: none
-    # post condition: return a String array of all people and their public and private info
+    # post condition: return n array of [String] for all people's name, password, email,
+    # home_address, role and phone number and a String array of all people and their public and private info
+    # side effect: raises an exception if role is not valid number
     def display_people(self):
-        # testing how this works
-        all_users = User.objects.all()
-        user_content = []
-        for user in all_users:
-            user_content.append(user.name)
-        return user_content
+        return
+
+    # precondition: none
+    # post condition: return an array of String for the field description name, password, email,
+    # home address, role, phone
+    def display_people_fields(self):
+        return ["name", "password", "email", "home address", "role", "phone"]
