@@ -27,6 +27,7 @@ def setup_database(test_user: TAInformation.Models.user.User, test_user_model: U
 
 class CreateAccountsAsAdmin(unittest.TestCase):
     def setUp(self):
+        User.objects.all().delete()
         self.testAdmin = UserAdmin()
         all_tests_setup(self.testAdmin,
                         1, "testAdmin", "tA1!", "testAdmin@test.com", "101 W. Wisconsin Ave, Milwaukee, WI 53203",
@@ -58,12 +59,12 @@ class CreateAccountsAsAdmin(unittest.TestCase):
         self.assertTrue(self.testAdmin.createTA(new_ta), failure_msg)
 
     def tearDown(self):
-        for i in range(4):
-            User.objects.filter(id=i).delete()
+        User.objects.exclude(id=1).delete()
 
 
 class CreateAccountsAsInstructor(unittest.TestCase):
     def setUp(self):
+        User.objects.all().delete()
         self.testInstructor = Instructor()
         all_tests_setup(self.testInstructor, 1, "testInstructor", "tI1!", "testInstructor@test.com",
                         "101 W. Wisconsin Ave, Milwaukee, WI 53203", "(414)222-2571")
@@ -93,12 +94,12 @@ class CreateAccountsAsInstructor(unittest.TestCase):
         self.assertFalse(self.testInstructor.createTA(new_ta), failure_msg)
 
     def tearDown(self):
-        for i in range(4):
-            User.objects.filter(id=i).delete()
+        User.objects.exclude(id=1).delete()
 
 
 class CreateAccountsAsTA(unittest.TestCase):
     def setUp(self):
+        User.objects.all().delete()
         self.testTA = TA()
         all_tests_setup(self.testTA, 1, "testTA", "tT1!", "testTA@test.com",
                         "101 W. Wisconsin Ave, Milwaukee, WI 53203", "(414)222-2571")
@@ -128,12 +129,12 @@ class CreateAccountsAsTA(unittest.TestCase):
         self.assertFalse(self.testTA.createTA(new_ta), failure_msg)
 
     def tearDown(self):
-        for i in range(4):
-            User.objects.filter(id=i).delete()
+        User.objects.exclude(id=1).delete()
 
 
 class CheckCredentials(unittest.TestCase):
     def setUp(self):
+        User.objects.all().delete()
         self.testAdmin = UserAdmin()
         all_tests_setup(self.testAdmin, 1, "testAdmin", "tA1!", "testAdmin@test.com",
                         "101 W. Wisconsin Ave, Milwaukee, WI 53203", "(414)222-2571")
@@ -205,12 +206,12 @@ class CheckCredentials(unittest.TestCase):
         self.assertFalse(self.testAdmin.createTA(test_ta), failure_msg)
 
     def tearDown(self):
-        for i in range(10):
-            User.objects.filter(id=i).delete()
+        User.objects.exclude(id=1).delete()
 
 
 class CreateDuplicateAccounts(unittest.TestCase):
     def setUp(self):
+        User.objects.all().delete()
         self.testAdmin = UserAdmin()
         all_tests_setup(self.testAdmin, 1, "testAdmin", "tA1!", "testAdmin@test.com",
                         "101 W. Wisconsin Ave, Milwaukee, WI 53203", "(414)222-2571")
@@ -244,11 +245,12 @@ class CreateDuplicateAccounts(unittest.TestCase):
         self.assertTrue(self.testAdmin.createAdmin(new_admin), failure_msg)
 
     def tearDown(self):
-        User.objects.all.delete()
+        User.objects.exclude(id=1).delete()
 
 
 class AccountsWithMissingFields(unittest.TestCase):
     def setUp(self):
+        User.objects.all().delete()
         self.testAdmin = UserAdmin()
         all_tests_setup(self.testAdmin, 1, "testAdmin", "tA1!", "testAdmin@test.com",
                         "101 W. Wisconsin Ave, Milwaukee, WI 53203", "(414)222-2571")
@@ -298,4 +300,4 @@ class AccountsWithMissingFields(unittest.TestCase):
         self.assertFalse(self.testAdmin.createInstructor(new_instructor), failure_msg)
 
     def tearDown(self):
-        User.objects.all.delete()
+        User.objects.exclude(id=1).delete()
