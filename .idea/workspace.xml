@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="68c36039-8adc-42d3-963c-c57117e2f839" name="Changes" comment="Refactor tests and added class stubs">
+    <list default="true" id="68c36039-8adc-42d3-963c-c57117e2f839" name="Changes" comment="Added enum class for roles and edit units based on how they work">
+      <change afterPath="$PROJECT_DIR$/TAInformation/Models/base_user.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LearnDjango/tests/TestCreateAccounts.py" beforeDir="false" afterPath="$PROJECT_DIR$/LearnDjango/tests/test_create_accounts.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LearnDjango/tests/test_create_accounts.py" beforeDir="false" afterPath="$PROJECT_DIR$/LearnDjango/tests/test_create_accounts.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TAInformation/Models/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/TAInformation/Models/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TAInformation/Models/instructor.py" beforeDir="false" afterPath="$PROJECT_DIR$/TAInformation/Models/instructor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TAInformation/Models/ta.py" beforeDir="false" afterPath="$PROJECT_DIR$/TAInformation/Models/ta.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TAInformation/Models/user.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,6 +30,14 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="recentNewPullRequestHead">
+      <RepoCoordinatesHolder>
+        <option name="owner" value="bptome" />
+        <option name="repository" value="TAScheduler" />
+      </RepoCoordinatesHolder>
+    </option>
   </component>
   <component name="ProjectId" id="21h0Es4phpNb3QwWWQQtrXutwSz" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -114,7 +127,7 @@
       <option name="presentableId" value="Default" />
       <updated>1638377902416</updated>
       <workItem from="1638377904653" duration="15572000" />
-      <workItem from="1638480906337" duration="12658000" />
+      <workItem from="1638480906337" duration="24153000" />
     </task>
     <task id="LOCAL-00001" summary="Refactor tests and added class stubs">
       <created>1638491832180</created>
@@ -130,7 +143,14 @@
       <option name="project" value="LOCAL" />
       <updated>1638491865430</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Added enum class for roles and edit units based on how they work">
+      <created>1638506114002</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1638506114002</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -150,7 +170,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Refactor tests and added class stubs" />
-    <option name="LAST_COMMIT_MESSAGE" value="Refactor tests and added class stubs" />
+    <MESSAGE value="Added enum class for roles and edit units based on how they work" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added enum class for roles and edit units based on how they work" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/TAScheduler$.coverage" NAME=" Coverage Results" MODIFIED="1638490609840" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LearnDjango/tests" />

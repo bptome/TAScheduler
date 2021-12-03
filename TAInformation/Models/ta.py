@@ -1,4 +1,4 @@
-from TAInformation.Models.user import User
+from TAInformation.Models.base_user import User
 
 
 class TA(User):
