@@ -1,4 +1,5 @@
 from TAInformation.Models.user import User
+from TAInformation.models import Course
 
 
 class UserAdmin(User):
