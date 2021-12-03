@@ -1,8 +1,8 @@
 from django.test import TestCase
 from django.test import Client
-from .model import User
-from .model import Course
-from .model import Lab
+from .models import User
+from .models import Course
+from .models import Lab
 
 
 class viewAssignmentPage(TestCase):

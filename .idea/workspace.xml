@@ -5,11 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="68c36039-8adc-42d3-963c-c57117e2f839" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/LearnDjango/model.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/LearnDjango/tests/testViewTAassignmentPage.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/LearnDjango.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/LearnDjango.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LearnDjango/model.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LearnDjango/tests/testViewTAassignmentPage.py" beforeDir="false" afterPath="$PROJECT_DIR$/LearnDjango/tests/testViewTAassignmentPage.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -217,8 +215,16 @@
       <workItem from="1638489155791" duration="669000" />
       <workItem from="1638494786508" duration="235000" />
       <workItem from="1638495393404" duration="1722000" />
-      <workItem from="1638499354483" duration="2983000" />
+      <workItem from="1638499354483" duration="3860000" />
     </task>
+    <task id="LOCAL-00001" summary="added the View TA assignment page test">
+      <created>1638503967901</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1638503967901</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -236,6 +242,10 @@
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="added the View TA assignment page test" />
+    <option name="LAST_COMMIT_MESSAGE" value="added the View TA assignment page test" />
+  </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/TAScheduler$views.coverage" NAME="views Coverage Results" MODIFIED="1638458328244" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/TAInformation" />
     <SUITE FILE_PATH="coverage/TAScheduler$Test__.coverage" NAME="Test:  Coverage Results" MODIFIED="1638458352272" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
@@ -245,6 +255,6 @@
     <SUITE FILE_PATH="coverage/TAScheduler$urls.coverage" NAME="urls Coverage Results" MODIFIED="1638458316419" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LearnDjango" />
     <SUITE FILE_PATH="coverage/LearnDjango$Test__LearnDjango_tests_TestAdminDataAccess.coverage" NAME="Test: LearnDjango.tests.TestAdminDataAccess Coverage Results" MODIFIED="1638396197622" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/TAScheduler$Test__LearnDjango_tests_TestAdminDataAccess.coverage" NAME="Test: LearnDjango.tests.TestAdminDataAccess Coverage Results" MODIFIED="1638502911600" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/TAScheduler$Test__LearnDjango_tests_testViewTAassignmentPage.coverage" NAME="Test: LearnDjango.tests.testViewTAassignmentPage Coverage Results" MODIFIED="1638503568840" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/TAScheduler$Test__LearnDjango_tests_testViewTAassignmentPage.coverage" NAME="Test: LearnDjango.tests.testViewTAassignmentPage Coverage Results" MODIFIED="1638504733859" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>
 </project>
