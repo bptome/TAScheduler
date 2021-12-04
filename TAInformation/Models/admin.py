@@ -1,7 +1,14 @@
-from TAInformation.Models.user import User
+
+from TAInformation.Models.base_user import BaseUser
+from TAInformation.models import Course, User
+from TAInformation.Models.account_type import AccountType
 
 
-class UserAdmin(User):
+class UserAdmin(BaseUser):
+    # Constructor
+    def __init__(self, id_number: int, name: str, password: str, email: str, address: str, phone: str):
+        super().__init__(id_number, name, password, email, address, phone)
+        self.role = AccountType.ADMIN
 
     # precondition: none
     # post condition: return an array of all Courses
@@ -21,3 +28,15 @@ class UserAdmin(User):
         for user in all_users:
             user_content.append(user.name)
         return user_content
+
+    def create_admin(self, new_admin: BaseUser):
+        if new_admin.role != AccountType.ADMIN:
+            return False
+
+    def __create_user_validator(self, new_admin: BaseUser):
+        pass
+
+
+
+
+

@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="68c36039-8adc-42d3-963c-c57117e2f839" name="Changes" comment="" />
+    <list default="true" id="68c36039-8adc-42d3-963c-c57117e2f839" name="Changes" comment="Added enum class for roles and edit units based on how they work">
+      <change afterPath="$PROJECT_DIR$/TAInformation/Models/base_user.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LearnDjango/tests/test_create_accounts.py" beforeDir="false" afterPath="$PROJECT_DIR$/LearnDjango/tests/test_create_accounts.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TAInformation/Models/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/TAInformation/Models/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TAInformation/Models/instructor.py" beforeDir="false" afterPath="$PROJECT_DIR$/TAInformation/Models/instructor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TAInformation/Models/ta.py" beforeDir="false" afterPath="$PROJECT_DIR$/TAInformation/Models/ta.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TAInformation/Models/user.py" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -11,11 +19,25 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="recentNewPullRequestHead">
+      <RepoCoordinatesHolder>
+        <option name="owner" value="bptome" />
+        <option name="repository" value="TAScheduler" />
+      </RepoCoordinatesHolder>
+    </option>
   </component>
   <component name="ProjectId" id="21h0Es4phpNb3QwWWQQtrXutwSz" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -29,7 +51,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
   </component>
-  <component name="RunManager" selected="Django Server.LearnDjango">
+  <component name="RunManager" selected="Python tests.Python tests for LearnDjango.tests.test_create_accounts.CreateDuplicateAccounts.test_AccountWithDuplicateEmail">
     <configuration name="Test: LearnDjango.tests.TestAdminDataAccess" type="DjangoTestsConfigurationType" temporary="true">
       <module name="LearnDjango" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -74,8 +96,24 @@
       <option name="customRunCommand" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="Python tests for LearnDjango.tests.test_create_accounts.CreateDuplicateAccounts.test_AccountWithDuplicateEmail" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="LearnDjango" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/LearnDjango/tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;LearnDjango.tests.test_create_accounts.CreateDuplicateAccounts.test_AccountWithDuplicateEmail&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python tests.Python tests for LearnDjango.tests.test_create_accounts.CreateDuplicateAccounts.test_AccountWithDuplicateEmail" />
         <item itemvalue="Django tests.Test: LearnDjango.tests.TestAdminDataAccess" />
       </list>
     </recent_temporary>
@@ -89,7 +127,30 @@
       <option name="presentableId" value="Default" />
       <updated>1638377902416</updated>
       <workItem from="1638377904653" duration="15572000" />
+      <workItem from="1638480906337" duration="24153000" />
     </task>
+    <task id="LOCAL-00001" summary="Refactor tests and added class stubs">
+      <created>1638491832180</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1638491832180</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Refactor tests and added class stubs">
+      <created>1638491865430</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1638491865430</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Added enum class for roles and edit units based on how they work">
+      <created>1638506114002</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1638506114002</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -105,8 +166,15 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Refactor tests and added class stubs" />
+    <MESSAGE value="Added enum class for roles and edit units based on how they work" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added enum class for roles and edit units based on how they work" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/TAScheduler$.coverage" NAME=" Coverage Results" MODIFIED="1638490609840" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LearnDjango/tests" />
     <SUITE FILE_PATH="coverage/LearnDjango$Test__LearnDjango_tests_TestAdminDataAccess.coverage" NAME="Test: LearnDjango.tests.TestAdminDataAccess Coverage Results" MODIFIED="1638396197622" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>
 </project>
