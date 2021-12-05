@@ -1,19 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="68c36039-8adc-42d3-963c-c57117e2f839" name="Changes" comment="Added enum class for roles and edit units based on how they work">
-      <change afterPath="$PROJECT_DIR$/TAInformation/Models/base_user.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LearnDjango/tests/test_create_accounts.py" beforeDir="false" afterPath="$PROJECT_DIR$/LearnDjango/tests/test_create_accounts.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TAInformation/Models/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/TAInformation/Models/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TAInformation/Models/instructor.py" beforeDir="false" afterPath="$PROJECT_DIR$/TAInformation/Models/instructor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TAInformation/Models/ta.py" beforeDir="false" afterPath="$PROJECT_DIR$/TAInformation/Models/ta.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TAInformation/Models/user.py" beforeDir="false" />
+    <list default="true" id="68c36039-8adc-42d3-963c-c57117e2f839" name="Changes" comment="Fixed User phone number to string, made new migrations, adjusted Access Data suite, added str for account type enum, added tests for account type enum">
+      <change beforePath="$PROJECT_DIR$/LearnDjango/tests/TestAdminDataAccess.py" beforeDir="false" afterPath="$PROJECT_DIR$/LearnDjango/tests/TestAdminDataAccess.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
+    <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -30,6 +27,14 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="GithubPullRequestsUISettings">
     <option name="recentNewPullRequestHead">
@@ -50,8 +55,11 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="run.code.analysis.last.selected.profile" value="aDefault" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
-  <component name="RunManager" selected="Python tests.Python tests for LearnDjango.tests.test_create_accounts.CreateDuplicateAccounts.test_AccountWithDuplicateEmail">
+  <component name="RunManager" selected="Django tests.Test: LearnDjango.tests.TestAdminDataAccess">
     <configuration name="Test: LearnDjango.tests.TestAdminDataAccess" type="DjangoTestsConfigurationType" temporary="true">
       <module name="LearnDjango" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -66,6 +74,26 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="TARGET" value="LearnDjango.tests.TestAdminDataAccess" />
+      <option name="SETTINGS_FILE" value="" />
+      <option name="CUSTOM_SETTINGS" value="false" />
+      <option name="USE_OPTIONS" value="false" />
+      <option name="OPTIONS" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Test: LearnDjango.tests.test_account_type_enum.TestStr" type="DjangoTestsConfigurationType" temporary="true">
+      <module name="LearnDjango" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="TARGET" value="LearnDjango.tests.test_account_type_enum.TestStr" />
       <option name="SETTINGS_FILE" value="" />
       <option name="CUSTOM_SETTINGS" value="false" />
       <option name="USE_OPTIONS" value="false" />
@@ -113,8 +141,9 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python tests.Python tests for LearnDjango.tests.test_create_accounts.CreateDuplicateAccounts.test_AccountWithDuplicateEmail" />
         <item itemvalue="Django tests.Test: LearnDjango.tests.TestAdminDataAccess" />
+        <item itemvalue="Django tests.Test: LearnDjango.tests.test_account_type_enum.TestStr" />
+        <item itemvalue="Python tests.Python tests for LearnDjango.tests.test_create_accounts.CreateDuplicateAccounts.test_AccountWithDuplicateEmail" />
       </list>
     </recent_temporary>
   </component>
@@ -128,6 +157,9 @@
       <updated>1638377902416</updated>
       <workItem from="1638377904653" duration="15572000" />
       <workItem from="1638480906337" duration="24153000" />
+      <workItem from="1638722779246" duration="338000" />
+      <workItem from="1638723135197" duration="387000" />
+      <workItem from="1638723592414" duration="879000" />
     </task>
     <task id="LOCAL-00001" summary="Refactor tests and added class stubs">
       <created>1638491832180</created>
@@ -150,7 +182,14 @@
       <option name="project" value="LOCAL" />
       <updated>1638506114002</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Fixed User phone number to string, made new migrations, adjusted Access Data suite, added str for account type enum, added tests for account type enum">
+      <created>1638724239266</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1638724239266</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -171,10 +210,17 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Refactor tests and added class stubs" />
     <MESSAGE value="Added enum class for roles and edit units based on how they work" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added enum class for roles and edit units based on how they work" />
+    <MESSAGE value="Fixed User phone number to string, made new migrations, adjusted Access Data suite, added str for account type enum, added tests for account type enum" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed User phone number to string, made new migrations, adjusted Access Data suite, added str for account type enum, added tests for account type enum" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/LearnDjango$Test__LearnDjango_tests_TestAdminDataAccess_TestDisplayUsers_test_zero_users.coverage" NAME="Test: LearnDjango.tests.TestAdminDataAccess.TestDisplayUsers.test_zero_users Coverage Results" MODIFIED="1638409185100" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/LearnDjango$Test__LearnDjango_tests_TestAdminDataAccess_TestDisplayCourses.coverage" NAME="Test: LearnDjango.tests.TestAdminDataAccess.TestDisplayCourses Coverage Results" MODIFIED="1638411452383" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/LearnDjango$Test__LearnDjango_tests_TestAdminDataAccess_TestDisplayPeopleField.coverage" NAME="Test: LearnDjango.tests.TestAdminDataAccess.TestDisplayPeopleField Coverage Results" MODIFIED="1638416299724" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/LearnDjango$Test__LearnDjango_tests_TestAdminDataAccess_TestDisplayPeople.coverage" NAME="Test: LearnDjango.tests.TestAdminDataAccess.TestDisplayPeople Coverage Results" MODIFIED="1638459598353" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/LearnDjango$Test__LearnDjango_tests_TestAdminDataAccess_TestDisplayPeople_test_zero_users.coverage" NAME="Test: LearnDjango.tests.TestAdminDataAccess.TestDisplayPeople.test_zero_users Coverage Results" MODIFIED="1638414975690" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/LearnDjango$Test__LearnDjango_tests_TestAdminDataAccess.coverage" NAME="Test: LearnDjango.tests.TestAdminDataAccess Coverage Results" MODIFIED="1638724448293" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/TAScheduler$.coverage" NAME=" Coverage Results" MODIFIED="1638490609840" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LearnDjango/tests" />
-    <SUITE FILE_PATH="coverage/LearnDjango$Test__LearnDjango_tests_TestAdminDataAccess.coverage" NAME="Test: LearnDjango.tests.TestAdminDataAccess Coverage Results" MODIFIED="1638396197622" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/LearnDjango$Test__LearnDjango_tests_test_account_type_enum_TestStr.coverage" NAME="Test: LearnDjango.tests.test_account_type_enum.TestStr Coverage Results" MODIFIED="1638724133520" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>
 </project>
