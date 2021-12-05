@@ -10,7 +10,7 @@ from TAInformation.models import Course, User
 # post condition: returns a UserAdmin for testing
 def add_admin():
     test_admin = UserAdmin(1, "testAdmin", "tA1!", "testAdmin@test.com", "101 W. Wisconsin Ave, Milwaukee, WI 53203",
-                           "Admin", "4142222571")
+                           "(414)222-2571")
     return test_admin
 
 
@@ -26,12 +26,12 @@ def add_user_to_test_database(my_user):
     elif my_user.role == "TA":
         user_role = 3
     new_user = User()
-    new_user.user_id = my_user.id
+    new_user.user_id = my_user.user_id
     new_user.name = my_user.name
     new_user.password = my_user.password
     new_user.email = my_user.email
     new_user.home_address = my_user.home_address
-    new_user.phone = my_user.phone
+    new_user.phone = my_user.phone_number
     new_user.role = user_role
     new_user.save()
     return new_user
@@ -95,8 +95,7 @@ class TestDisplayCourses(TestCase):
 # post condition: returns a second UserAdmin for testing
 def add_second_admin():
     secondAdmin = UserAdmin(2, "New Admin", "tA431!", "newAdmin@test.com",
-                            "3308 N Downer Ave",
-                            "Admin", "4142252901")
+                            "3308 N Downer Ave", "(414)225-2901")
     return add_user_to_test_database(secondAdmin)
 
 
@@ -104,8 +103,7 @@ def add_second_admin():
 # post condition: returns an Instructor for testing
 def add_instructor():
     instructor = Instructor(3, "Instr", "tA43sdf1!", "instructor@test.com",
-                            "123 Sesame St.",
-                            "Instructor", "4146642571")
+                            "123 Sesame St.", "(414)664-2571")
     return add_user_to_test_database(instructor)
 
 
@@ -113,8 +111,7 @@ def add_instructor():
 # post condition: returns a TA for testing
 def add_ta():
     ta = TA(4, "Some TA", "$ggsfdF!", "ta@test.com",
-            "some place in Milwaukee",
-            "TA", "4146847645")
+            "some place in Milwaukee", "(414)684-7645")
     return add_user_to_test_database(ta)
 
 
@@ -156,8 +153,7 @@ class TestDisplayPeople(TestCase):
 
     def test_invalid_role_id(self):
         ta = TA(5, "Some TA", "$ggsfdF!", "ta@test.com",
-                "some place in Milwaukee",
-                "32345f", "4146847645")
+                "some place in Milwaukee", "(414)068-47645")
         add_user_to_test_database(ta)
         failure_msg = "Role ID is not 1-3"
         with self.assertRaises(Exception, msg=failure_msg):

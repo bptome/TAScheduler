@@ -88,6 +88,12 @@ class BaseUser(ABC):
     def display_people(self):
         pass
 
+    # precondition: none
+    # post condition: return an array of User
+    @abstractmethod
+    def display_people_fields(self):
+        pass
+
     # pre: new_admin is derived from type BaseUser
     # post: Creates new admin if all data is valid and admin doesn't already exist
     @abstractmethod
