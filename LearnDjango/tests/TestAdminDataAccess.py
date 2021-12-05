@@ -18,13 +18,6 @@ def add_admin():
 # post condition: return user model type
 # side effect: Save to database
 def add_user_to_test_database(my_user):
-    user_role = -1
-    if my_user.role == "Admin":
-        user_role = 1
-    elif my_user.role == "Instructor":
-        user_role = 2
-    elif my_user.role == "TA":
-        user_role = 3
     new_user = User()
     new_user.user_id = my_user.user_id
     new_user.name = my_user.name
@@ -32,7 +25,7 @@ def add_user_to_test_database(my_user):
     new_user.email = my_user.email
     new_user.home_address = my_user.home_address
     new_user.phone = my_user.phone_number
-    new_user.role = user_role
+    new_user.role = my_user.role.value
     new_user.save()
     return new_user
 
@@ -40,14 +33,7 @@ def add_user_to_test_database(my_user):
 # precondition: my_user is of User class type
 # post condition: return an array of String of the User fields we want to display
 def get_user_info(my_user):
-    user_role = ""
-    if my_user.role == 1:
-        user_role = "Admin"
-    elif my_user.role == 2:
-        user_role = "Instructor"
-    else:
-        user_role = "TA"
-    return [my_user.name, my_user.password, my_user.email, my_user.home_address, user_role, my_user.phone]
+    return [my_user.name, my_user.password, my_user.email, my_user.home_address, my_user.role.__str__(), my_user.phone]
 
 
 # precondition: none
