@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="68c36039-8adc-42d3-963c-c57117e2f839" name="Changes" comment="Added tests and methods for create course">
+    <list default="true" id="68c36039-8adc-42d3-963c-c57117e2f839" name="Changes" comment="Added missing file">
       <change beforePath="$PROJECT_DIR$/.idea/LearnDjango.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/LearnDjango.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -127,7 +126,7 @@
       <updated>1638377902416</updated>
       <workItem from="1638377904653" duration="15572000" />
       <workItem from="1638469257006" duration="4111000" />
-      <workItem from="1638474434500" duration="9939000" />
+      <workItem from="1638474434500" duration="10084000" />
     </task>
     <task id="LOCAL-00001" summary="Added tests for create course page">
       <created>1638474562549</created>
@@ -150,7 +149,14 @@
       <option name="project" value="LOCAL" />
       <updated>1638821379022</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Added missing file">
+      <created>1638822879599</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1638822879599</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -172,7 +178,8 @@
     <MESSAGE value="Added tests for create course page" />
     <MESSAGE value="Started implementing the create Course page&#10;&#10;This PR is still a work in progress" />
     <MESSAGE value="Added tests and methods for create course" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added tests and methods for create course" />
+    <MESSAGE value="Added missing file" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added missing file" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/LearnDjango$Test__LearnDjango_tests_TestAdminDataAccess.coverage" NAME="Test: LearnDjango.tests.TestAdminDataAccess Coverage Results" MODIFIED="1638396197622" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
