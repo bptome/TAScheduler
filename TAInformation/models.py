@@ -18,7 +18,7 @@ class User(models.Model):
 class Course(models.Model):
     course_id = models.IntegerField(primary_key=True)
     course_name = models.CharField(max_length=20)
-    instructor_id = models.IntegerField()
+    instructor_id = models.ForeignKey(User, on_delete=models.CASCADE)
     meeting_time = models.CharField(max_length=20)
     semester = models.CharField(max_length=20)
     course_type = models.CharField(max_length=20)
@@ -28,8 +28,6 @@ class Course(models.Model):
 class Lab(models.Model):
     lab_id = models.IntegerField(primary_key=True)
     lab_name = models.CharField(max_length=20)
-    ta_id = models.IntegerField()
-    course_id = models.IntegerField()
     has_grader = models.BooleanField()
     description = models.CharField(max_length=200)
 
