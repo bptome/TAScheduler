@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="68c36039-8adc-42d3-963c-c57117e2f839" name="Changes" comment="Added some functionality to classes and rename User class to BaseUser">
-      <change beforePath="$PROJECT_DIR$/.idea/LearnDjango.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/LearnDjango.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="68c36039-8adc-42d3-963c-c57117e2f839" name="Changes" comment="Moved validator methods to own module">
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TAInformation/Models/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/TAInformation/Models/admin.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TAInformation/Models/base_user.py" beforeDir="false" afterPath="$PROJECT_DIR$/TAInformation/Models/base_user.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TAInformation/Models/instructor.py" beforeDir="false" afterPath="$PROJECT_DIR$/TAInformation/Models/instructor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TAInformation/Models/ta.py" beforeDir="false" afterPath="$PROJECT_DIR$/TAInformation/Models/ta.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TAInformation/Models/validator_methods.py" beforeDir="false" afterPath="$PROJECT_DIR$/TAInformation/Models/validator_methods.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -163,7 +166,7 @@
       <workItem from="1638722779246" duration="338000" />
       <workItem from="1638723135197" duration="387000" />
       <workItem from="1638723592414" duration="879000" />
-      <workItem from="1638732152717" duration="9247000" />
+      <workItem from="1638732152717" duration="20647000" />
     </task>
     <task id="LOCAL-00001" summary="Refactor tests and added class stubs">
       <created>1638491832180</created>
@@ -193,7 +196,14 @@
       <option name="project" value="LOCAL" />
       <updated>1638724239266</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Moved validator methods to own module">
+      <created>1638745613940</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1638745613940</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -215,7 +225,8 @@
     <MESSAGE value="Refactor tests and added class stubs" />
     <MESSAGE value="Added enum class for roles and edit units based on how they work" />
     <MESSAGE value="Fixed User phone number to string, made new migrations, adjusted Access Data suite, added str for account type enum, added tests for account type enum" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed User phone number to string, made new migrations, adjusted Access Data suite, added str for account type enum, added tests for account type enum" />
+    <MESSAGE value="Moved validator methods to own module" />
+    <option name="LAST_COMMIT_MESSAGE" value="Moved validator methods to own module" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/LearnDjango$Test__LearnDjango_tests_TestAdminDataAccess_TestDisplayPeople.coverage" NAME="Test: LearnDjango.tests.TestAdminDataAccess.TestDisplayPeople Coverage Results" MODIFIED="1638459598353" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />

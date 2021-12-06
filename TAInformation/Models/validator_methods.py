@@ -73,36 +73,36 @@ def email_validator(new_user: BaseUser):
 
 def address_validator(new_user: BaseUser):
     if new_user.home_address is None:
-        return {'result': False, 'errorMsg': "Home address is missing"}
+        return {'result': False, 'errorMsg': "Home address is missing\n"}
 
     address_no_whitespace: str = new_user.home_address.replace(" ", "")
     if address_no_whitespace == "":
-        return {'result': False, 'errorMsg': "Home address must contain some non-space characters"}
+        return {'result': False, 'errorMsg': "Home address must contain some non-space characters\n"}
 
     return {'result': True, 'errorMsg': ""}
 
 
 def phone_validator(new_user: BaseUser):
     if new_user.phone_number is None:
-        return {'result': False, 'errorMsg': "No phone number given"}
+        return {'result': False, 'errorMsg': "No phone number given\n"}
     if len(new_user.phone_number) is not 13:
-        return {'result': False, 'errorMsg': "Phone number should have exactly 13 characters"}
+        return {'result': False, 'errorMsg': "Phone number should have exactly 13 characters\n"}
 
     char_set = {0, 4, 8}
     digit_set = set(range(13)) - char_set
 
     for index in range(13):
         if index in digit_set and not isdigit(new_user.phone_number.index(index)):
-            return {'result': False, 'errorMsg': "Misplaced character in phone number entry"}
+            return {'result': False, 'errorMsg': "Misplaced character in phone number entry\n"}
 
         if index == 0 and new_user.phone_number.index(0) != '(':
-            return {'result': False, 'errorMsg': "Missing lead parentheses in phone number entry"}
+            return {'result': False, 'errorMsg': "Missing lead parentheses in phone number entry\n"}
 
         if index == 4 and new_user.phone_number.index(4) != '(':
-            return {'result': False, 'errorMsg': "Missing trailing parentheses in phone number entry"}
+            return {'result': False, 'errorMsg': "Missing trailing parentheses in phone number entry\n"}
 
         if index == 8 and new_user.phone_number.index(8) != '-':
-            return {'result': False, 'errorMsg': "Missing dash between prefix and suffix in phone number entry"}
+            return {'result': False, 'errorMsg': "Missing dash between prefix and suffix in phone number entry\n"}
 
     return {'result': True, 'errorMsg': ""}
 
