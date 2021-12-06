@@ -24,7 +24,7 @@ class Course(View):
         return render(request, "createCourse.html", {})
 
     def post(self, request):
-        noPermissions = canAccess(User.objects.get('role'), 'admin')
+        noPermissions = canAccess(User.objects.get('role'), 1)
 
         if noPermissions:
             return render(request, "createCourse.html",
@@ -39,11 +39,11 @@ class Course(View):
 
 #this is a dummy method. will eventually use user_id and return a User() class of the user that matches the user_id
 def findUser(name):
-    pass
+    b = User.objects.filter(name=name)
+    return b.user_id
 
 #this is a helper method. will eventually use role required & current role to return true if can be accessed, and false if insufficient permissions
 def canAccess(role, required_role):
-    return True
 
 #helper method to take all data from user and return a Course() class instance. This method also generates a user_id for each course
 def addCourse(self, course_name, instructor_name, lab, meeting_time, semester, course_type, description):
