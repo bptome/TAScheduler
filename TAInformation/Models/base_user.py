@@ -62,8 +62,8 @@ def password_validator(new_user):
 
     return {'result': True, 'errorMsg': ""}
 
-# End of data validation methods
 
+# End of data validation methods
 
 class BaseUser(ABC):
     # Constructor
@@ -99,4 +99,3 @@ class BaseUser(ABC):
     @abstractmethod
     def create_admin(self, new_admin):
         pass
-
