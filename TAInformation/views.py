@@ -35,7 +35,7 @@ class Home(View):
     def post(self, request):
         # this is an example code
         request.session["user_id"] = 1
-        return redirect("/courses/")
+        return redirect("/people/")
 
 
 class Courses(View):
