@@ -12,7 +12,7 @@ class User(models.Model):
     email = models.EmailField(max_length=20, default='email')  # models.EmailField(max_length=20)
     home_address = models.CharField(max_length=20, default='"101 W. Wisconsin Ave, Milwaukee, WI 53203"')
     role = models.IntegerField(default=1)
-    phone = models.IntegerField(default=123)
+    phone = models.CharField(max_length=13, default='')
 
 
 class Course(models.Model):
