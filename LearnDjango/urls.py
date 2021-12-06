@@ -24,4 +24,5 @@ urlpatterns = [
     path('people/', People.as_view()),
     path('admin/', admin.site.urls),
     path('TAInformation/', include('TAInformation.urls')),
+    path('course/', Course.as_view()),
 ]
