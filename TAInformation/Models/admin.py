@@ -8,12 +8,7 @@ from TAInformation.models import User
 class UserAdmin(BaseUser):
     # Constructor
     def __init__(self, id_number: int, name: str, password: str, email: str, address: str, phone: str):
-        self.user_id = id_number
-        self.name = name
-        self.password = password
-        self.email = email
-        self.home_address = address
-        self.phone_number = phone
+        super().__init__(id_number, name, password, email, address, phone)
         self.role = AccountType.ADMIN
 
     # precondition: none

@@ -39,3 +39,15 @@ def Course(View):
             m.save()
             request.session["name"] = m.name
             return redirect("/things/")
+
+
+# For create account web pages
+class CreateUser(View):
+    # pre: A user is currently logged in
+    # post: A page with a form to create a new account is loaded
+    def get(self, request):
+        pass
+
+    def post(self, request):
+        # Extract data from form
+        pass

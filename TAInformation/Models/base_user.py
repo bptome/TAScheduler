@@ -4,15 +4,9 @@ from TAInformation.Models.account_type import AccountType
 
 class BaseUser(ABC):
     # Constructor
-    @abstractmethod
     def __init__(self, id_number: int, name: str, password: str, email: str, address: str, phone: str):
-        self.user_id: int
-        self.name: str
-        self.password: str
-        self.email: str
-        self.home_address: str
-        self.phone_number: str
-        self.role: AccountType
+        super().__init__(id_number, name, password, email, address, phone)
+        self.role = AccountType.DEFAULT
 
     # precondition: none
     # post condition: return an array of Course specific to the user

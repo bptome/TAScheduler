@@ -6,7 +6,6 @@ from TAInformation.Models.admin import UserAdmin
 from TAInformation.models import User
 from TAInformation.Models.instructor import Instructor
 from TAInformation.Models.ta import TA
-from TAInformation.Models.account_type import AccountType
 
 
 # Functions to setup all tests

@@ -4,12 +4,7 @@ from TAInformation.Models.base_user import BaseUser
 
 class Instructor(BaseUser):
     def __init__(self, id_number: int, name: str, password: str, email: str, address: str, phone: str):
-        self.user_id = id_number
-        self.name = name
-        self.password = password
-        self.email = email
-        self.home_address = address
-        self.phone_number = phone
+        super().__init__(id_number, name, password, email, address, phone)
         self.role = AccountType.INSTRUCTOR
 
     def display_courses(self):
@@ -21,11 +16,17 @@ class Instructor(BaseUser):
     def display_people_fields(self):
         pass
 
+    # pre: None
+    # post: Returns dict object with message of inability to create accounts
     def create_admin(self, new_admin):
         return {'result': False, 'errorMsg': "Only admins can create new users\n"}
 
+    # pre: None
+    # post: Returns dict object with message of inability to create accounts
     def create_instructor(self, new_instructor):
         return self.create_admin(new_instructor)
 
+    # pre: None
+    # post: Returns dict object with message of inability to create accounts
     def create_ta(self, new_ta):
         return self.create_admin(new_ta)
