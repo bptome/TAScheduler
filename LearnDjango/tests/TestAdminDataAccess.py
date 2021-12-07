@@ -5,7 +5,7 @@ from TAInformation.Models.admin import UserAdmin
 from TAInformation.Models.course import ClassCourse
 from TAInformation.Models.instructor import Instructor
 from TAInformation.Models.ta import TA
-from TAInformation.models import Course, User
+from TAInformation.models import Course, User, Lab, LabCourseJunction
 
 
 # precondition: none
@@ -32,15 +32,28 @@ def add_user_to_test_database(my_user):
     return new_user
 
 
-# precondition: none
-# post condition: returns an array of String for a test course's information
-# side effect: saves a course to the database
-def get_course1():
-    jayson_rock = Instructor(99, "Jayson Rock", "jbusbf435", "jrock@uwm.edu", "Kenwood ave", "(414)123-4567")
-    add_user_to_test_database(jayson_rock).save()
-    test_course = Course(1, 361, "CS361", 99, "Lab 901", "T 5:00-6:00", "Fall", "Undergrad", "fun")
-    test_course.save()
-    return ["CS361", "Jayson Rock", "Lab 901", "T 5:00-6:00", "Fall", "Undergrad", "fun"]
+def get_course_zero_lab():
+    User(97, "Bob Sorenson", "ter7asdfythg", "bob@uwm.edu", "Kenwoood ave", 2, "(414)173-4567").save()
+    Course(1, "CS337", 97, "W 5:00-6:00", "Spring", "Graduate", "hard").save()
+    return ["CS337", "Bob Sorenson", "", "W 5:00-6:00", "Spring", "Graduate", "hard"]
+
+
+def get_course_one_lab():
+    User(99, "Jayson Rock", "jbusbf435", "jrock@uwm.edu", "Kenwood ave", 2, "(414)123-4567").save()
+    Course(2, "CS361", 99, "T 5:00-6:00", "Fall", "Undergrad", "fun").save()
+    Lab(1, "Lab 900", False, "boring lab").save()
+    LabCourseJunction(1, 1, 2).save()
+    return ["CS361", "Jayson Rock", " Lab 900", "T 5:00-6:00", "Fall", "Undergrad", "fun"]
+
+
+def get_course_two_lab():
+    User(98, "Henry Trimbach", "ter7ythg", "trimbach@uwm.edu", "Downer ave", 2, "(414)143-4867").save()
+    Course(3, "CS351", 98, "W 900:00-6:00", "Fall", "Graduate", "EZ").save()
+    Lab(1, "Lab 900", False, "boring lab").save()
+    LabCourseJunction(2, 1, 3).save()
+    Lab(2, "Lab 901", False, "not boring lab").save()
+    LabCourseJunction(3, 2, 3).save()
+    return ["CS351", "Henry Trimbach", " Lab 900 Lab 901", "W 900:00-6:00", "Fall", "Graduate", "EZ"]
 
 
 class TestDisplayCourses(TestCase):
@@ -53,27 +66,38 @@ class TestDisplayCourses(TestCase):
         self.assertEqual([], self.testAdmin.display_courses(), msg=failure_msg)
 
     def test_one_course(self):
-        course1 = get_course1()
+        course1 = get_course_one_lab()
         failure_msg = "One course called CS361 should be returned"
         self.assertEqual([course1], self.testAdmin.display_courses(), msg=failure_msg)
 
     def test_two_courses(self):
-        course1 = get_course1()
-        henry_trimbach = Instructor(98, "Henry Trimbach", "ter7ythg", "trimbach@uwm.edu", "Downer ave", "(414)143-4867")
-        add_user_to_test_database(henry_trimbach).save()
-        test_course2 = Course(2, 351, "CS351", 98, "Lab 900", "W 5:00-6:00", "Spring", "Graduate", "hard")
-        test_course2.save()
-        course2 = ["CS351", "Henry Trimbach", "Lab 900", "W 5:00-6:00", "Spring", "Graduate", "hard"]
+        course1 = get_course_one_lab()
+        course2 = get_course_two_lab()
         failure_msg = "An array of 2 courses (CS361 and CS 351) should be returned"
         self.assertEqual([course1, course2], self.testAdmin.display_courses(), msg=failure_msg)
 
+    def test_zero_lab(self):
+        course1 = get_course_zero_lab()
+        failure_msg = "One course called CS361 should be returned"
+        self.assertEqual([course1], self.testAdmin.display_courses(), msg=failure_msg)
+
+    def test_one_lab(self):
+        course1 = get_course_one_lab()
+        failure_msg = "One course called CS361 should be returned"
+        self.assertEqual([course1], self.testAdmin.display_courses(), msg=failure_msg)
+
+    def test_two_lab(self):
+        course1 = get_course_two_lab()
+        failure_msg = "One course called CS361 should be returned"
+        self.assertEqual([course1], self.testAdmin.display_courses(), msg=failure_msg)
+
     def test_return_length(self):
-        get_course1()
+        get_course_zero_lab()
         failure_msg = "One course called CS361 should be returned"
         self.assertEqual(1, len(self.testAdmin.display_courses()), msg=failure_msg)
 
     def test_return_field_length(self):
-        get_course1()
+        get_course_zero_lab()
         failure_msg = "One course with 7 fields should be returned "
         self.assertEqual(7, len(self.testAdmin.display_courses()[0]), msg=failure_msg)
 
@@ -116,7 +140,8 @@ class TestDisplayPeople(TestCase):
     def setUp(self):
         self.testAdmin = add_admin()
         self.testAdminDB = add_user_to_test_database(self.testAdmin)
-        self.adminInfo = ["testAdmin", "tA1!", "testAdmin@test.com", "101 W. Wisconsin Ave, Milwaukee, WI 53203", "Admin",
+        self.adminInfo = ["testAdmin", "tA1!", "testAdmin@test.com", "101 W. Wisconsin Ave, Milwaukee, WI 53203",
+                          "Admin",
                           "(414)222-2571"]
 
     def test_zero_users(self):

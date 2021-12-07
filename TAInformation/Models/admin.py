@@ -1,6 +1,6 @@
 from TAInformation.Models.base_user import BaseUser
 from TAInformation.Models.account_type import AccountType
-from TAInformation.models import Course, User
+from TAInformation.models import Course, User, LabCourseJunction, Lab
 
 
 class UserAdmin(BaseUser):
@@ -15,10 +15,14 @@ class UserAdmin(BaseUser):
         all_courses = Course.objects.all()
         course_content = []
         for course in all_courses:
+            all_labs_ids = LabCourseJunction.objects.filter(course_id=course.course_id)
+            labs_string = ""
+            for i in all_labs_ids:
+                labs_string += " " + i.lab_id.lab_name
             course_information = [
                 course.course_name,
-                User.objects.get(user_id=course.instructor_id).name,
-                course.lab,
+                course.instructor_id.name,
+                labs_string,
                 course.meeting_time,
                 course.semester,
                 course.course_type,
@@ -39,7 +43,7 @@ class UserAdmin(BaseUser):
                 my_user.email,
                 my_user.home_address,
                 AccountType(my_user.role).__str__(),
-                str(my_user.phone)
+                my_user.phone
             ]
             user_content.append(user_information)
         return user_content
