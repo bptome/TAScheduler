@@ -29,7 +29,7 @@ def index(request):
     return HttpResponse("Hello , world. You're at the polls index.")
 
 
-class LogIn(View):
+class Home(View):
     def get(self, request):
         return render(request, "login.html", {})
 
@@ -59,17 +59,6 @@ class LogIn(View):
             return render(request, "login.html", {"message": "wrong password, please try again"})
         elif noSuchUser:
             return render(request, "login.html", {"message": "no such account, please try again"})
-
-class Home(View):
-    def get(self, request):
-        return render(request, "login.html", {})
-
-    def post(self, request):
-        return redirect("/dashboard/")
-
-        # render(request, "createCourse.html",
-        # {"message": "User Created Sucsessfully"})
-
 
         # render(request, "createCourse.html",
         # {"message": "User Created Sucsessfully"})
@@ -130,7 +119,7 @@ def addCourse(self, course_name, instructor_name, lab, meeting_time, semester, c
                        meeting_time=meeting_time, semester=semester, course_type=course_type, description=description)
     return newCourse
 
-# helper method to take password string and return boolean. This method tests if email string is valid
+# helper method to take password string and return boolean. This method tests if password string is valid
 def validatePassword(self, password):
    if(password.isspace() or len(password)<1):
        return False
