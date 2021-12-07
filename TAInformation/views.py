@@ -34,7 +34,33 @@ class Home(View):
         return render(request, "login.html", {})
 
     def post(self, request):
-        return redirect("/dashboard/")
+        badPassword = False
+        user = None
+        noSuchUser = False
+        try:
+            userInDb = User(user_id=10, name="Vee", password="pass", email="test@email.com", home_address="3438 tree lane", role=1, phone="123456789")
+            userInDb.save()
+
+            user = User.objects.get(email=request.POST['email'])
+            if (user == None):
+                return render(request, "login.html", {"message": "no such account, please try again"})
+            badPassword = (user.password != request.POST['password'])
+            request.session["user_id"] = user.user_id
+            request.session["email"] = user.email
+            request.session["role"] = user.role
+        except:
+            noSuchUser = True
+
+        if ((not badPassword) and validatePassword(self,request.POST['password'])):
+            return redirect("/dashboard/")
+
+        elif badPassword:
+            return render(request, "login.html", {"message": "wrong password, please try again"})
+        elif noSuchUser:
+            return render(request, "login.html", {"message": "no such account, please try again"})
+
+        # render(request, "createCourse.html",
+        # {"message": "User Created Sucsessfully"})
 
         # render(request, "createCourse.html",
         # {"message": "User Created Sucsessfully"})
@@ -75,7 +101,7 @@ class AddCourse(View):
                                   request.POST['description'])
             newCourse.save()
             request.session["name"] = newCourse.name
-            return redirect("/")
+            return redirect("/dashboard/")
 
 
 # this is a dummy method. will eventually use user_id and return a User() class of the user that matches the user_id
@@ -94,3 +120,9 @@ def addCourse(self, course_name, instructor_name, lab, meeting_time, semester, c
     newCourse = Course(course_name=course_name, instructor_id=findUser(instructor_name), lab=lab,
                        meeting_time=meeting_time, semester=semester, course_type=course_type, description=description)
     return newCourse
+
+# helper method to take password string and return boolean. This method tests if email string is valid
+def validatePassword(self, password):
+   if(password.isspace() or len(password)<1):
+       return False
+   return True
