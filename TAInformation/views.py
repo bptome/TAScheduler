@@ -63,34 +63,35 @@ class AddCourse(View):
         return render(request, "createCourse.html", {})
 
     def post(self, request):
-        noPermissions = canAccess(User.objects.get('role'), 1)
-
+        m = get_user(request.session["user_id"])
+        noPermissions = canAccess(m.role, AccountType.ADMIN.value) #User.objects.get('role')
         if noPermissions:
             return render(request, "createCourse.html",
                           {"message": "insufficent permissions to create a course. Please contact "
                                       "your system administrator if you believe this is in error."})
         else:
-            newCourse = addCourse(request.POST['name'], request.POST['instructor'], request.POST['lab'],
+            newCourse = addCourse(request.POST['name'], request.POST['instructor'],
                                   request.POST['meeting_time'], request.POST['semester'], request.POST['course_type'],
                                   request.POST['description'])
             newCourse.save()
-            request.session["name"] = newCourse.name
-            return redirect("/")
+            return render(request, "dashboard.html",
+                          {"message": "Course Created Successfully"})
 
 
 # this is a dummy method. will eventually use user_id and return a User() class of the user that matches the user_id
 def findUser(name):
-    b = User.objects.filter(name=name)
-    return b.user_id
+    #b = User.objects.filter(name=name)
+    User(1, "Bryce Tome", "sfG76Fgh", "bptome@uwm.edu", "fake address 566", 1, "(414)546-3464").save()
+    return User(1, "Bryce Tome", "sfG76Fgh", "bptome@uwm.edu", "fake address 566", 1,  "(414)546-3464") #b.user_id
 
 
 # this is a helper method. will eventually use role required & current role to return true if can be accessed, and false if insufficient permissions
 def canAccess(role, required_role):
-    return
+    return False
 
 
 # helper method to take all data from user and return a Course() class instance. This method also generates a user_id for each course
-def addCourse(self, course_name, instructor_name, lab, meeting_time, semester, course_type, description):
-    newCourse = Course(course_name=course_name, instructor_id=findUser(instructor_name), lab=lab,
+def addCourse(course_name, instructor_name, meeting_time, semester, course_type, description):
+    newCourse = Course(course_name=course_name, instructor_id=findUser(instructor_name),
                        meeting_time=meeting_time, semester=semester, course_type=course_type, description=description)
     return newCourse
