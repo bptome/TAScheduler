@@ -284,5 +284,5 @@
     <SUITE FILE_PATH="coverage/TAScheduler$.coverage" NAME=" Coverage Results" MODIFIED="1638490609840" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LearnDjango/tests" />
     <SUITE FILE_PATH="coverage/LearnDjango$Test__LearnDjango_tests_test_account_type_enum_TestStr.coverage" NAME="Test: LearnDjango.tests.test_account_type_enum.TestStr Coverage Results" MODIFIED="1638731774831" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/LearnDjango$Test__LearnDjango_tests_TestAdminDataAccess_TestDisplayPeople_test_invalid_role_id.coverage" NAME="Test: LearnDjango.tests.TestAdminDataAccess.TestDisplayPeople.test_invalid_role_id Coverage Results" MODIFIED="1638731908232" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-  </component>
+ </component>
 </project>

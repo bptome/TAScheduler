@@ -34,7 +34,35 @@ class Home(View):
         return render(request, "login.html", {})
 
     def post(self, request):
-        return redirect("/dashboard/")
+        badPassword = False
+        user = None
+        noSuchUser = False
+        try:
+            #items from database to present with
+            userInDb = User(user_id=10, name="Vee", password="pass", email="test@email.com", home_address="3438 tree lane", role=1, phone="123456789")
+            userInDb.save()
+            newInstructor = User(user_id=11, name="Sam", password="password", email="ta@email.com", home_address="7867 tea tree lane", role=1, phone="234567891")
+            newInstructor.save()
+            newCourse = addCourse(course_id=1, course_name="Lit 101", instructor_id=11, meeting_time="TR 10:00-10:30am", semester="fall 2021", course_type="online", description="n/a")
+            newCourse.save()
+
+            user = User.objects.get(email=request.POST['email'])
+            if (user == None):
+                return render(request, "login.html", {"message": "no such account, please try again"})
+            badPassword = (user.password != request.POST['password'])
+            request.session["user_id"] = user.user_id
+            request.session["email"] = user.email
+            request.session["role"] = user.role
+        except:
+            noSuchUser = True
+
+        if ((not badPassword) and validatePassword(self,request.POST['password'])):
+            return redirect("/dashboard/")
+
+        elif badPassword:
+            return render(request, "login.html", {"message": "wrong password, please try again"})
+        elif noSuchUser:
+            return render(request, "login.html", {"message": "no such account, please try again"})
 
         # render(request, "createCourse.html",
         # {"message": "User Created Sucsessfully"})
@@ -48,6 +76,7 @@ class DashBoard(View):
 class Courses(View):
     def get(self, request):
         m = get_user(request.session["user_id"])
+
         return render(request, "courses.html", {"name": m.name, "courses": m.display_courses()})
 
 
@@ -95,3 +124,9 @@ def addCourse(course_name, instructor_name, meeting_time, semester, course_type,
     newCourse = Course(course_name=course_name, instructor_id=findUser(instructor_name),
                        meeting_time=meeting_time, semester=semester, course_type=course_type, description=description)
     return newCourse
+
+# helper method to take password string and return boolean. This method tests if password string is valid
+def validatePassword(self, password):
+   if(password.isspace() or len(password)<1):
+       return False
+   return True
