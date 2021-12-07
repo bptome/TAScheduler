@@ -5,17 +5,17 @@
     <title>Title</title>
 </head>
 <body>
-<h1>Create Course</h1>
-<form action="/"method="post">
+  <h1>Create Course</h1>
+<form action="" method="post">
     {% csrf_token %}
     <table>
-        <tr><td>Course Name: </td><td><input type="text" name="name"></td></tr>
-        <tr><td>Instructor: </td><td><input type="text" name="instructor"></td></tr>
-        <tr><td>Lab: </td><td><input type="text" name="lab"></td></tr>
-        <tr><td>Meeting Time: </td><td><input type="text" name="meeting_time"></td></tr>
-        <tr><td>Semester: </td><td><input type="text" name="semester"></td></tr>
-        <tr><td>Course Type: </td><td><input type="text" name="course_type"></td></tr>
-        <tr><td>Description: </td><td><input type="text" name="description"></td></tr>
+        <tr><td>Course Name: </td><td><input type="text" id="name" name="name"></td></tr>
+        <tr><td>Instructor: </td><td><input type="text" id="instructor" name="instructor"></td></tr>
+        <tr><td>Lab: </td><td><input type="text" name="lab" id="lab"></td></tr>
+        <tr><td>Meeting Time: </td><td><input type="text" name="meeting_time" id="meeting_time"></td></tr>
+        <tr><td>Semester: </td><td><input type="text" name="semester" id="semester"></td></tr>
+        <tr><td>Course Type: </td><td><input type="text" name="course_type" id="course_type"></td></tr>
+        <tr><td>Description: </td><td><input type="text" name="description" id="description"></td></tr>
     </table>
     <input type="submit">
 </form>
