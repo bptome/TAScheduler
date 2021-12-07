@@ -40,23 +40,24 @@ class Home(View):
         try:
             #items from database to present with
             userInDb = User(user_id=10, name="Vee", password="pass", email="test@email.com", home_address="3438 tree lane", role=3, phone="123456789")
+
             userInDb.save()
-            newInstructor = User(user_id=11, name="Sam", password="password", email="ta@email.com", home_address="7867 tea tree lane", role=1, phone="234567891")
+            newInstructor = User(user_id=11, name="Sam", password="password", email="ta@email.com",
+                                 home_address="7867 tea tree lane", role=1, phone="234567891")
             newInstructor.save()
-            newCourse = addCourse(course_id=1, course_name="Lit 101", instructor_id=11, meeting_time="TR 10:00-10:30am", semester="fall 2021", course_type="online", description="n/a")
-            newCourse.save()
 
             user = User.objects.get(email=request.POST['email'])
-            if (user == None):
-                return render(request, "login.html", {"message": "no such account, please try again"})
-            badPassword = (user.password != request.POST['password'])
             request.session["user_id"] = user.user_id
             request.session["email"] = user.email
             request.session["role"] = user.role
+            if (user == None):
+                return render(request, "login.html", {"message": "no such account, please try again"})
+            badPassword = (user.password != request.POST['password'])
         except:
             noSuchUser = True
 
-        if ((not badPassword) and validatePassword(self,request.POST['password'])):
+        if (user != None and (not badPassword) and validatePassword(self, request.POST[
+            'password'])):
             return redirect("/dashboard/")
 
         elif badPassword:
@@ -93,7 +94,7 @@ class AddCourse(View):
 
     def post(self, request):
         m = get_user(request.session["user_id"])
-        noPermissions = canAccess(m.role, AccountType.ADMIN.value) #User.objects.get('role')
+        noPermissions = canAccess(m.role, AccountType.ADMIN.value)  # User.objects.get('role')
         if noPermissions:
             return render(request, "createCourse.html",
                           {"message": "insufficent permissions to create a course. Please contact "
@@ -109,9 +110,9 @@ class AddCourse(View):
 
 # this is a dummy method. will eventually use user_id and return a User() class of the user that matches the user_id
 def findUser(name):
-    #b = User.objects.filter(name=name)
+    # b = User.objects.filter(name=name)
     User(1, "Bryce Tome", "sfG76Fgh", "bptome@uwm.edu", "fake address 566", 1, "(414)546-3464").save()
-    return User(1, "Bryce Tome", "sfG76Fgh", "bptome@uwm.edu", "fake address 566", 1,  "(414)546-3464") #b.user_id
+    return User(1, "Bryce Tome", "sfG76Fgh", "bptome@uwm.edu", "fake address 566", 1, "(414)546-3464")  # b.user_id
 
 
 # this is a helper method. will eventually use role required & current role to return true if can be accessed, and false if insufficient permissions
@@ -125,8 +126,9 @@ def addCourse(course_name, instructor_name, meeting_time, semester, course_type,
                        meeting_time=meeting_time, semester=semester, course_type=course_type, description=description)
     return newCourse
 
+
 # helper method to take password string and return boolean. This method tests if password string is valid
 def validatePassword(self, password):
-   if(password.isspace() or len(password)<1):
-       return False
-   return True
+    if password.isspace() or len(password) < 1:
+        return False
+    return True
