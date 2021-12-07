@@ -38,9 +38,13 @@ class Home(View):
         user = None
         noSuchUser = False
         try:
-            #User to present with
+            #items from database to present with
             userInDb = User(user_id=10, name="Vee", password="pass", email="test@email.com", home_address="3438 tree lane", role=1, phone="123456789")
             userInDb.save()
+            newInstructor = User(user_id=11, name="Sam", password="password", email="ta@email.com", home_address="7867 tea tree lane", role=1, phone="234567891")
+            newInstructor.save()
+            newCourse = addCourse(course_id=1, course_name="Lit 101", instructor_id=11, meeting_time="TR 10:00-10:30am", semester="fall 2021", course_type="online", description="n/a")
+            newCourse.save()
 
             user = User.objects.get(email=request.POST['email'])
             if (user == None):
@@ -72,6 +76,7 @@ class DashBoard(View):
 class Courses(View):
     def get(self, request):
         m = get_user(request.session["user_id"])
+
         return render(request, "courses.html", {"name": m.name, "courses": m.display_courses()})
 
 
