@@ -29,7 +29,7 @@ def index(request):
     return HttpResponse("Hello , world. You're at the polls index.")
 
 
-class Home(View):
+class LogIn(View):
     def get(self, request):
         return render(request, "login.html", {})
 
@@ -60,8 +60,16 @@ class Home(View):
         elif noSuchUser:
             return render(request, "login.html", {"message": "no such account, please try again"})
 
+class Home(View):
+    def get(self, request):
+        return render(request, "login.html", {})
+
+    def post(self, request):
+        return redirect("/dashboard/")
+
         # render(request, "createCourse.html",
         # {"message": "User Created Sucsessfully"})
+
 
         # render(request, "createCourse.html",
         # {"message": "User Created Sucsessfully"})
