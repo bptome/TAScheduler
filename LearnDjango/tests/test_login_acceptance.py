@@ -61,3 +61,42 @@ class AccountLogInAcceptanceTestAdmin(TestCase):
         self.assertEqual("wrong password", r.context["message"],
                          "logged in with valid email and wrong password- empty password")
         self.assertEqual(AccountType.ADMIN, r.context["role"], "logged in with wrong role")
+
+class AccountLogInAcceptanceTestInstructor(TestCase):
+    def setUp(self):
+        user = User(email="admin@admin.com", password="admin", role=AccountType.INSTRUCTOR)
+        user.save()
+        self.client = Client()
+
+    def test_successful_login(self):
+        self.response = self.client.post("/login/", {"email": "instructor@instructor.com", "password": "instructor"}, follow=True)
+
+        self.assertEqual('/dashboard/', self.response.redirect_chain[0][0])
+        self.assertEqual('instructor@instructor.com', self.response.context["email"], "email not passed from login to list")
+        self.assertEqual(AccountType.INSTRUCTOR, self.response.context["role"], "logged in with wrong role")
+
+    def test_unsuccessful_login_wrong_password(self):
+        c = Client()
+        r = c.post("login/", {"email": "instructor@instructor.com.com", "password": "hello"}, follow=True)
+        self.assertEqual("wrong password", r.context["message"], "logged in with valid email and wrong password")
+        self.assertEqual(AccountType.ADMIN, r.context["role"], "logged in with wrong role")
+
+class AccountLogInAcceptanceTestTA(TestCase):
+    def setUp(self):
+        user = User(email="TA@TA.com", password="TA", role=AccountType.TA)
+        user.save()
+        self.client = Client()
+
+    def test_successful_login(self):
+        self.response = self.client.post("/login/", {"email": "TA@TA.com", "password": "TA"}, follow=True)
+
+        self.assertEqual('/dashboard/', self.response.redirect_chain[0][0])
+        self.assertEqual('TA@TA.com', self.response.context["email"], "email not passed from login to list")
+        self.assertEqual(AccountType.TA, self.response.context["role"], "logged in with wrong role")
+
+    def test_unsuccessful_login_wrong_password(self):
+        c = Client()
+        r = c.post("login/", {"email": "TA@TA.com.com", "password": "hello"}, follow=True)
+        self.assertEqual("wrong password", r.context["message"], "logged in with valid email and wrong password")
+        self.assertEqual(AccountType.ADMIN, r.context["role"], "logged in with wrong role")
+
