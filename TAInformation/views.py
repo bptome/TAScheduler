@@ -8,8 +8,7 @@ from TAInformation.Models.admin import UserAdmin
 from TAInformation.Models.base_user import BaseUser
 from TAInformation.Models.instructor import Instructor
 from TAInformation.Models.ta import TA
-from TAInformation.models import User, Course
-from tests.TestAdminDataAccess import get_course_two_lab
+from TAInformation.models import User, Course, Lab, LabCourseJunction
 
 
 def get_user(my_user_id: int):
@@ -46,7 +45,12 @@ class Home(View):
             newInstructor = User(user_id=11, name="Sam", password="password", email="ta@email.com",
                                  home_address="7867 tea tree lane", role=2, phone="234567891")
             newInstructor.save()
-            get_course_two_lab()
+            User(98, "Henry Trimbach", "ter7ythg", "trimbach@uwm.edu", "Downer ave", 2, "(414)143-4867").save()
+            Course(3, "CS351", 98, "W 900:00-6:00", "Fall", "Graduate", "EZ").save()
+            Lab(1, "Lab 900", False, "boring lab").save()
+            LabCourseJunction(2, 1, 3).save()
+            Lab(2, "Lab 901", False, "not boring lab").save()
+            LabCourseJunction(3, 2, 3).save()
             user = User.objects.get(email=request.POST['email'])
             request.session["user_id"] = user.user_id
             request.session["email"] = user.email
