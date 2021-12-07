@@ -31,4 +31,4 @@ class AccountType(Enum):
         elif self.value == self.INSTRUCTOR.value:
             return 2
         else:
-            return "Default"
+            return 0
