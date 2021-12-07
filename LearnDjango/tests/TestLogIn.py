@@ -1,5 +1,6 @@
 import unittest
 from .models import MyUser
+from TAInformation.Models.account_type import AccountType
 
 
 class ValidLogInAsUser(unittest.TestCase):
