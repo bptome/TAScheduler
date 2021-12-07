@@ -9,6 +9,7 @@ from TAInformation.Models.base_user import BaseUser
 from TAInformation.Models.instructor import Instructor
 from TAInformation.Models.ta import TA
 from TAInformation.models import User, Course
+from tests.TestAdminDataAccess import get_course_two_lab
 
 
 def get_user(my_user_id: int):
@@ -40,12 +41,12 @@ class Home(View):
         try:
             # items from database to present with
             userInDb = User(user_id=10, name="Vee", password="pass", email="test@email.com",
-                            home_address="3438 tree lane", role=1, phone="123456789")
+                            home_address="3438 tree lane", role=3, phone="123456789")
             userInDb.save()
             newInstructor = User(user_id=11, name="Sam", password="password", email="ta@email.com",
-                                 home_address="7867 tea tree lane", role=1, phone="234567891")
+                                 home_address="7867 tea tree lane", role=2, phone="234567891")
             newInstructor.save()
-
+            get_course_two_lab()
             user = User.objects.get(email=request.POST['email'])
             request.session["user_id"] = user.user_id
             request.session["email"] = user.email
