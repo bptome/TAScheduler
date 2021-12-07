@@ -63,20 +63,19 @@ class AddCourse(View):
         return render(request, "createCourse.html", {})
 
     def post(self, request):
-        noPermissions = canAccess(1, 1) #User.objects.get('role')
+        m = get_user(request.session["user_id"])
+        noPermissions = canAccess(m.role, AccountType.ADMIN.value) #User.objects.get('role')
         if noPermissions:
             return render(request, "createCourse.html",
                           {"message": "insufficent permissions to create a course. Please contact "
                                       "your system administrator if you believe this is in error."})
         else:
-            print(request.POST['name'])
             newCourse = addCourse(request.POST['name'], request.POST['instructor'],
                                   request.POST['meeting_time'], request.POST['semester'], request.POST['course_type'],
                                   request.POST['description'])
             newCourse.save()
-            request.session["user_id"] = 1
             return render(request, "dashboard.html",
-                          {"message": "User Created Sucsessfully"})
+                          {"message": "Course Created Successfully"})
 
 
 # this is a dummy method. will eventually use user_id and return a User() class of the user that matches the user_id
