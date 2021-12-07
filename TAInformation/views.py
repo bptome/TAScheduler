@@ -38,9 +38,9 @@ class Home(View):
         user = None
         noSuchUser = False
         try:
-            # items from database to present with
-            userInDb = User(user_id=10, name="Vee", password="pass", email="test@email.com",
-                            home_address="3438 tree lane", role=1, phone="123456789")
+            #items from database to present with
+            userInDb = User(user_id=10, name="Vee", password="pass", email="test@email.com", home_address="3438 tree lane", role=3, phone="123456789")
+
             userInDb.save()
             newInstructor = User(user_id=11, name="Sam", password="password", email="ta@email.com",
                                  home_address="7867 tea tree lane", role=1, phone="234567891")
