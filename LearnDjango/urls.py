@@ -16,10 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 
-from TAInformation.views import Home
+from TAInformation.views import Home, CreateUser
 
 urlpatterns = [
     path('', Home.as_view()),
     path('admin/', admin.site.urls),
     path('TAInformation/', include('TAInformation.urls')),
+    path('create_user/', CreateUser.as_view())
 ]

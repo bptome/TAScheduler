@@ -24,46 +24,26 @@ class UserAdmin(BaseUser):
     def display_people_fields(self):
         return []
 
-    def create_admin(self, new_admin: BaseUser):
-        return_dict = {}
-
-        return_dict = name_validator(new_admin)
-        error_msg = return_dict['errorMsg']
-
-        return_dict = password_validator(new_admin)
-        error_msg += return_dict['errorMsg']
-
-        return_dict = email_validator(new_admin)
-        error_msg += return_dict['errorMsg']
-
-        return_dict = address_validator(new_admin)
-        error_msg += return_dict['errorMsg']
-
-        return_dict = phone_validator(new_admin)
-        error_msg += return_dict['errorMsg']
+    def create_user(self, user_to_add: BaseUser):
+        error_msg = build_error_message(user_to_add)
 
         if error_msg != "":
             return {'result': False, 'message': error_msg}
 
         # Data is at least valid at this point
-        user_exists = User.objects.filter(email=new_admin.email).exists()
+        user_exists = User.objects.filter(email=user_to_add.email).exists()
+        user_exists = user_exists or User.objects.filter(user_id=user_to_add.user_id).exists()
 
         if user_exists:
             return {'result': False, 'message': "User already exists"}
 
         # User is indeed new user at this point
-        self._save_new_user(new_admin)
-        return {'result': True, 'message': "New admin has been created"}
+        save_new_user(user_to_add)
+        success_msg = "New " + user_to_add.role.name + " has been created"
+        return {'result': True, 'message': success_msg}
 
 
-    def create_instructor(self, new_instructor: BaseUser):
-        pass
 
-    def create_ta(self, new_ta: BaseUser):
-        pass
-
-    def _save_new_user(self, new_user: BaseUser):
-        pass
 
 
 

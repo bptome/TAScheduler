@@ -23,16 +23,7 @@ class TA(BaseUser):
 
     # pre: None
     # post: Returns dict object with message of inability to create accounts
-    def create_admin(self, new_admin):
-        return {'result': False, 'errorMsg': "Only admins can create new users\n"}
+    def create_user(self, new_user):
+        return {'result': False, 'message': "Only admins can create new users\n"}
 
-    # pre: None
-    # post: Returns dict object with message of inability to create accounts
-    def create_instructor(self, new_instructor):
-        return self.create_admin(new_instructor)
-
-    # pre: None
-    # post: Returns dict object with message of inability to create accounts
-    def create_ta(self, new_ta):
-        return self.create_admin(new_ta)
 
