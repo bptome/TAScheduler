@@ -16,11 +16,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 
-from TAInformation.views import Home, CreateUser
+from TAInformation.views import Home, Courses, People, AddCourse, DashBoard,  CreateUser
+
 
 urlpatterns = [
     path('', Home.as_view()),
+    path('courses/', Courses.as_view()),
+    path('people/', People.as_view()),
     path('admin/', admin.site.urls),
     path('TAInformation/', include('TAInformation.urls')),
-    path('create_user/', CreateUser.as_view())
+    path('create_user/', CreateUser.as_view()),
+    path('addcourse/', AddCourse.as_view()),
+    path('dashboard/', DashBoard.as_view()),
 ]

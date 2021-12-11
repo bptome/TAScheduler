@@ -1,0 +1,24 @@
+{% load extras %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Courses</title>
+</head>
+<body>
+    <h1>People for: {{ name }}</h1>
+{% for person in people %}
+    <ul>
+        {%  for data, label in person|zip:labels %}
+                {% if forloop.first %}
+                    <h4>{{ person.0 }}</h4>
+                {%  else %}
+                    <li>{{ label }} : {{ data }}</li>
+                {%  endif %}
+        {% endfor %}
+    </ul>
+{% endfor %}
+
+<a href="/dashboard">home</a>
+</body>
+</html>

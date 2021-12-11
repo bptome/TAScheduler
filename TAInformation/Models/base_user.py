@@ -36,4 +36,3 @@ class BaseUser(ABC):
     # side: Creates new user of specified role if all data is valid and user doesn't already exist
     def create_user(self, new_user):
         pass
-

@@ -3,9 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <p>test</p>
 </head>
 <body>
-
+<h1>Log In Page</h1>
+<form action="/" method="post">
+    {% csrf_token %}
+    <table>
+        <tr><td>email: </td><td><input type="email" name="email"></td></tr>
+        <tr><td>password: </td><td><input type="password" name="password"></td></tr>
+    </table>
+    <input type="submit">
+</form>
+{{ message }}
 </body>
 </html>
