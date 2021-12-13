@@ -44,7 +44,7 @@ class CreateAccountsAsAdmin(TestCase):
         self.assertTrue(result_pkg['result'], failure_msg)
 
     def tearDown(self):
-        User.objects.exclude(id=1).delete()
+        User.objects.exclude(user_id=1).delete()
 
 
 class CreateAccountsAsInstructor(TestCase):
@@ -82,7 +82,7 @@ class CreateAccountsAsInstructor(TestCase):
         self.assertFalse(result_pkg['result'], failure_msg)
 
     def tearDown(self):
-        User.objects.exclude(id=1).delete()
+        User.objects.exclude(user_id=1).delete()
 
 
 class CreateAccountsAsTA(TestCase):
@@ -120,7 +120,7 @@ class CreateAccountsAsTA(TestCase):
         self.assertFalse(result_pkg['result'], failure_msg)
 
     def tearDown(self):
-        User.objects.exclude(id=1).delete()
+        User.objects.exclude(user_id=1).delete()
 
 
 class CheckCredentials(TestCase):
@@ -206,7 +206,7 @@ class CheckCredentials(TestCase):
         self.assertFalse(result_pkg['result'], failure_msg)
 
     def tearDown(self):
-        User.objects.exclude(id=1).delete()
+        User.objects.exclude(user_id=1).delete()
 
 
 class CreateDuplicateAccounts(TestCase):
@@ -249,7 +249,7 @@ class CreateDuplicateAccounts(TestCase):
         self.assertTrue(result_pkg['result'], failure_msg)
 
     def tearDown(self):
-        User.objects.exclude(id=1).delete()
+        User.objects.exclude(user_id=1).delete()
 
 
 class AccountsWithMissingFields(TestCase):
@@ -310,4 +310,4 @@ class AccountsWithMissingFields(TestCase):
         self.assertFalse(result_pkg['result'], failure_msg)
 
     def tearDown(self):
-        User.objects.exclude(id=1).delete()
+        User.objects.exclude(user_id=1).delete()

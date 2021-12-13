@@ -64,7 +64,7 @@ class CreateAccountsAsAdmin(TestCase):
         self.assertEqual(response.context['message'], "New TA has been created", failure_msg)
 
     def tearDown(self):
-        User.objects.exclude(id=1).delete()
+        User.objects.exclude(user_id=1).delete()
 
 
 class CreateAccountsAsInstructor(TestCase):
@@ -121,7 +121,7 @@ class CreateAccountsAsInstructor(TestCase):
         self.assertEqual(response.context['message'], "Only admins can create new users\n", failure_msg)
 
     def tearDown(self):
-        User.objects.exclude(id=1).delete()
+        User.objects.exclude(user_id=1).delete()
 
 
 class CreateAccountsAsTA(TestCase):
@@ -178,7 +178,7 @@ class CreateAccountsAsTA(TestCase):
         self.assertEqual(response.context['message'], "Only admins can create new users\n", failure_msg)
 
     def tearDown(self):
-        User.objects.exclude(id=1).delete()
+        User.objects.exclude(user_id=1).delete()
 
 
 class CheckCredentials(TestCase):
@@ -307,7 +307,7 @@ class CheckCredentials(TestCase):
         self.assertFalse(response.context['result'], failure_msg)
 
     def tearDown(self):
-        User.objects.exclude(id=1).delete()
+        User.objects.exclude(user_id=1).delete()
 
 
 class CreateDuplicateAccounts(TestCase):
@@ -381,7 +381,7 @@ class CreateDuplicateAccounts(TestCase):
         self.assertEqual(response.context['message'], expected_msg, failure_msg)
 
     def tearDown(self):
-        User.objects.exclude(id=1).delete()
+        User.objects.exclude(user_id=1).delete()
 
 
 class AccountsWithMissingFields(TestCase):
@@ -480,4 +480,4 @@ class AccountsWithMissingFields(TestCase):
         self.assertEqual(response.context['message'], "No phone number given\n", failure_msg)
 
     def tearDown(self):
-        User.objects.exclude(id=1).delete()
+        User.objects.exclude(user_id=1).delete()

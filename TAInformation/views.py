@@ -159,6 +159,7 @@ class CreateUser(View):
 
         result_dict = {}
         the_id = -1 if request.POST.get('user_id') == "" else int(request.POST.get('user_id'))
+
         match int(request.POST.get('role')):
             case 1:
                 new_user = TA(
