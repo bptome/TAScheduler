@@ -42,6 +42,14 @@ class Home(View):
             userInDb = User(user_id=10, name="Vee", password="pass", email="test@email.com",
                             home_address="3438 tree lane", role=3, phone="123456789")
             userInDb.save()
+            #
+            # user = User(user_id=11, name="Sam", password="password", email="ta@email.com",
+            #                      home_address="7867 tea tree lane", role=2, phone="234567891")
+            # request.session["user_id"] = user.user_id
+            # request.session["email"] = user.email
+            # request.session["role"] = user.role
+            # return redirect("/dashboard/")
+
             newInstructor = User(user_id=11, name="Sam", password="password", email="ta@email.com",
                                  home_address="7867 tea tree lane", role=2, phone="234567891")
             newInstructor.save()
@@ -70,8 +78,6 @@ class Home(View):
         elif noSuchUser:
             return render(request, "login.html", {"message": "no such account, please try again"})
 
-        # render(request, "createCourse.html",
-        # {"message": "User Created Sucsessfully"})
 
 
 class DashBoard(View):
@@ -84,6 +90,20 @@ class Courses(View):
         m = get_user(request.session["user_id"])
 
         return render(request, "courses.html", {"name": m.name, "courses": m.display_courses()})
+    def post(self, request):
+        m = get_user(request.session["user_id"])
+        noPermissions = canAccess(m.role, AccountType.ADMIN.value)  # User.objects.get('role')
+        if noPermissions:
+            return render(request, "courses.html",
+                          {"message": "insufficent permissions to create a course. Please contact "
+                                      "your system administrator if you believe this is in error."})
+        else:
+          newCourse = addCourse(request.POST['name'], request.POST['instructor'],
+                                  request.POST['meeting_time'], request.POST['semester'], request.POST['course_type'],
+                                  request.POST['description'])
+            newCourse.save()
+            return render(request, "courses.html", {"name": m.name, "courses": m.display_courses(), "message": "Course Created Successfully"})
+
 
 
 class People(View):
@@ -91,26 +111,6 @@ class People(View):
         m = get_user(request.session["user_id"])
         return render(request, "people.html", {"name": m.name, "people": m.display_people(),
                                                "labels": m.display_people_fields()})
-
-
-class AddCourse(View):
-    def get(self, request):
-        return render(request, "createCourse.html", {})
-
-    def post(self, request):
-        m = get_user(request.session["user_id"])
-        noPermissions = canAccess(m.role, AccountType.ADMIN.value)  # User.objects.get('role')
-        if noPermissions:
-            return render(request, "createCourse.html",
-                          {"message": "insufficent permissions to create a course. Please contact "
-                                      "your system administrator if you believe this is in error."})
-        else:
-          newCourse = addCourse(request.POST['name'], request.POST['instructor'],
-                                  request.POST['meeting_time'], request.POST['semester'], request.POST['course_type'],
-                                  request.POST['description'])
-          newCourse.save()
-          return render(request, "dashboard.html",
-                        {"message": "Course Created Successfully"})
         
         
 # For create account web pages
@@ -220,4 +220,8 @@ def validatePassword(self, password):
     if password.isspace() or len(password) < 1:
         return False
     return True
-  
+
+class Labs(View):
+    def get(self, request):
+        return render(request, "labs.html")
+
