@@ -1,4 +1,3 @@
-{% load extras %}
 <!DOCTYPE html>
 <html lang="en">
 {% load static %}
@@ -20,17 +19,6 @@
     <a href="/">Logout</a>
 </div>
 <body>
-    <h1>People for: {{ name }}</h1>
-{% for person in people %}
-    <ul>
-        {%  for data, label in person|zip:labels %}
-                {% if forloop.first %}
-                    <h4>{{ person.0 }}</h4>
-                {%  else %}
-                    <li>{{ label }} : {{ data }}</li>
-                {%  endif %}
-        {% endfor %}
-    </ul>
-{% endfor %}
+
 </body>
 </html>
