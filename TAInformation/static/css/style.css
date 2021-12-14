@@ -160,7 +160,14 @@ form.form1 {
     margin-top: 10px;
     font-family: 'Ubuntu', sans-serif;
 }
-
+.header-create-course {
+        padding-top: 40px;
+        color: #8C55AA;
+        font-family: 'Ubuntu', sans-serif;
+        font-weight: bold;
+        font-size: 23px;
+            margin-left: 255px;
+    }
 .submit-course-input {
     cursor: pointer;
     border-radius: 5em;
@@ -176,7 +183,6 @@ form.form1 {
     font-size: 13px;
     box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.04);
 }
-
 
 
 
