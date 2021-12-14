@@ -17,5 +17,7 @@ class Instructor(BaseUser):
     def display_people_fields(self):
         pass
 
-    def create_admin(self, new_admin):
-        pass
+    # pre: None
+    # post: Returns dict object with message of inability to create accounts
+    def create_user(self, new_user):
+        return {'result': False, 'message': "Only admins can create new users\n"}
