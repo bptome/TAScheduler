@@ -4,18 +4,26 @@
  <link rel="stylesheet"  href="{%  static  'css/style.css'  %}">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>TA Scheduler</title>
 </head>
+    <header class="page-header">
+        <div class="container">
+            <h1><a>UW-Milwaukee Course Management</a></h1>
+        </div>
+    </header>
 <body>
-<h1>Log In Page</h1>
-<form action="/" method="post">
+    <div class="login-square">
+         <p class="sign" >Sign in</p>
+        <form action="/" method="post">
     {% csrf_token %}
     <table>
-        <tr><td>email: </td><td><input type="email" name="email"></td></tr>
-        <tr><td>password: </td><td><input type="password" name="password"></td></tr>
+        <tr><td><input type="email" name="email" class = "email" placeholder="email"></td></tr>
+        <tr><td><input class="password" type="password" name="password" placeholder="password"></td></tr>
     </table>
-    <input type="submit">
+    <input class="submit" type="submit">
 </form>
+    </div>
+
 {{ message }}
 </body>
 </html>
