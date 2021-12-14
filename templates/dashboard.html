@@ -8,6 +8,10 @@
     <a href="/courses/">Course List</a>
     <a href="/people/">People</a>
     <a href="/addcourse/">Add Course</a>
-{{ message }}
+    <form action="/" method="POST">
+    {% csrf_token %}
+    <input type="Submit" name="Log Out" value="logout"/>
+    </form>
+
 </body>
 </html>

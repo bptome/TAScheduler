@@ -28,9 +28,13 @@ def get_user(my_user_id: int):
 def index(request):
     return HttpResponse("Hello , world. You're at the polls index.")
 
-
 class Home(View):
     def get(self, request):
+        submitbutton = request.POST.get('logout')
+
+        if submitbutton:
+            request.session["user_id"] = None
+
         return render(request, "login.html", {})
 
     def post(self, request):
@@ -45,24 +49,29 @@ class Home(View):
             newInstructor = User(user_id=11, name="Sam", password="password", email="ta@email.com",
                                  home_address="7867 tea tree lane", role=2, phone="234567891")
             newInstructor.save()
+            request.session["user_id"] = None
             User(98, "Henry Trimbach", "ter7ythg", "trimbach@uwm.edu", "Downer ave", 2, "(414)143-4867").save()
-            Course(3, "CS351", 98, "W 900:00-6:00", "Fall", "Graduate", "EZ").save()
+            '''
+            course = Course(course_id=3, course_name="CS351", instructor_id=newInstructor, meeting_time="W 900:00-6:00", semester="Fall", course_type="Graduate", description="EZ")
+            course.save()
             Lab(1, "Lab 900", False, "boring lab").save()
             LabCourseJunction(2, 1, 3).save()
             Lab(2, "Lab 901", False, "not boring lab").save()
             LabCourseJunction(3, 2, 3).save()
+            '''
+
             user = User.objects.get(email=request.POST['email'])
-            request.session["user_id"] = user.user_id
             request.session["email"] = user.email
             request.session["role"] = user.role
             if (user == None):
-                return render(request, "login.html", {"message": "no such account, please try again"})
+                noSuchUser = True;
             badPassword = (user.password != request.POST['password'])
         except:
             noSuchUser = True
 
-        if (user != None and (not badPassword) and validatePassword(self, request.POST[
+        if ((not noSuchUser) and (not badPassword) and validatePassword(self, request.POST[
             'password'])):
+            request.session["user_id"] = user.user_id
             return redirect("/dashboard/")
 
         elif badPassword:
@@ -76,11 +85,15 @@ class Home(View):
 
 class DashBoard(View):
     def get(self, request):
+        if(request.session["user_id"]==None):
+            return render(request, "login.html", {"message": "you do not have access to this page"})
         return render(request, "dashboard.html", {})
 
 
 class Courses(View):
     def get(self, request):
+        if (request.session["user_id"] == None):
+            return render(request, "login.html", {"message": "you do not have access to this page"})
         m = get_user(request.session["user_id"])
 
         return render(request, "courses.html", {"name": m.name, "courses": m.display_courses()})
@@ -88,6 +101,8 @@ class Courses(View):
 
 class People(View):
     def get(self, request):
+        if (request.session["user_id"] == None):
+            return render(request, "login.html", {"message": "you do not have access to this page"})
         m = get_user(request.session["user_id"])
         return render(request, "people.html", {"name": m.name, "people": m.display_people(),
                                                "labels": m.display_people_fields()})
@@ -95,6 +110,8 @@ class People(View):
 
 class AddCourse(View):
     def get(self, request):
+        if (request.session["user_id"] == None):
+            return render(request, "login.html", {"message": "you do not have access to this page"})
         return render(request, "createCourse.html", {})
 
     def post(self, request):
