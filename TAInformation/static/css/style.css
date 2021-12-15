@@ -3,7 +3,7 @@ body {
         font-family: 'Ubuntu', sans-serif;
     }
 .page-header {
-    background-color: #C25100;
+    background-color: #8C55AA;
     margin-top: 0;
     margin-bottom: 1px;
     padding: 20px 20px 20px 40px;
@@ -184,29 +184,46 @@ form.form1 {
     box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.04);
 }
 
-
-
-
-
-
-
-
-
-
-
-/*.forgot {*/
-/*    text-shadow: 0px 0px 3px rgba(117, 117, 117, 0.12);*/
-/*    color: #E1BEE7;*/
-/*    padding-top: 15px;*/
-/*}*/
-
 /*a {*/
 /*    text-shadow: 0px 0px 3px rgba(117, 117, 117, 0.12);*/
 /*    color: #E1BEE7;*/
 /*    text-decoration: none*/
 /*}*/
 
-/*@media (max-width: 600px) {*/
-/*    .main {*/
-/*        border-radius: 0px;*/
-/*    }*/
+.error {
+    width: 30%;
+    color: black;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 1px;
+    padding: 20px 20px;
+    border: none;
+    border-radius: 20px;
+    outline: none;
+    margin-bottom: 5px;
+    margin-left: 430px;
+    text-align: center;
+    margin-top: 2px;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.course-square {
+    background-color: #FFFFFF;
+    width: 200px;
+    height: 200px;
+    margin: 1em auto 1em 10px;
+    border-radius: 1.5em;
+    border: #333333;
+    padding: 6px 6px 6px 18px;
+    box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);
+    display: inline-block;
+    float: left
+
+
+}
+.container-course {
+      width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
