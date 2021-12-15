@@ -1,6 +1,32 @@
 from TAInformation.Models.base_user import BaseUser
+from django.contrib import admin
 from TAInformation.Models.account_type import AccountType
-from TAInformation.models import Course, User, LabCourseJunction, Lab
+from TAInformation.models import Course, User, LabCourseJunction, Lab, taAssignment, courseName
+
+admin.site.register(taAssignment)
+
+
+def display_taAssignment():
+
+    all_assignment = Course.objects.all()
+    assignment_content = []
+    for course in all_assignment:
+        all_assignment_ids = LabCourseJunction.objects.filter(course_id=all_assignment_ids)
+        labs_string = ""
+        for i in all_labs_ids:
+            labs_string += " " + i.lab_id.lab_name
+        course_information = [
+            course.course_name,
+            course.instructor_id.name,
+            labs_string,
+            course.meeting_time,
+            course.semester,
+            course.course_type,
+            course.description,
+        ]
+        assignment_content.append(course_information)
+    return assignment_content
+
 
 
 class UserAdmin(BaseUser):

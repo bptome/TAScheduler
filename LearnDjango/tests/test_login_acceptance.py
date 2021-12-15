@@ -62,6 +62,7 @@ class AccountLogInAcceptanceTestAdmin(TestCase):
                          "logged in with valid email and wrong password- empty password")
         self.assertEqual(AccountType.ADMIN, r.context["role"], "logged in with wrong role")
 
+
 class AccountLogInAcceptanceTestInstructor(TestCase):
     def setUp(self):
         user = User(email="admin@admin.com", password="admin", role=AccountType.INSTRUCTOR)
@@ -69,10 +70,12 @@ class AccountLogInAcceptanceTestInstructor(TestCase):
         self.client = Client()
 
     def test_successful_login(self):
-        self.response = self.client.post("/login/", {"email": "instructor@instructor.com", "password": "instructor"}, follow=True)
+        self.response = self.client.post("/login/", {"email": "instructor@instructor.com", "password": "instructor"},
+                                         follow=True)
 
         self.assertEqual('/dashboard/', self.response.redirect_chain[0][0])
-        self.assertEqual('instructor@instructor.com', self.response.context["email"], "email not passed from login to list")
+        self.assertEqual('instructor@instructor.com', self.response.context["email"],
+                         "email not passed from login to list")
         self.assertEqual(AccountType.INSTRUCTOR, self.response.context["role"], "logged in with wrong role")
 
     def test_unsuccessful_login_wrong_password(self):
@@ -80,6 +83,7 @@ class AccountLogInAcceptanceTestInstructor(TestCase):
         r = c.post("login/", {"email": "instructor@instructor.com.com", "password": "hello"}, follow=True)
         self.assertEqual("wrong password", r.context["message"], "logged in with valid email and wrong password")
         self.assertEqual(AccountType.ADMIN, r.context["role"], "logged in with wrong role")
+
 
 class AccountLogInAcceptanceTestTA(TestCase):
     def setUp(self):
@@ -99,4 +103,3 @@ class AccountLogInAcceptanceTestTA(TestCase):
         r = c.post("login/", {"email": "TA@TA.com.com", "password": "hello"}, follow=True)
         self.assertEqual("wrong password", r.context["message"], "logged in with valid email and wrong password")
         self.assertEqual(AccountType.ADMIN, r.context["role"], "logged in with wrong role")
-

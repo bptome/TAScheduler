@@ -1,5 +1,4 @@
 from django.test import TestCase
-
 from TAInformation.Models.account_type import AccountType
 from TAInformation.Models.admin import UserAdmin
 from TAInformation.Models.course import ClassCourse

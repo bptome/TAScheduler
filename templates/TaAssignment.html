@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Assignment</title>
+</head>
+<body>
+<h1>TA assignment for admin: {{ name }}</h1>
+{% for Assignmnet in courses %}
+    <ul>
+        {%  for data in Assignmnet %}
+            {% if forloop.first %}
+                <h4>{{ Assignmnet.0 }}</h4>
+            {%  else %}
+                <li> {{ data }}</li>
+            {%  endif %}
+        {% endfor %}
+    </ul>
+{% endfor %}
+
+<a href="/dashboard">home</a>
+</body>
+</html>

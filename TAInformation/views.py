@@ -8,7 +8,15 @@ from TAInformation.Models.admin import UserAdmin
 from TAInformation.Models.base_user import BaseUser
 from TAInformation.Models.instructor import Instructor
 from TAInformation.Models.ta import TA
-from TAInformation.models import User, Course, Lab, LabCourseJunction
+from TAInformation.models import User, Course, Lab, LabCourseJunction, taAssignment
+
+
+class taAssignment(View):
+
+    def get(self, request):
+        m = get_user(request.session["user_id"])
+
+        return render(request, "TaAssignment.html", {"name": m.name, "assignment": m.display_taAssignment()})
 
 
 def get_user(my_user_id: int):
@@ -112,28 +120,27 @@ class AddCourse(View):
             return render(request, "dashboard.html",
                           {"message": "Course Created Successfully"})
 
+    # this is a dummy method. will eventually use user_id and return a User() class of the user that matches the user_id
+    def findUser(name):
+        # b = User.objects.filter(name=name)
+        User(1, "Bryce Tome", "sfG76Fgh", "bptome@uwm.edu", "fake address 566", 1, "(414)546-3464").save()
+        return User(1, "Bryce Tome", "sfG76Fgh", "bptome@uwm.edu", "fake address 566", 1, "(414)546-3464")  # b.user_id
 
-# this is a dummy method. will eventually use user_id and return a User() class of the user that matches the user_id
-def findUser(name):
-    # b = User.objects.filter(name=name)
-    User(1, "Bryce Tome", "sfG76Fgh", "bptome@uwm.edu", "fake address 566", 1, "(414)546-3464").save()
-    return User(1, "Bryce Tome", "sfG76Fgh", "bptome@uwm.edu", "fake address 566", 1, "(414)546-3464")  # b.user_id
+        # this is a helper method. will eventually use role required & current role to return true if can be accessed, and false if insufficient permissions
 
-
-# this is a helper method. will eventually use role required & current role to return true if can be accessed, and false if insufficient permissions
-def canAccess(role, required_role):
-    return False
-
-
-# helper method to take all data from user and return a Course() class instance. This method also generates a user_id for each course
-def addCourse(course_name, instructor_name, meeting_time, semester, course_type, description):
-    newCourse = Course(course_name=course_name, instructor_id=findUser(instructor_name),
-                       meeting_time=meeting_time, semester=semester, course_type=course_type, description=description)
-    return newCourse
-
-
-# helper method to take password string and return boolean. This method tests if password string is valid
-def validatePassword(self, password):
-    if password.isspace() or len(password) < 1:
+    def canAccess(role, required_role):
         return False
-    return True
+
+    # helper method to take all data from user and return a Course() class instance. This method also generates a user_id for each course
+    def addCourse(course_name, instructor_name, meeting_time, semester, course_type, description):
+        newCourse = Course(course_name=course_name, instructor_id=findUser(instructor_name),
+                           meeting_time=meeting_time, semester=semester, course_type=course_type,
+                           description=description)
+        return newCourse
+
+    # helper method to take password string and return boolean. This method tests if password string is valid
+
+    def validatePassword(self, password):
+        if password.isspace() or len(password) < 1:
+            return False
+        return True

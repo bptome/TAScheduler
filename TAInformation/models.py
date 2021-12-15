@@ -40,3 +40,17 @@ class LabCourseJunction(models.Model):
 class LabTAJunction(models.Model):
     lab_id = models.ForeignKey(Lab, on_delete=models.CASCADE)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+
+
+class courseName(models.Model):
+    course_Name = models.CharField(max_length=20)
+
+
+class taAssignment(models.Model):
+    course_name = models.CharField(max_length=20)
+    assignment_number = models.CharField(max_length=20)
+    TA_name = models.CharField(max_length=20)
+    cName = models.ForeignKey(courseName, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return course_name
