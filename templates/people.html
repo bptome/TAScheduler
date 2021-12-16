@@ -27,9 +27,13 @@
         <div class="course-square">
         {%  for data, label in person|zip:labels %}
                 {% if forloop.first %}
-                    <h4>{{ person.0 }}</h4>
+                    <div class="course-name">
+                        {{ person.0 }}
+                    </div>
                 {%  else %}
-                    <li>{{ label }} : {{ data }}</li>
+                    <div class="course-info">
+                        <li>{{ label }} : {{ data }}</li>
+                    </div>
                 {%  endif %}
         {% endfor %}
         </div>

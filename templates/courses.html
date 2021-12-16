@@ -55,9 +55,13 @@
             {% for data in class %}
 
                 {% if forloop.first %}
-                    <h4>{{ class.0 }}</h4>
+                    <div class="course-name">
+                        {{ class.0 }}
+                    </div>
                 {% else %}
-                    <li> {{ data }}</li>
+                    <div class="course-info">
+                        <li> {{ data }}</li>
+                    </div>
                 {% endif %}
 
             {% endfor %}
