@@ -82,7 +82,11 @@ class Courses(View):
     def get(self, request):
         m = get_user(request.session["user_id"])
 
-        return render(request, "courses.html", {"name": m.name, "courses": m.display_courses()})
+        avaliableInstructors = []
+        for temp in User.objects.filter(role=AccountType.INSTRUCTOR.value).values():
+            avaliableInstructors.append(temp["name"])
+
+        return render(request, "courses.html", {"name": m.name, "courses": m.display_courses(), "avaliableInstructors": avaliableInstructors})
     def post(self, request):
         m = get_user(request.session["user_id"])
         noPermissions = canAccess(m.role, AccountType.ADMIN.value)  # User.objects.get('role')
@@ -119,72 +123,72 @@ class CreateUser(View):
     # Side Effects: Message indicating result is displayed at the bottom of the “Create Courses” form
     def post(self, request):
         # Extract data from form
-        match request.session['role']:
-            case AccountType.ADMIN.value:
-                current_user = UserAdmin(
-                    int(request.session['user_id']),
-                    "",
-                    "",
-                    request.session['email'],
-                    "",
-                    ""
-                )
-            case AccountType.INSTRUCTOR.value:
-                current_user = Instructor(
-                    int(request.session['user_id']),
-                    "",
-                    "",
-                    request.session['email'],
-                    "",
-                    ""
-                )
-            case AccountType.TA.value:
-                current_user = TA(
-                    int(request.session['user_id']),
-                    "",
-                    "",
-                    request.session['email'],
-                    "",
-                    ""
-                )
-            case _:
-                current_user: BaseUser
+        # match request.session['role']:
+        #     case AccountType.ADMIN.value:
+        #         current_user = UserAdmin(
+        #             int(request.session['user_id']),
+        #             "",
+        #             "",
+        #             request.session['email'],
+        #             "",
+        #             ""
+        #         )
+        #     case AccountType.INSTRUCTOR.value:
+        #         current_user = Instructor(
+        #             int(request.session['user_id']),
+        #             "",
+        #             "",
+        #             request.session['email'],
+        #             "",
+        #             ""
+        #         )
+        #     case AccountType.TA.value:
+        #         current_user = TA(
+        #             int(request.session['user_id']),
+        #             "",
+        #             "",
+        #             request.session['email'],
+        #             "",
+        #             ""
+        #         )
+        #     case _:
+        #         current_user: BaseUser
 
         result_dict = {}
         the_id = -1 if request.POST.get('user_id') == "" else int(request.POST.get('user_id'))
 
-        match int(request.POST.get('role')):
-            case 1:
-                new_user = TA(
-                    the_id,
-                    request.POST.get('name'),
-                    request.POST.get('password'),
-                    request.POST.get('email'),
-                    request.POST.get('address'),
-                    request.POST.get('phone'),
-                )
-            case 2:
-                new_user = Instructor(
-                    the_id,
-                    request.POST.get('name'),
-                    request.POST.get('password'),
-                    request.POST.get('email'),
-                    request.POST.get('address'),
-                    request.POST.get('phone'),
-                )
-            case 3:
-                new_user = UserAdmin(
-                    the_id,
-                    request.POST.get('name'),
-                    request.POST.get('password'),
-                    request.POST.get('email'),
-                    request.POST.get('address'),
-                    request.POST.get('phone')
-                )
-            case _:  # Enforcement of selection should never allow this case to be reached
-                new_user: BaseUser
-
-        result_dict = current_user.create_user(new_user)
+        # match int(request.POST.get('role')):
+        #     case 1:
+        #         new_user = TA(
+        #             the_id,
+        #             request.POST.get('name'),
+        #             request.POST.get('password'),
+        #             request.POST.get('email'),
+        #             request.POST.get('address'),
+        #             request.POST.get('phone'),
+        #         )
+        #     case 2:
+        #         new_user = Instructor(
+        #             the_id,
+        #             request.POST.get('name'),
+        #             request.POST.get('password'),
+        #             request.POST.get('email'),
+        #             request.POST.get('address'),
+        #             request.POST.get('phone'),
+        #         )
+        #     case 3:
+        #         new_user = UserAdmin(
+        #             the_id,
+        #             request.POST.get('name'),
+        #             request.POST.get('password'),
+        #             request.POST.get('email'),
+        #             request.POST.get('address'),
+        #             request.POST.get('phone')
+        #         )
+        #     case _:  # Enforcement of selection should never allow this case to be reached
+        #         new_user: BaseUser
+        #
+        # result_dict = current_user.create_user(new_user)
 
         return render(request, "create_user.html", {'result': result_dict['result'], 'message': result_dict['message']})
       

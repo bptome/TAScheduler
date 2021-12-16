@@ -26,7 +26,15 @@
     <table>
         <tr>
             <td><input type="text" id="name" name="name" class="course-input" placeholder="Course Name"></td>
-            <td><input type="text" id="instructor" name="instructor" class="course-input" placeholder="Instructor"></td>
+            <td>
+                <select name="instructor" id="instructor" class="instructor-selector">
+                    <option value="" disabled selected>Select an instructor</option>
+                    {% for data in avaliableInstructors %}
+                        <option value={{ data }} > {{ data }}</option>
+                    {% endfor %}
+
+
+                </select></td>
         </tr>
         <tr>
             <td><input type="text" name="lab" id="lab" class="course-input" placeholder="Lab:"></td>
