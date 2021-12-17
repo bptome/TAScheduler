@@ -11,7 +11,7 @@ class BaseUser(ABC):
         self.password = password
         self.email = email
         self.home_address = address
-        self.phone_number = phone
+        self.phone = phone
         self.role = AccountType.DEFAULT
 
     # precondition: none
@@ -72,7 +72,13 @@ class BaseUser(ABC):
     # pre: Data in user_to_edit is of an existing user
     # post: Returns a dict object with the result and message about result
     # side: Record in User table is updated with new phone number, if validation succeeds
-    def edit_phone_number(self, user_to_edit: User, new_phone: str):
+    def edit_phone(self, user_to_edit: User, new_phone: str):
+        pass
+
+    # pre: Data in user_to_edit is of an existing user
+    # post: Returns a dict object with the result and message about result
+    # side: Record in User table is updated with new role, if validation succeeds
+    def edit_role(self, user_to_edit: User, new_role: AccountType):
         pass
 
     # pre: Data in user_to_edit is of an existing user

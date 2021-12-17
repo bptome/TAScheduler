@@ -26,7 +26,7 @@ def add_user_to_test_database(my_user):
     new_user.password = my_user.password
     new_user.email = my_user.email
     new_user.home_address = my_user.home_address
-    new_user.phone = my_user.phone_number
+    new_user.phone = my_user.phone
     new_user.role = my_user.role.value
     new_user.save()
     return new_user

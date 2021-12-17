@@ -7,7 +7,7 @@ from django.db import models
 
 
 class Skill(models.Model):
-    name = models.CharField(max_length=30, primary_key=True, on_delete=models.CASCADE)
+    name = models.CharField(max_length=30, primary_key=True)
     count = models.PositiveSmallIntegerField(default=0)
 
 

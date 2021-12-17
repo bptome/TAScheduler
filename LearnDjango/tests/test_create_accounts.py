@@ -243,7 +243,7 @@ class CreateDuplicateAccounts(TestCase):
     def test_UniqueEmailAndID(self):
         new_admin = self.testAdmin
         all_tests_setup(new_admin, 3, self.testAdmin.name, self.testAdmin.password, "testAdmin4@test.com",
-                        self.testAdmin.home_address, self.testAdmin.phone_number)
+                        self.testAdmin.home_address, self.testAdmin.phone)
         failure_msg = "Admin account not created despite unique email and id"
         result_pkg = self.testAdmin.create_user(new_admin)
         self.assertTrue(result_pkg['result'], failure_msg)

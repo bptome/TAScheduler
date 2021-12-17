@@ -57,7 +57,13 @@ class Instructor(BaseUser):
     # pre: None
     # post: Returns a dict object with the result and message about result
     # side: Record in User table is updated with new phone number, if validation succeeds
-    def edit_phone_number(self, user_to_edit: User, new_phone: str):
+    def edit_phone(self, user_to_edit: User, new_phone: str):
+        pass
+
+    # pre: None
+    # post: Returns a dict object with the result and message about inability to edit role
+    # side: None
+    def edit_role(self, user_to_edit: User, new_role: AccountType):
         pass
 
     # pre: None
