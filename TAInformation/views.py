@@ -98,7 +98,7 @@ class Courses(View):
                           {"message": "insufficent permissions to create a course. Please contact "
                                       "your system administrator if you believe this is in error."})
         else:
-          newCourse = addCourse(request.POST['name'], request.POST['instructor'],
+            newCourse = addCourse(request.POST['name'], request.POST['instructor'],
                                   request.POST['meeting_time'], request.POST['semester'], request.POST['course_type'],
                                   request.POST['description'])
             newCourse.save()
