@@ -10,21 +10,21 @@ from django.core.validators import validate_email
 from TAInformation.models import User
 
 
-def id_validator(new_user: BaseUser):
+def id_validator(new_user):
     if (not isinstance(new_user.user_id, int)) or new_user.user_id < 0:
         return {'result': False, 'errorMsg': "Invalid user id entered\n"}
 
     return {'result': True, 'errorMsg': ""}
 
 
-def name_validator(new_user: BaseUser):
+def name_validator(new_user):
     if len(new_user.name) < 5:
         return {'result': False, 'errorMsg': "Invalid name given\n"}
 
     return {'result': True, 'errorMsg': ""}
 
 
-def password_validator(new_user: BaseUser):
+def password_validator(new_user):
     if len(new_user.password) < 4:
         return {'result': True, 'errorMsg': "Password must be at least 4 characters long\n"}
 
@@ -63,7 +63,7 @@ def password_validator(new_user: BaseUser):
     return {'result': True, 'errorMsg': ""}
 
 
-def email_validator(new_user: BaseUser):
+def email_validator(new_user):
     try:
         validate_email(new_user.email)
     except ValidationError as errorMsg:
@@ -73,7 +73,7 @@ def email_validator(new_user: BaseUser):
     return {'result': True, 'errorMsg': ""}
 
 
-def address_validator(new_user: BaseUser):
+def address_validator(new_user):
     if new_user.home_address == "":
         return {'result': False, 'errorMsg': "Home address is missing\n"}
 
