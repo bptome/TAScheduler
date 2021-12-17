@@ -66,6 +66,12 @@ class TA(BaseUser):
     def edit_role(self, user_to_edit: User, new_role: AccountType):
         pass
 
+    # pre: Calling user is in the database
+    # post: Returns a QueryList of all users that can be edited by calling user
+    # side: None
+    def list_of_editable_users(self) -> list[User]:
+        pass
+
     # pre: None
     # post: Returns a dict object with the result and message about result
     # side: 1) Record in User table is updated with new skill, if validation succeeds

@@ -94,3 +94,9 @@ class BaseUser(ABC):
     #       2) skill is removed from Skills table, if no other existing user has the skill
     def remove_skill(self, user_to_edit: User, lost_skill: str):
         pass
+
+    # pre: Calling user is in the database
+    # post: Returns a QueryList of all users that can be edited by calling user
+    # side: None
+    def list_of_editable_users(self) -> list[User]:
+        pass
