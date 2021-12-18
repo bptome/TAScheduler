@@ -28,13 +28,9 @@ def get_user(my_user_id: int):
 def index(request):
     return HttpResponse("Hello , world. You're at the polls index.")
 
+
 class Home(View):
     def get(self, request):
-        submitbutton = request.POST.get('logout')
-
-        if submitbutton:
-            request.session["user_id"] = None
-
         return render(request, "login.html", {})
 
     def post(self, request):
@@ -46,32 +42,35 @@ class Home(View):
             userInDb = User(user_id=10, name="Vee", password="pass", email="test@email.com",
                             home_address="3438 tree lane", role=3, phone="123456789")
             userInDb.save()
+            #
+            # user = User(user_id=11, name="Sam", password="password", email="ta@email.com",
+            #                      home_address="7867 tea tree lane", role=2, phone="234567891")
+            # request.session["user_id"] = user.user_id
+            # request.session["email"] = user.email
+            # request.session["role"] = user.role
+            # return redirect("/dashboard/")
+
             newInstructor = User(user_id=11, name="Sam", password="password", email="ta@email.com",
                                  home_address="7867 tea tree lane", role=2, phone="234567891")
             newInstructor.save()
-            request.session["user_id"] = None
             User(98, "Henry Trimbach", "ter7ythg", "trimbach@uwm.edu", "Downer ave", 2, "(414)143-4867").save()
-            '''
-            course = Course(course_id=3, course_name="CS351", instructor_id=newInstructor, meeting_time="W 900:00-6:00", semester="Fall", course_type="Graduate", description="EZ")
-            course.save()
+            Course(3, "CS351", 98, "W 900:00-6:00", "Fall", "Graduate", "EZ").save()
             Lab(1, "Lab 900", False, "boring lab").save()
             LabCourseJunction(2, 1, 3).save()
             Lab(2, "Lab 901", False, "not boring lab").save()
             LabCourseJunction(3, 2, 3).save()
-            '''
-
             user = User.objects.get(email=request.POST['email'])
+            request.session["user_id"] = user.user_id
             request.session["email"] = user.email
             request.session["role"] = user.role
             if (user == None):
-                noSuchUser = True;
+                return render(request, "login.html", {"message": "no such account, please try again"})
             badPassword = (user.password != request.POST['password'])
         except:
             noSuchUser = True
 
-        if ((not noSuchUser) and (not badPassword) and validatePassword(self, request.POST[
+        if (user != None and (not badPassword) and validatePassword(self, request.POST[
             'password'])):
-            request.session["user_id"] = user.user_id
             return redirect("/dashboard/")
 
         elif badPassword:
@@ -79,55 +78,122 @@ class Home(View):
         elif noSuchUser:
             return render(request, "login.html", {"message": "no such account, please try again"})
 
-        # render(request, "createCourse.html",
-        # {"message": "User Created Sucsessfully"})
 
 
 class DashBoard(View):
     def get(self, request):
-        if(request.session["user_id"]==None):
-            return render(request, "login.html", {"message": "you do not have access to this page"})
         return render(request, "dashboard.html", {})
 
 
 class Courses(View):
     def get(self, request):
-        if (request.session["user_id"] == None):
-            return render(request, "login.html", {"message": "you do not have access to this page"})
         m = get_user(request.session["user_id"])
 
         return render(request, "courses.html", {"name": m.name, "courses": m.display_courses()})
+    def post(self, request):
+        m = get_user(request.session["user_id"])
+        noPermissions = canAccess(m.role, AccountType.ADMIN.value)  # User.objects.get('role')
+        if noPermissions:
+            return render(request, "courses.html",
+                          {"message": "insufficent permissions to create a course. Please contact "
+                                      "your system administrator if you believe this is in error."})
+        else:
+          newCourse = addCourse(request.POST['name'], request.POST['instructor'],
+                                  request.POST['meeting_time'], request.POST['semester'], request.POST['course_type'],
+                                  request.POST['description'])
+            newCourse.save()
+            return render(request, "courses.html", {"name": m.name, "courses": m.display_courses(), "message": "Course Created Successfully"})
+
 
 
 class People(View):
     def get(self, request):
-        if (request.session["user_id"] == None):
-            return render(request, "login.html", {"message": "you do not have access to this page"})
         m = get_user(request.session["user_id"])
         return render(request, "people.html", {"name": m.name, "people": m.display_people(),
                                                "labels": m.display_people_fields()})
 
 
-class AddCourse(View):
+# For create account web pages
+class CreateUser(View):
+    # Precondition: User is logged in and data is stored in session
+    # Postcondition: Page with Create Course form is displayed
+    # Side Effects: None
     def get(self, request):
-        if (request.session["user_id"] == None):
-            return render(request, "login.html", {"message": "you do not have access to this page"})
-        return render(request, "createCourse.html", {})
+        return render(request, "create_user.html", {})
 
+    # Precondition: User has entered data in all form fields in proper format
+    # Postcondition: Creates new user, if data entered validates successfully and user doesn’t already exist.
+    # Side Effects: Message indicating result is displayed at the bottom of the “Create Courses” form
     def post(self, request):
-        m = get_user(request.session["user_id"])
-        noPermissions = canAccess(m.role, AccountType.ADMIN.value)  # User.objects.get('role')
-        if noPermissions:
-            return render(request, "createCourse.html",
-                          {"message": "insufficent permissions to create a course. Please contact "
-                                      "your system administrator if you believe this is in error."})
-        else:
-            newCourse = addCourse(request.POST['name'], request.POST['instructor'],
-                                  request.POST['meeting_time'], request.POST['semester'], request.POST['course_type'],
-                                  request.POST['description'])
-            newCourse.save()
-            return render(request, "dashboard.html",
-                          {"message": "Course Created Successfully"})
+        # Extract data from form
+        match request.session['role']:
+            case AccountType.ADMIN.value:
+                current_user = UserAdmin(
+                    int(request.session['user_id']),
+                    "",
+                    "",
+                    request.session['email'],
+                    "",
+                    ""
+                )
+            case AccountType.INSTRUCTOR.value:
+                current_user = Instructor(
+                    int(request.session['user_id']),
+                    "",
+                    "",
+                    request.session['email'],
+                    "",
+                    ""
+                )
+            case AccountType.TA.value:
+                current_user = TA(
+                    int(request.session['user_id']),
+                    "",
+                    "",
+                    request.session['email'],
+                    "",
+                    ""
+                )
+            case _:
+                current_user: BaseUser
+
+        result_dict = {}
+        the_id = -1 if request.POST.get('user_id') == "" else int(request.POST.get('user_id'))
+
+        match int(request.POST.get('role')):
+            case 1:
+                new_user = TA(
+                    the_id,
+                    request.POST.get('name'),
+                    request.POST.get('password'),
+                    request.POST.get('email'),
+                    request.POST.get('address'),
+                    request.POST.get('phone'),
+                )
+            case 2:
+                new_user = Instructor(
+                    the_id,
+                    request.POST.get('name'),
+                    request.POST.get('password'),
+                    request.POST.get('email'),
+                    request.POST.get('address'),
+                    request.POST.get('phone'),
+                )
+            case 3:
+                new_user = UserAdmin(
+                    the_id,
+                    request.POST.get('name'),
+                    request.POST.get('password'),
+                    request.POST.get('email'),
+                    request.POST.get('address'),
+                    request.POST.get('phone')
+                )
+            case _:  # Enforcement of selection should never allow this case to be reached
+                new_user: BaseUser
+
+        result_dict = current_user.create_user(new_user)
+
+        return render(request, "create_user.html", {'result': result_dict['result'], 'message': result_dict['message']})
 
 
 # this is a dummy method. will eventually use user_id and return a User() class of the user that matches the user_id
@@ -154,3 +220,8 @@ def validatePassword(self, password):
     if password.isspace() or len(password) < 1:
         return False
     return True
+
+class Labs(View):
+    def get(self, request):
+        return render(request, "labs.html")
+
