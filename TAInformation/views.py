@@ -122,7 +122,7 @@ class CreateUser(View):
     # Postcondition: Creates new user, if data entered validates successfully and user doesn’t already exist.
     # Side Effects: Message indicating result is displayed at the bottom of the “Create Courses” form
     def post(self, request):
-        Extract data from form
+        #Extract data from form
         match request.session['role']:
             case AccountType.ADMIN.value:
                 current_user = UserAdmin(
