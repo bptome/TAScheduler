@@ -21,5 +21,24 @@
 <div class="error">{{ message }} </div>
 <body>
 
+    <form action="" method="post">
+        {% csrf_token %}
+        <table>
+            <tr><td><input type="text" id="course" name="course" class = "course-input" placeholder="Course Name"></td> <td><input type="text" id="lab" name="lab" class = "course-input" placeholder="Lab Name"></td></tr>
+            <tr><td><input type="checkbox" id="grader" name="grader" class = "course-input" placeholder="Has Grader"></td> <td><input type="text" id="description" name="description" class = "course-input" placeholder="Description"></td></tr>
+        </table>
+        <input type="submit" class="submit-course-input" >
+    </form>
+
+        <form action="" method="post">
+        {% csrf_token %}
+        <table>
+            <tr><td><input type="text" id="ta" name="ta" class = "course-input" placeholder="TA Name"></td> <td><input type="text" id="lab" name="lab" class = "course-input" placeholder="Lab Name"></td></tr>
+        </table>
+        <input type="submit" name="addTA" id="addTA" class="submit-course-input" >
+    </form>
+    {{ message }}
+
+
 </body>
 </html>

@@ -47,12 +47,14 @@ class Home(View):
                                  home_address="7867 tea tree lane", role=2, phone="234567891")
             newInstructor.save()
             User(98, "Henry Trimbach", "ter7ythg", "trimbach@uwm.edu", "Downer ave", 2, "(414)143-4867").save()
+            User(98, "New TA", "ter7ythg", "trimbach@uwm.edu", "Downer ave", 1, "(414)143-4867").save()
             Course(3, "CS351", 98, "W 900:00-6:00", "Fall", "Graduate", "EZ").save()
             Lab(1, "Lab 900", False, "boring lab").save()
             LabCourseJunction(2, 1, 3).save()
             Lab(2, "Lab 901", False, "not boring lab").save()
             LabCourseJunction(3, 2, 3).save()
             user = User.objects.get(email=request.POST['email'])
+
             request.session["user_id"] = user.user_id
             request.session["email"] = user.email
             request.session["role"] = user.role
@@ -72,7 +74,6 @@ class Home(View):
             return render(request, "login.html", {"message": "no such account, please try again"})
 
 
-
 class DashBoard(View):
     def get(self, request):
         return render(request, "dashboard.html", {})
@@ -87,20 +88,33 @@ class Courses(View):
             avaliableInstructors.append(temp["name"])
 
         return render(request, "courses.html", {"name": m.name, "courses": m.display_courses(), "avaliableInstructors": avaliableInstructors})
+
     def post(self, request):
         m = get_user(request.session["user_id"])
+
+        if 'addToCourse' in request.POST:
+            user_name = request.POST['ta']
+            course_name = request.POST['course']
+            if User.objects.filter(name=user_name).exists() & Course.objects.filter(course_name=course_name).exists():
+                user_object = User.objects.get(name=user_name)
+                course_object = Course.objects.get(course_name=course_name)
+                return render(request, "labs.html",
+                              {"message": m.assign_ta_to_course(user_object, course_object)})
+
+            return render(request, "courses.html", {"message": "TA or Course not found"})
+
         noPermissions = canAccess(m.role, AccountType.ADMIN.value)  # User.objects.get('role')
         if noPermissions:
             return render(request, "courses.html",
                           {"message": "insufficent permissions to create a course. Please contact "
                                       "your system administrator if you believe this is in error."})
         else:
-          newCourse = addCourse(request.POST['name'], request.POST['instructor'],
+            newCourse = addCourse(request.POST['name'], request.POST['instructor'],
                                   request.POST['meeting_time'], request.POST['semester'], request.POST['course_type'],
                                   request.POST['description'])
+
         newCourse.save()
         return render(request, "courses.html", {"name": m.name, "courses": m.display_courses(), "message": "Course Created Successfully"})
-
 
 
 class People(View):
@@ -108,8 +122,8 @@ class People(View):
         m = get_user(request.session["user_id"])
         return render(request, "people.html", {"name": m.name, "people": m.display_people(),
                                                "labels": m.display_people_fields()})
-        
-        
+
+
 # For create account web pages
 class CreateUser(View):
     # Precondition: User is logged in and data is stored in session
@@ -191,8 +205,8 @@ class CreateUser(View):
         result_dict = current_user.create_user(new_user)
 
         return render(request, "create_user.html", {'result': result_dict['result'], 'message': result_dict['message']})
-      
-           
+
+
 # this is a dummy method. will eventually use user_id and return a User() class of the user that matches the user_id
 def findUser(name):
     # b = User.objects.filter(name=name)
@@ -211,14 +225,37 @@ def addCourse(course_name, instructor_name, meeting_time, semester, course_type,
                        meeting_time=meeting_time, semester=semester, course_type=course_type, description=description)
     return newCourse
 
-  
+
 # helper method to take password string and return boolean. This method tests if password string is valid
 def validatePassword(self, password):
     if password.isspace() or len(password) < 1:
         return False
     return True
 
+
 class Labs(View):
     def get(self, request):
         return render(request, "labs.html")
 
+    def post(self, request):
+        m = get_user(request.session["user_id"])
+        if 'ta' in request.POST:
+            user_name = request.POST['ta']
+            lab_name = request.POST['lab']
+            if User.objects.filter(name=user_name).exists() & Lab.objects.filter(lab_name=lab_name).exists():
+                user_object = User.objects.get(name=user_name)
+                lab_object = Lab.objects.get(lab_name=lab_name)
+                return render(request, "labs.html",
+                              {"message": m.assign_ta_to_lab(user_object,
+                                                             lab_object)})
+            return render(request, "labs.html", {"message": "user or lab not found"})
+        else:
+            bool_val = request.POST['grader'] == 'on'
+
+            if Course.objects.filter(course_name=request.POST['course']).exists():
+                course = Course.objects.get(course_name=request.POST['course'])
+                return render(request, "labs.html",
+                              {"message": m.create_lab(request.POST['lab'], bool_val, request.POST['description'],
+                                                       course)})
+            return render(request, "labs.html",
+                          {"message": "Course not found"})
