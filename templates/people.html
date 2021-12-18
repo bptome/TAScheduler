@@ -20,7 +20,7 @@
     <a href="/">Logout</a>
 </div>
 <body>
-    <h1>People for: {{ name }}</h1>
+    <h1>People for {{ role }}: {{ name }}</h1>
 {% for person in people %}
     <ul>
         {%  for data, label in person|zip:labels %}

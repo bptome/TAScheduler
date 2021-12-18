@@ -33,7 +33,7 @@
 </form>
 {{ message }}
 
-    <h1>Courses for admin: {{ name }}</h1>
+    <h1>Courses for {{ role }}: {{ name }}</h1>
 {% for class in courses %}
     <ul>
         {%  for data in class %}
