@@ -70,9 +70,9 @@ class UserAdmin(BaseUser):
         success_msg = "New " + user_to_add.role.name + " has been created"
         return {'result': True, 'message': success_msg}
 
-    # pre: lab_name is a String, has_grader is a boolean, description is a String, course_id is the pk for Course
-    # post: success message
-    # side: saves a new lab to the DB, saves a new lab to course junction to the DB
+    # pre: lab_name is a String, has_grader is a boolean, description is a String, course is a valid Course
+    # post: message
+    # side: if lab name is not unique, saves a new lab to the DB, saves a new lab to course junction to the DB
     def create_lab(self, lab_name, has_grader, description, course):
         if Lab.objects.filter(lab_name=lab_name).exists():
             for junction in LabCourseJunction.objects.filter(course_id=course):
@@ -82,9 +82,10 @@ class UserAdmin(BaseUser):
         LabCourseJunction.objects.create(lab_id=lab, course_id=course)
         return "Lab saved to course"
 
-    # pre: lab_id is a Lab primary key, user_id is a User primary key
+    # pre: lab is a valid Lab object, user_id is a User primary key
     # post: success message
-    # side: saves a new assignment junction for a lab and a TA
+    # side: saves a new assignment junction for a lab and a TA, and assigns the TA to the labs course (if not already)
+    # in the DB
     def assign_ta_to_lab(self, user, lab):
         global course
         if user.role != AccountType.TA.value:
@@ -100,9 +101,9 @@ class UserAdmin(BaseUser):
         CourseTAJunction.objects.create(user_id=user, course_id=course)
         return "TA assigned to lab and course"
 
-
-    # pre: course_id is a Course primary key, user_id is a User primary key
+    # pre: course is a valid Course, user is a valid User
     # post: Return an error message
+    # side: creates a junction instance for the Course and TA in the DB
     def assign_ta_to_course(self, user, course):
         if user.role != AccountType.TA.value:
             return "Only TA can be added to a course"
@@ -110,4 +111,3 @@ class UserAdmin(BaseUser):
             return "TA already in this course"
         CourseTAJunction.objects.create(user_id=user, course_id=course)
         return "TA assigned to course"
-
