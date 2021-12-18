@@ -1,3 +1,5 @@
+import sys
+
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 # Create your views here.
@@ -31,12 +33,16 @@ def index(request):
 
 class Home(View):
     def get(self, request):
+        if request.session["user_id"]!=None:
+            request.session["user_id"] = None
         return render(request, "login.html", {})
 
     def post(self, request):
         badPassword = False
         user = None
         noSuchUser = False
+        if request.session["user_id"] != None:
+            request.session["user_id"] = None
         try:
             # items from database to present with
             userInDb = User(user_id=10, name="Vee", password="pass", email="test@email.com",
@@ -46,22 +52,27 @@ class Home(View):
             newInstructor = User(user_id=11, name="Sam", password="password", email="ta@email.com",
                                  home_address="7867 tea tree lane", role=2, phone="234567891")
             newInstructor.save()
+            User(99, "Jane Doe", "apple", "doe@uwm.edu", "Random ave", 1, "(123)143-4867").save()
             User(98, "Henry Trimbach", "ter7ythg", "trimbach@uwm.edu", "Downer ave", 2, "(414)143-4867").save()
             User(98, "New TA", "ter7ythg", "trimbach@uwm.edu", "Downer ave", 1, "(414)143-4867").save()
             Course(3, "CS351", 98, "W 900:00-6:00", "Fall", "Graduate", "EZ").save()
+            Course(4, "CS250", 99, "W 900:00-6:00", "Summer", "Graduate", "ONLINE").save()
             Lab(1, "Lab 900", False, "boring lab").save()
             LabCourseJunction(2, 1, 3).save()
             Lab(2, "Lab 901", False, "not boring lab").save()
             LabCourseJunction(3, 2, 3).save()
-            user = User.objects.get(email=request.POST['email'])
 
-            request.session["user_id"] = user.user_id
-            request.session["email"] = user.email
-            request.session["role"] = user.role
-            if (user == None):
+            if 'email' in request.POST:
+                user = User.objects.get(email=request.POST['email'])
+            if user is not None:
+                request.session["user_id"] = user.user_id
+                request.session["email"] = user.email
+                request.session["role"] = user.role
+            if user == None:
                 return render(request, "login.html", {"message": "no such account, please try again"})
             badPassword = (user.password != request.POST['password'])
         except:
+            print("%s - %s at line: %s" % (sys.exc_info()[0], sys.exc_info()[1], sys.exc_info()[2].tb_lineno))
             noSuchUser = True
 
         if (user != None and (not badPassword) and validatePassword(self, request.POST[
@@ -76,18 +87,24 @@ class Home(View):
 
 class DashBoard(View):
     def get(self, request):
+        if (request.session["user_id"] == None):
+            return render(request, "login.html", {"message": "you do not have access to this page"})
+
         return render(request, "dashboard.html", {})
 
 
 class Courses(View):
     def get(self, request):
+        if (request.session["user_id"] == None):
+            return render(request, "login.html", {"message": "you do not have access to this page"})
+
         m = get_user(request.session["user_id"])
 
         avaliableInstructors = []
         for temp in User.objects.filter(role=AccountType.INSTRUCTOR.value).values():
             avaliableInstructors.append(temp["name"])
 
-        return render(request, "courses.html", {"name": m.name, "courses": m.display_courses(), "avaliableInstructors": avaliableInstructors})
+        return render(request, "courses.html", {"name": m.name, "role": m.role, "courses": m.display_courses(), "avaliableInstructors": avaliableInstructors})
 
     def post(self, request):
         m = get_user(request.session["user_id"])
@@ -113,14 +130,20 @@ class Courses(View):
                                   request.POST['meeting_time'], request.POST['semester'], request.POST['course_type'],
                                   request.POST['description'])
 
+          newCourse.save()
+          return render(request, "courses.html", {"name": m.name, "role": m.role, "courses": m.display_courses(), "message": "Course Created Successfully"})
+
         newCourse.save()
         return render(request, "courses.html", {"name": m.name, "courses": m.display_courses(), "message": "Course Created Successfully"})
 
 
 class People(View):
     def get(self, request):
+        if (request.session["user_id"] == None):
+            return render(request, "login.html", {"message": "you do not have access to this page"})
+
         m = get_user(request.session["user_id"])
-        return render(request, "people.html", {"name": m.name, "people": m.display_people(),
+        return render(request, "people.html", {"name": m.name, "role": m.role, "people": m.display_people(),
                                                "labels": m.display_people_fields()})
 
 
@@ -130,6 +153,9 @@ class CreateUser(View):
     # Postcondition: Page with Create Course form is displayed
     # Side Effects: None
     def get(self, request):
+        if (request.session["user_id"] == None):
+            return render(request, "login.html", {"message": "you do not have access to this page"})
+
         return render(request, "create_user.html", {})
 
     # Precondition: User has entered data in all form fields in proper format
