@@ -86,8 +86,8 @@ class DashBoard(View):
     def get(self, request):
         if (request.session["user_id"] == None):
             return render(request, "login.html", {"message": "you do not have access to this page"})
-
-        return render(request, "dashboard.html", {})
+        m = User.objects.get(user_id=request.session["user_id"])
+        return render(request, "dashboard.html", {"name": m.name})
 
 
 class Courses(View):
