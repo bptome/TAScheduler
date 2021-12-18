@@ -30,7 +30,7 @@
                 <select name="instructor" id="instructor" class="instructor-selector">
                     <option value="" disabled selected>Select an instructor</option>
                     {% for data in avaliableInstructors %}
-                        <option value={{ data }} > {{ data }}</option>
+                        <option value="{{ data }}" > {{ data }}</option>
                     {% endfor %}
 
 
