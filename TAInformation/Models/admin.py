@@ -131,3 +131,9 @@ class UserAdmin(BaseUser):
     #       2) skill is removed from Skills table, if no other existing user has the skill
     def remove_skill(self, user_to_edit: User, lost_skill: str):
         pass
+
+    # pre: user_to_view is a User model object
+    # post: Returns a dict object with a message and list of skills, if access to view is granted
+    # side: None
+    def list_skills(self, user_to_view: User):
+        pass

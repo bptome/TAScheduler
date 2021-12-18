@@ -18,8 +18,8 @@ class EditAccountsAsAdminWithValidData(TestCase):
 
     def test_edit_id_to_unused(self):
         result_info = self.testAdmin.edit_user_id(self.editTA, 11)
-        self.assertTrue(result_info['result'], msg="User ID wasn\'t changed to 11, despite no user "
-                                                                      "having that ID number")
+        self.assertTrue(result_info['result'],
+                        msg="User ID wasn\'t changed to 11, despite no user having that ID number")
 
     def test_edit_id_to_used(self):
         result_info = self.testAdmin.edit_user_id(self.editTA, self.testAdmin.user_id)

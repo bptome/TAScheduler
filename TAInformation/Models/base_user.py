@@ -13,8 +13,8 @@ class BaseUser(ABC):
         self.home_address = address
         self.phone = phone
         self.role = AccountType.DEFAULT
+        self.skills = User.objects.get(user_id=self.user_id).skills.all()
 
-    # precondition: none
     # post condition: return an array of Course specific to the user
     @abstractmethod
     def display_courses(self):
@@ -95,8 +95,15 @@ class BaseUser(ABC):
     def remove_skill(self, user_to_edit: User, lost_skill: str):
         pass
 
+    # pre: user_to_view is a User model object
+    # post: Returns a dict object with a message and list of skills, if access to view is granted
+    # side: None
+    def list_skills(self, user_to_view: User):
+        pass
+
     # pre: Calling user is in the database
     # post: Returns a QueryList of all users that can be edited by calling user
     # side: None
     def list_of_editable_users(self) -> list[User]:
         pass
+

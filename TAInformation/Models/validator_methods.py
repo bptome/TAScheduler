@@ -1,3 +1,5 @@
+# Validator Method Module by: Terence Lee (12/17/2021)
+
 from TAInformation.Models.base_user import BaseUser
 from curses.ascii import isupper, islower, isdigit
 from django.core.exceptions import ValidationError
@@ -7,7 +9,7 @@ from django.core.validators import validate_email
 # For all methods:
 # Pre: Argument passed is derived from BaseUser
 # Post: Returns dict object that indicates result of validation and error message, if needed
-from TAInformation.models import User
+from TAInformation.models import User, Skill
 
 
 def id_validator(new_user):
@@ -146,13 +148,25 @@ def all_tests_setup(test_user, id_number: int, name: str, password: str, email: 
     test_user.password = password
     test_user.email = email
     test_user.home_address = address
-    if test_user is type(User):
-        test_user.phone = phone
-    else:
-        test_user.phone = phone
+    test_user.phone = phone
+
 
 # Functions to setup database before all tests
 def setup_database(test_user: BaseUser, test_user_model: User):
     all_tests_setup(test_user_model, test_user.user_id, test_user.name, test_user.password, test_user.email,
                     test_user.home_address, test_user.phone)
+
+    skill_collection = {}
+    skill_to_add = Skill()
+    for skill in test_user.skills:
+        if skill not in skill_collection:
+            skill_collection[skill] = 1
+        else:
+            skill_collection[skill] += 1
+
+        skill_to_add.name = skill
+        skill_to_add.count = skill_collection[skill]
+        skill_to_add.save()
+        test_user_model.skills.add(skill)
+
     test_user_model.save()
