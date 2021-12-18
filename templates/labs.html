@@ -18,26 +18,67 @@
     <a href="/people/">People</a>
     <a href="/">Logout</a>
 </div>
+<p class="header-create-course">Create a new lab</p>
 <div class="error">{{ message }} </div>
 <body>
 
     <form action="" method="post">
         {% csrf_token %}
         <table>
-            <tr><td><input type="text" id="course" name="course" class = "course-input" placeholder="Course Name"></td> <td><input type="text" id="lab" name="lab" class = "course-input" placeholder="Lab Name"></td></tr>
-            <tr><td><input type="checkbox" id="grader" name="grader" class = "course-input" placeholder="Has Grader"></td> <td><input type="text" id="description" name="description" class = "course-input" placeholder="Description"></td></tr>
+            <tr>
+                <td>
+                    <select name="course" id="course" class="instructor-selector">
+                    <option value="" disabled selected>Select a Course to add Lab to</option>
+                    {% for data in avaliableCourses %}
+                        <option value="{{ data }}" > {{ data }}</option>
+                    {% endfor %}
+                </select>
+                </td>
+                <td><input type="text" id="lab" name="lab" class = "course-input" placeholder="Lab Name"></td>
+            </tr>
+            <tr>
+                <td><input type="text" id="description" name="description" class = "course-input" placeholder="Description"></td>
+            </tr>
         </table>
         <input type="submit" class="submit-course-input" >
     </form>
-
+<p class="header-create-course">Add TA to Lab</p>
         <form action="" method="post">
         {% csrf_token %}
         <table>
-            <tr><td><input type="text" id="ta" name="ta" class = "course-input" placeholder="TA Name"></td> <td><input type="text" id="lab" name="lab" class = "course-input" placeholder="Lab Name"></td></tr>
+            <tr>
+                <td>
+                    <select name="ta" id="ta" class="instructor-selector">
+                    <option value="" disabled selected>Select a TA</option>
+                    {% for data in avaliableTAs %}
+                        <option value="{{ data }}" > {{ data }}</option>
+                    {% endfor %}
+                </select>
+                </td>
+                            <td>
+                    <select name="labs" id="labs" class="instructor-selector">
+                    <option value="" disabled selected>Select a Lab</option>
+                    {% for data in avaliableLabs %}
+                        <option value="{{ data }}" > {{ data }}</option>
+                    {% endfor %}
+                </select>
+                </td>
+
+
+            </tr>
         </table>
         <input type="submit" name="addTA" id="addTA" class="submit-course-input" >
     </form>
-    {{ message }}
+
+{% for class in avaliableLabs %}
+    <div class="container">
+        <div class="course-square">
+                    <div class="course-info">
+                        <li> {{ class }}</li>
+                    </div>
+        </div>
+    </div>
+{% endfor %}
 
 
 </body>

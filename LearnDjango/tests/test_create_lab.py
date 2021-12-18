@@ -7,7 +7,7 @@ from TAInformation.models import Lab, LabCourseJunction, User, Course
 
 
 def model_lab_to_test_array(lab):
-    return [lab.lab_name, lab.has_grader, lab.description]
+    return [lab.lab_name, lab.description]
 
 
 class TestAdminCreateLab(TestCase):

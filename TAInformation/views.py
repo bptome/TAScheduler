@@ -33,16 +33,13 @@ def index(request):
 
 class Home(View):
     def get(self, request):
-        if request.session["user_id"]!=None:
-            request.session["user_id"] = None
+        request.session["user_id"] = None
         return render(request, "login.html", {})
 
     def post(self, request):
         badPassword = False
         user = None
         noSuchUser = False
-        if request.session["user_id"] != None:
-            request.session["user_id"] = None
         try:
             # items from database to present with
             userInDb = User(user_id=10, name="Vee", password="pass", email="test@email.com",
@@ -57,9 +54,9 @@ class Home(View):
             User(98, "New TA", "ter7ythg", "trimbach@uwm.edu", "Downer ave", 1, "(414)143-4867").save()
             Course(3, "CS351", 98, "W 900:00-6:00", "Fall", "Graduate", "EZ").save()
             Course(4, "CS250", 99, "W 900:00-6:00", "Summer", "Graduate", "ONLINE").save()
-            Lab(1, "Lab 900", False, "boring lab").save()
+            Lab(1, "Lab 900", "boring lab").save()
             LabCourseJunction(2, 1, 3).save()
-            Lab(2, "Lab 901", False, "not boring lab").save()
+            Lab(2, "Lab 901", "not boring lab").save()
             LabCourseJunction(3, 2, 3).save()
 
             if 'email' in request.POST:
@@ -100,41 +97,36 @@ class Courses(View):
 
         m = get_user(request.session["user_id"])
 
-        avaliableInstructors = []
-        for temp in User.objects.filter(role=AccountType.INSTRUCTOR.value).values():
-            avaliableInstructors.append(temp["name"])
-
-        return render(request, "courses.html", {"name": m.name, "role": m.role, "courses": m.display_courses(), "avaliableInstructors": avaliableInstructors})
+        return render(request, "courses.html", {"name": m.name, "role": m.role, "courses": m.display_courses(),
+                                                "avaliableInstructors": m.avaliableInstructors(),"avaliableTAs":m.avaliableTAs(), "avaliableCourses":m.avaliableCourses() })
 
     def post(self, request):
         m = get_user(request.session["user_id"])
 
         if 'addToCourse' in request.POST:
-            user_name = request.POST['ta']
-            course_name = request.POST['course']
+            user_name = request.POST.get('ta', False);
+            course_name = request.POST.get('course', False);
             if User.objects.filter(name=user_name).exists() & Course.objects.filter(course_name=course_name).exists():
                 user_object = User.objects.get(name=user_name)
                 course_object = Course.objects.get(course_name=course_name)
                 return render(request, "labs.html",
                               {"message": m.assign_ta_to_course(user_object, course_object)})
 
-            return render(request, "courses.html", {"message": "TA or Course not found"})
+            return render(request, "courses.html", {"message": "TA or Course not found", "avaliableInstructors": m.avaliableInstructors(),"avaliableTAs":m.avaliableTAs(), "avaliableCourses":m.avaliableCourses()})
 
         noPermissions = canAccess(m.role, AccountType.ADMIN.value)  # User.objects.get('role')
         if noPermissions:
             return render(request, "courses.html",
                           {"message": "insufficent permissions to create a course. Please contact "
-                                      "your system administrator if you believe this is in error."})
+                                      "your system administrator if you believe this is in error.", "avaliableInstructors": m.avaliableInstructors(),"avaliableTAs":m.avaliableTAs(), "avaliableCourses":m.avaliableCourses()})
         else:
-            newCourse = addCourse(request.POST['name'], request.POST['instructor'],
+            newCourse = addCourse(request.POST['name'], request.POST.get('instructor', False),
                                   request.POST['meeting_time'], request.POST['semester'], request.POST['course_type'],
                                   request.POST['description'])
 
-          newCourse.save()
-          return render(request, "courses.html", {"name": m.name, "role": m.role, "courses": m.display_courses(), "message": "Course Created Successfully"})
-
-        newCourse.save()
-        return render(request, "courses.html", {"name": m.name, "courses": m.display_courses(), "message": "Course Created Successfully"})
+            newCourse.save()
+            return render(request, "courses.html", {"name": m.name, "role": m.role, "courses": m.display_courses(),
+                                                    "message": "Course Created Successfully", "avaliableInstructors": m.avaliableInstructors(),"avaliableTAs":m.avaliableTAs(), "avaliableCourses":m.avaliableCourses()})
 
 
 class People(View):
@@ -162,7 +154,7 @@ class CreateUser(View):
     # Postcondition: Creates new user, if data entered validates successfully and user doesn’t already exist.
     # Side Effects: Message indicating result is displayed at the bottom of the “Create Courses” form
     def post(self, request):
-        #Extract data from form
+        # Extract data from form
         match request.session['role']:
             case AccountType.ADMIN.value:
                 current_user = UserAdmin(
@@ -261,7 +253,8 @@ def validatePassword(self, password):
 
 class Labs(View):
     def get(self, request):
-        return render(request, "labs.html")
+        m = get_user(request.session["user_id"])
+        return render(request, "labs.html", {"avaliableTAs": m.avaliableTAs, "avaliableCourses":m.avaliableCourses(), "avaliableLabs":m.avaliableLabs})
 
     def post(self, request):
         m = get_user(request.session["user_id"])
@@ -273,15 +266,13 @@ class Labs(View):
                 lab_object = Lab.objects.get(lab_name=lab_name)
                 return render(request, "labs.html",
                               {"message": m.assign_ta_to_lab(user_object,
-                                                             lab_object)})
-            return render(request, "labs.html", {"message": "user or lab not found"})
+                                                             lab_object), "avaliableTAs": m.avaliableTAs, "avaliableCourses":m.avaliableCourses(), "avaliableLabs":m.avaliableLabs})
+            return render(request, "labs.html", {"message": "user or lab not found", "avaliableTAs": m.avaliableTAs, "avaliableCourses":m.avaliableCourses(), "avaliableLabs":m.avaliableLabs})
         else:
-            bool_val = request.POST['grader'] == 'on'
 
-            if Course.objects.filter(course_name=request.POST['course']).exists():
+            if Course.objects.filter(course_name=request.POST.get('course', False)).exists():
                 course = Course.objects.get(course_name=request.POST['course'])
                 return render(request, "labs.html",
-                              {"message": m.create_lab(request.POST['lab'], bool_val, request.POST['description'],
-                                                       course)})
+                              {"message": m.create_lab(request.POST['lab'], request.POST['description'], course), "avaliableTAs": m.avaliableTAs, "avaliableCourses":m.avaliableCourses(), "avaliableLabs":m.avaliableLabs})
             return render(request, "labs.html",
                           {"message": "Course not found"})
