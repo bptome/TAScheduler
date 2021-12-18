@@ -36,3 +36,12 @@ class BaseUser(ABC):
     # side: Creates new user of specified role if all data is valid and user doesn't already exist
     def create_user(self, new_user):
         pass
+
+    def create_lab(self, lab_name, has_grader, description, course_id):
+        return "You must be an Admin to add Labs"
+
+    def assign_ta_to_lab(self, lab_id, user_id):
+        return "You must be an Admin to add a TA to a Lab"
+
+    def assign_ta_to_course(self, user_id, course_id):
+        return "You must be an Admin to add TA to a course"

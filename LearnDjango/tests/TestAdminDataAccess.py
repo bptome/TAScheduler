@@ -1,8 +1,6 @@
 from django.test import TestCase
 
-from TAInformation.Models.account_type import AccountType
 from TAInformation.Models.admin import UserAdmin
-from TAInformation.Models.course import ClassCourse
 from TAInformation.Models.instructor import Instructor
 from TAInformation.Models.ta import TA
 from TAInformation.models import Course, User, Lab, LabCourseJunction

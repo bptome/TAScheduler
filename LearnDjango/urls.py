@@ -25,6 +25,6 @@ urlpatterns = [
     path('labs/', Labs.as_view()),
     path('TAInformation/', include('TAInformation.urls')),
     path('create_user/', CreateUser.as_view()),
-    path('addcourse/', AddCourse.as_view()),
+    #path('addcourse/', AddCourse.as_view()),
     path('dashboard/', DashBoard.as_view()),
 ]
