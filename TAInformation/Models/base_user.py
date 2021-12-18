@@ -35,7 +35,7 @@ class BaseUser(ABC):
     # post: Returns a dict object with the result and message about result
     # side: Creates new user of specified role if all data is valid and user doesn't already exist
     def create_user(self, new_user):
-        pass
+        return {'result': False, 'message': "Only admins can create new users\n"}
 
     def create_lab(self, lab_name, has_grader, description, course_id):
         return "You must be an Admin to add Labs"
