@@ -42,13 +42,6 @@ class Home(View):
             userInDb = User(user_id=10, name="Vee", password="pass", email="test@email.com",
                             home_address="3438 tree lane", role=3, phone="123456789")
             userInDb.save()
-            #
-            # user = User(user_id=11, name="Sam", password="password", email="ta@email.com",
-            #                      home_address="7867 tea tree lane", role=2, phone="234567891")
-            # request.session["user_id"] = user.user_id
-            # request.session["email"] = user.email
-            # request.session["role"] = user.role
-            # return redirect("/dashboard/")
 
             newInstructor = User(user_id=11, name="Sam", password="password", email="ta@email.com",
                                  home_address="7867 tea tree lane", role=2, phone="234567891")
@@ -90,7 +83,11 @@ class Courses(View):
     def get(self, request):
         m = get_user(request.session["user_id"])
 
-        return render(request, "courses.html", {"name": m.name, "courses": m.display_courses()})
+        avaliableInstructors = []
+        for temp in User.objects.filter(role=AccountType.INSTRUCTOR.value).values():
+            avaliableInstructors.append(temp["name"])
+
+        return render(request, "courses.html", {"name": m.name, "courses": m.display_courses(), "avaliableInstructors": avaliableInstructors})
 
     def post(self, request):
         m = get_user(request.session["user_id"])
@@ -115,9 +112,9 @@ class Courses(View):
             newCourse = addCourse(request.POST['name'], request.POST['instructor'],
                                   request.POST['meeting_time'], request.POST['semester'], request.POST['course_type'],
                                   request.POST['description'])
-            newCourse.save()
-            return render(request, "courses.html",
-                          {"name": m.name, "courses": m.display_courses(), "message": "Course Created Successfully"})
+
+        newCourse.save()
+        return render(request, "courses.html", {"name": m.name, "courses": m.display_courses(), "message": "Course Created Successfully"})
 
 
 class People(View):
@@ -139,7 +136,7 @@ class CreateUser(View):
     # Postcondition: Creates new user, if data entered validates successfully and user doesn’t already exist.
     # Side Effects: Message indicating result is displayed at the bottom of the “Create Courses” form
     def post(self, request):
-        # Extract data from form
+        #Extract data from form
         match request.session['role']:
             case AccountType.ADMIN.value:
                 current_user = UserAdmin(
