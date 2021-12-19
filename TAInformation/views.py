@@ -109,10 +109,10 @@ class Courses(View):
             if User.objects.filter(name=user_name).exists() & Course.objects.filter(course_name=course_name).exists():
                 user_object = User.objects.get(name=user_name)
                 course_object = Course.objects.get(course_name=course_name)
-                return render(request, "labs.html",
-                              {"message": m.assign_ta_to_course(user_object, course_object)})
+                return render(request, "courses.html",
+                              {"message": m.assign_ta_to_course(user_object, course_object), "avaliableInstructors": m.avaliableInstructors(),"avaliableTAs":m.avaliableTAs(), "avaliableCourses":m.avaliableCourses(), "name": m.name, "role": m.role,})
 
-            return render(request, "courses.html", {"message": "TA or Course not found", "avaliableInstructors": m.avaliableInstructors(),"avaliableTAs":m.avaliableTAs(), "avaliableCourses":m.avaliableCourses()})
+            return render(request, "courses.html", {"message": "TA or Course not found", "avaliableInstructors": m.avaliableInstructors(),"avaliableTAs":m.avaliableTAs(), "avaliableCourses":m.avaliableCourses(), "name": m.name, "role": m.role,})
 
         noPermissions = canAccess(m.role, AccountType.ADMIN.value)  # User.objects.get('role')
         if noPermissions:
@@ -260,7 +260,7 @@ class Labs(View):
         m = get_user(request.session["user_id"])
         if 'ta' in request.POST:
             user_name = request.POST['ta']
-            lab_name = request.POST['lab']
+            lab_name = request.POST['labs']
             if User.objects.filter(name=user_name).exists() & Lab.objects.filter(lab_name=lab_name).exists():
                 user_object = User.objects.get(name=user_name)
                 lab_object = Lab.objects.get(lab_name=lab_name)
