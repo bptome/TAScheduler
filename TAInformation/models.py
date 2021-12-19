@@ -8,7 +8,7 @@ from django.db import models
 
 class Skill(models.Model):
     name = models.CharField(max_length=30, primary_key=True, blank=False)
-    count = models.PositiveSmallIntegerField(default=0)
+    count = models.PositiveSmallIntegerField(default=1)
 
 
 class User(models.Model):

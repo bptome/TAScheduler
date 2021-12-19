@@ -14,6 +14,7 @@ class EditAccountsAsAdminWithValidData(TestCase):
                            home_address="Address to be edited later", phone="(414)555-9999", role=AccountType.TA.value)
         all_tests_setup(self.testAdmin, 1, "testAdmin", "tA1)", "testAdmin@test.com",
                         "101 E. Wisconsin Ave., Milwaukee, WI 53202", "(414)555-0001")
+        setup_database(self.testAdmin, User())
         self.editTA.save()
 
     def test_edit_id_to_unused(self):
@@ -24,7 +25,7 @@ class EditAccountsAsAdminWithValidData(TestCase):
     def test_edit_id_to_used(self):
         result_info = self.testAdmin.edit_user_id(self.editTA, self.testAdmin.user_id)
         self.assertEqual(result_info['message'],
-                         "User with given ID already exists",
+                         "User with given ID already exists\n",
                          msg="Admin was able to change ID number to one already taken by another user")
 
     def test_edit_name_valid_length(self):
@@ -38,7 +39,7 @@ class EditAccountsAsAdminWithValidData(TestCase):
 
     def test_edit_email_to_used(self):
         result_info = self.testAdmin.edit_email(self.editTA, self.testAdmin.email)
-        self.assertEqual(result_info['message'], "User with given email already exists",
+        self.assertEqual(result_info['message'], "User with given email already exists\n",
                          msg="Admin was able to edit user email to one already used by another user")
 
     def test_edit_password(self):
@@ -54,7 +55,7 @@ class EditAccountsAsAdminWithValidData(TestCase):
         self.assertTrue(result_info['result'], msg="Admin wasn\'t able to change user\'s phone number to valid number")
 
     def test_edit_role(self):
-        result_info = self.testAdmin.edit_role(self.editTA, AccountType.INSTRUCTOR)
+        result_info = self.testAdmin.edit_role(self.editTA, AccountType.INSTRUCTOR.value)
         self.assertTrue(result_info['result'], msg="Admin wasn\'t able to change user\'s role to Instructor")
 
     def tearDown(self):
@@ -68,6 +69,7 @@ class EditAccountsAsAdminWithInvalidData(TestCase):
                            home_address="Address to be edited later", phone="(414)555-9999", role=AccountType.TA.value)
         all_tests_setup(self.testAdmin, 1, "testAdmin", "tA1)", "testAdmin@test.com",
                         "101 E. Wisconsin Ave., Milwaukee, WI 53202", "(414)555-0001")
+        setup_database(self.testAdmin, User())
         self.editTA.save()
 
     def test_edit_user_id_neg(self):
@@ -82,7 +84,7 @@ class EditAccountsAsAdminWithInvalidData(TestCase):
 
     def test_edit_name_too_short(self):
        result_info = self.testAdmin.edit_name(self.editTA, "edit")
-       self.assertEqual(result_info['message'], "Given name was too short",
+       self.assertEqual(result_info['message'], "Invalid name given\n",
                         msg="Admin was able to edit user\'s name to one that\'s <= 5 characters")
 
     def test_edit_email(self):
@@ -155,17 +157,18 @@ class EditAccountsAsAdminWithInvalidData(TestCase):
                          msg="Admin was able to change user\'s phone number to one that doesn\'t have a dash in its expected place")
 
     def test_edit_role_default(self):
-        result_info = self.testAdmin.edit_role(self.editTA, AccountType.DEFAULT)
-        self.assertEqual(result_info['message'], "User can\'t be changed to default role\n",
+        result_info = self.testAdmin.edit_role(self.editTA, AccountType.DEFAULT.value)
+        self.assertEqual(result_info['message'], "Given role wasn\'t valid\n",
                          msg="Admin was somehow able to change user to default role")
 
     def test_edit_role_not_account_type(self):
         result_info = self.testAdmin.edit_role(self.editTA, self.testAdmin.role.value+1)
-        self.assertEqual(result_info['message'], "User can\'t be changed to invalid role\n",
+        self.assertEqual(result_info['message'], "Given role wasn\'t valid\n",
                          msg="Admin was somehow able to change user to invalid role")
 
     def tearDown(self):
         User.objects.all().delete()
+
 
 class EditAccountsAsInstructorWithValidData(TestCase):
     def setUp(self):
@@ -174,6 +177,7 @@ class EditAccountsAsInstructorWithValidData(TestCase):
                            home_address="Address to be edited later", phone="(414)555-9999", role=AccountType.TA.value)
         all_tests_setup(self.testInstructor, 1, "testInstructor", "tA1)", "testInstructor@test.com",
                         "101 E. Wisconsin Ave., Milwaukee, WI 53202", "(414)555-0001")
+        setup_database(self.testInstructor, User())
         self.editTA.save()
 
     def test_edit_id_other(self):
@@ -246,13 +250,13 @@ class EditAccountsAsInstructorWithValidData(TestCase):
                          msg="Instructor wasn\'t able to change their phone number to valid number")
 
     def test_edit_role_other(self):
-        result_info = self.testInstructor.edit_role(self.editTA, AccountType.INSTRUCTOR)
+        result_info = self.testInstructor.edit_role(self.editTA, AccountType.INSTRUCTOR.value)
         self.assertFalse(result_info['result'],
                          msg="Instructor was able to change other user\'s role despite being non-admin account")
 
     def test_edit_role_self(self):
         edit_self = User.objects.get(user_id=self.testInstructor.user_id)
-        result_info = self.testInstructor.edit_role(edit_self, AccountType.ADMIN)
+        result_info = self.testInstructor.edit_role(edit_self, AccountType.ADMIN.value)
         self.assertFalse(result_info['result'],
                          msg="Instructor was able to change their role despite being non-admin account")
 
@@ -267,6 +271,7 @@ class EditAccountsAsInstructorWithInvalidData(TestCase):
                            home_address="Address to be edited later", phone="(414)555-9999", role=AccountType.TA.value)
         all_tests_setup(self.testInstructor, 1, "testInstructor", "tA1)", "testInstructor@test.com",
                         "101 E. Wisconsin Ave., Milwaukee, WI 53202", "(414)555-0001")
+        setup_database(self.testInstructor, User())
         self.editTA.save()
 
     def test_edit_user_id_other(self):
@@ -288,18 +293,23 @@ class EditAccountsAsInstructorWithInvalidData(TestCase):
 
     def test_edit_name_other(self):
         result_info = self.testInstructor.edit_name(self.editTA, "name")
-        self.assertEqual(result_info['message'], "Invalid name given\n",
+        self.assertEqual(result_info['message'], 'Only admins can change names\n',
                          msg="Instructor was able to change other user\'s name to one that\'s too short")
 
     def test_edit_name_self(self):
         edit_self = User.objects.get(user_id=self.testInstructor.user_id)
         result_info = self.testInstructor.edit_name(edit_self, "name")
-        self.assertEqual(result_info['message'], "Invalid name given\n",
+        self.assertEqual(result_info['message'], 'Only admins can change names\n',
                          msg="Instructor was able to change their name to one that\'s too short")
 
     def test_edit_email_self(self):
         edit_self = User.objects.get(user_id=self.testInstructor.user_id)
         result_info = self.testInstructor.edit_email(edit_self, "test.com")
+        self.assertFalse(result_info['result'],
+                         msg="Instructor\'s invalid email wasn\'t caught by validator")
+
+    def test_edit_email_other(self):
+        result_info = self.testInstructor.edit_email(self.editTA, "test.com")
         self.assertFalse(result_info['result'],
                          msg="Instructor\'s invalid email wasn\'t caught by validator")
 
@@ -333,9 +343,34 @@ class EditAccountsAsInstructorWithInvalidData(TestCase):
         self.assertEqual(result_info['message'], "Password must contain >= 1 non-alphanumeric character\n",
                          msg="Instructor was able to change their password to one without non-alphanumeric character")
 
+    def test_edit_password_other_too_short(self):
+        result_info = self.testInstructor.edit_password(self.editTA, "gTg")
+        self.assertEqual(result_info['message'], "Instructors can only edit their own password\n",
+                         msg="Instructor was able to change their password to one shorter than the minimum length")
+
+    def test_edit_password_other_missing_uppercase(self):
+        result_info = self.testInstructor.edit_password(self.editTA, "g1&g")
+        self.assertEqual(result_info['message'], "Instructors can only edit their own password\n",
+                         msg="Instructor was able to change their password to one without uppercase letter")
+
+    def test_edit_password_other_missing_lowercase(self):
+        result_info = self.testInstructor.edit_password(self.editTA, "G1&G")
+        self.assertEqual(result_info['message'], "Instructors can only edit their own password\n",
+                         msg="Instructor was able to change their password to one without lowercase letter")
+
+    def test_edit_password_other_missing_number(self):
+        result_info = self.testInstructor.edit_password(self.editTA, "G!&g")
+        self.assertEqual(result_info['message'], "Instructors can only edit their own password\n",
+                         msg="Instructor was able to change their password to one without a number")
+
+    def test_edit_password_other_missing_special(self):
+        result_info = self.testInstructor.edit_password(self.editTA, "g18G")
+        self.assertEqual(result_info['message'], "Instructors can only edit their own password\n",
+                         msg="Instructor was able to change their password to one without non-alphanumeric character")
+
     def test_edit_home_address_other_blank(self):
         result_info = self.testInstructor.edit_home_address(self.editTA, "")
-        self.assertEqual(result_info['message'], "Home address is missing\n",
+        self.assertEqual(result_info['message'], 'Instructors can only edit their own home address\n',
                          msg="Instructor was able to change other user\'s home address to an empty string")
 
     def test_edit_home_address_self_blank(self):
@@ -346,7 +381,7 @@ class EditAccountsAsInstructorWithInvalidData(TestCase):
 
     def test_edit_home_address_other_spaces(self):
         result_info = self.testInstructor.edit_home_address(self.editTA, "  ")
-        self.assertEqual(result_info['message'], "Home address must contain some non-space characters\n",
+        self.assertEqual(result_info['message'], 'Instructors can only edit their own home address\n',
                          msg="Instructor was able to change other user\'s home address to a string with only spaces in it")
 
     def test_edit_home_address_self_spaces(self):
@@ -357,7 +392,7 @@ class EditAccountsAsInstructorWithInvalidData(TestCase):
 
     def test_edit_phone_other_blank(self):
         result_info = self.testInstructor.edit_phone(self.editTA, "")
-        self.assertEqual(result_info['message'], "No phone number given\n",
+        self.assertEqual(result_info['message'], 'Instructors can only edit their own phone number\n',
                          msg="Instructor was able to change other user\'s phone number to an empty string")
 
     def test_edit_phone_self_blank(self):
@@ -368,18 +403,18 @@ class EditAccountsAsInstructorWithInvalidData(TestCase):
 
     def test_edit_phone_other_wrong_amount(self):
         result_info = self.testInstructor.edit_phone(self.editTA, "4145550123")
-        self.assertEqual(result_info['message'], "Phone number should have exactly 13 characters\n",
+        self.assertEqual(result_info['message'], 'Instructors can only edit their own phone number\n',
                          msg="Instructor was able to change other user\'s phone number to an string that doesn\'t have exactly 13 characters")
 
     def test_edit_phone_self_wrong_amount(self):
-        edit_self = User.objects.get(user_id=self.testInstructor.edit_user_id)
+        edit_self = User.objects.get(user_id=self.testInstructor.user_id)
         result_info = self.testInstructor.edit_phone(edit_self, "4145550123")
         self.assertEqual(result_info['message'], "Phone number should have exactly 13 characters\n",
                          msg="Instructor was able to change other user\'s phone number to an string that doesn\'t have exactly 13 characters")
 
     def test_edit_phone_other_misplaced(self):
         result_info = self.testInstructor.edit_phone(self.editTA, "(414)A55-0123")
-        self.assertEqual(result_info['message'], "Misplaced character in phone number entry\n",
+        self.assertEqual(result_info['message'], 'Instructors can only edit their own phone number\n',
                          msg="Instructor was able to change other user\'s phone number to one that has a non-digit in a place that one is expected")
 
     def test_edit_phone_self_misplaced(self):
@@ -390,7 +425,7 @@ class EditAccountsAsInstructorWithInvalidData(TestCase):
 
     def test_edit_phone_other_lead_parentheses(self):
         result_info = self.testInstructor.edit_phone(self.editTA, "1414)555-0123")
-        self.assertEqual(result_info['message'], "Missing lead parentheses in phone number entry\n",
+        self.assertEqual(result_info['message'], 'Instructors can only edit their own phone number\n',
                          msg="Instructor was able to change other user\'s phone number to one that doesn\'t have a lead parentheses")
 
     def test_edit_phone_self_lead_parentheses(self):
@@ -401,7 +436,7 @@ class EditAccountsAsInstructorWithInvalidData(TestCase):
 
     def test_edit_phone_other_trail_parentheses(self):
         result_info = self.testInstructor.edit_phone(self.editTA, "(4141555-0123")
-        self.assertEqual(result_info['message'], "Missing trailing parentheses in phone number entry\n",
+        self.assertEqual(result_info['message'], 'Instructors can only edit their own phone number\n',
                          msg="Instructor was able to change other user\'s phone number to one that doesn\'t have a trailing parentheses in its expected place")
 
     def test_edit_phone_self_trail_parentheses(self):
@@ -412,7 +447,7 @@ class EditAccountsAsInstructorWithInvalidData(TestCase):
 
     def test_edit_phone_other_dash(self):
         result_info = self.testInstructor.edit_phone(self.editTA, "(414)55510123")
-        self.assertEqual(result_info['message'], "Missing dash between prefix and suffix in phone number entry\n",
+        self.assertEqual(result_info['message'], 'Instructors can only edit their own phone number\n',
                          msg="Instructor was able to change other user\'s phone number to one that doesn\'t have a dash in its expected place")
 
     def test_edit_phone_self_dash(self):
@@ -422,25 +457,25 @@ class EditAccountsAsInstructorWithInvalidData(TestCase):
                          msg="Instructor was able to change their phone number to one that doesn\'t have a dash in its expected place")
 
     def test_edit_role_other_default(self):
-        result_info = self.testInstructor.edit_role(self.editTA, AccountType.DEFAULT)
-        self.assertEqual(result_info['message'], "User can\'t be changed to default role\n",
+        result_info = self.testInstructor.edit_role(self.editTA, AccountType.DEFAULT.value)
+        self.assertEqual(result_info['message'], "Instructors can\'t change anyone\'s role\n",
                          msg="Instructor was somehow able to change other user to default role")
 
     def test_edit_role_self_default(self):
         edit_self = User.objects.get(user_id=self.testInstructor.user_id)
-        result_info = self.testInstructor.edit_role(edit_self, AccountType.DEFAULT)
-        self.assertEqual(result_info['message'], "User can\'t be changed to default role\n",
+        result_info = self.testInstructor.edit_role(edit_self, AccountType.DEFAULT.value)
+        self.assertEqual(result_info['message'], "Instructors can\'t change anyone\'s role\n",
                          msg="Instructor was somehow able to change themselves to default role")
 
     def test_edit_role_other_not_account_type(self):
         result_info = self.testInstructor.edit_role(self.editTA, self.testInstructor.role.value+1)
-        self.assertEqual(result_info['message'], "User can\'t be changed to invalid role\n",
+        self.assertEqual(result_info['message'], "Instructors can\'t change anyone\'s role\n",
                          msg="Instructor was somehow able to change other user to invalid role")
 
     def test_edit_role_self_not_account_type(self):
         edit_self = User.objects.get(user_id=self.testInstructor.user_id)
         result_info = self.testInstructor.edit_role(edit_self, self.testInstructor.role.value+1)
-        self.assertEqual(result_info['message'], "User can\'t be changed to invalid role\n",
+        self.assertEqual(result_info['message'], "Instructors can\'t change anyone\'s role\n",
                          msg="Instructor was somehow able to change themselves to invalid role")
 
     def tearDown(self):
@@ -454,6 +489,7 @@ class EditAccountsAsTAWithValidData(TestCase):
                            home_address="Address to be edited later", phone="(414)555-9999", role=AccountType.TA.value)
         all_tests_setup(self.testTA, 1, "testTA", "tA1)", "testTA@test.com",
                         "101 E. Wisconsin Ave., Milwaukee, WI 53202", "(414)555-0001")
+        setup_database(self.testTA, User())
         self.editTA.save()
 
     def test_edit_id_other(self):
@@ -479,7 +515,7 @@ class EditAccountsAsTAWithValidData(TestCase):
     def test_edit_email_other(self):
         result_info = self.testTA.edit_email(self.editTA, "editTA@test.com")
         self.assertFalse(result_info['result'],
-                        msg="TA was able to change email despite not being an admin")
+                         msg="TA was able to change email despite not being an admin")
 
     def test_edit_email_self_taken(self):
         edit_self = User.objects.get(user_id=self.testTA.user_id)
@@ -491,7 +527,7 @@ class EditAccountsAsTAWithValidData(TestCase):
         edit_self = User.objects.get(user_id=self.testTA.user_id)
         result_info = self.testTA.edit_email(edit_self, "editInstructor@test.com")
         self.assertTrue(result_info['result'],
-                         msg="TA wasn\'t able to use valid email that no other user had")
+                        msg="TA wasn\'t able to use valid email that no other user had")
 
     def test_edit_password_other(self):
         result_info = self.testTA.edit_password(self.editTA, "gTg1*")
@@ -512,7 +548,7 @@ class EditAccountsAsTAWithValidData(TestCase):
         edit_self = User.objects.get(user_id=self.testTA.user_id)
         result_info = self.testTA.edit_home_address(edit_self, "2200 E. Kenwood Bd., Milwaukee, WI 53201")
         self.assertTrue(result_info['result'],
-                         msg="TA wasn\'t able to change their home address to valid address")
+                        msg="TA wasn\'t able to change their home address to valid address")
 
     def test_edit_phone_number_other(self):
         result_info = self.testTA.edit_phone(self.editTA, self.testTA.phone)
@@ -547,6 +583,7 @@ class EditAccountsAsTAWithInvalidData(TestCase):
                            home_address="Address to be edited later", phone="(414)555-9999", role=AccountType.TA.value)
         all_tests_setup(self.testTA, 1, "testTA", "tA1)", "testTA@test.com",
                         "101 E. Wisconsin Ave., Milwaukee, WI 53202", "(414)555-0001")
+        setup_database(self.testTA, User())
         self.editTA.save()
 
     def test_edit_user_id_other(self):
@@ -568,18 +605,23 @@ class EditAccountsAsTAWithInvalidData(TestCase):
 
     def test_edit_name_other(self):
         result_info = self.testTA.edit_name(self.editTA, "name")
-        self.assertEqual(result_info['message'], "Invalid name given\n",
+        self.assertEqual(result_info['message'], "Only admins can change names\n",
                          msg="TA was able to change other user\'s name to one that\'s too short")
 
     def test_edit_name_self(self):
         edit_self = User.objects.get(user_id=self.testTA.user_id)
         result_info = self.testTA.edit_name(edit_self, "name")
-        self.assertEqual(result_info['message'], "Invalid name given\n",
+        self.assertEqual(result_info['message'], "Only admins can change names\n",
                          msg="TA was able to change their name to one that\'s too short")
 
     def test_edit_email_self(self):
         edit_self = User.objects.get(user_id=self.testTA.user_id)
         result_info = self.testTA.edit_email(edit_self, "test.com")
+        self.assertFalse(result_info['result'],
+                         msg="TA\'s invalid email wasn\'t caught by validator")
+
+    def test_edit_email_other(self):
+        result_info = self.testTA.edit_email(self.editTA, "test.com")
         self.assertFalse(result_info['result'],
                          msg="TA\'s invalid email wasn\'t caught by validator")
 
@@ -613,9 +655,34 @@ class EditAccountsAsTAWithInvalidData(TestCase):
         self.assertEqual(result_info['message'], "Password must contain >= 1 non-alphanumeric character\n",
                          msg="TA was able to change their password to one without non-alphanumeric character")
 
+    def test_edit_password_other_too_short(self):
+        result_info = self.testTA.edit_password(self.editTA, "gTg")
+        self.assertEqual(result_info['message'], "TAs can only edit their own password\n",
+                         msg="TA was able to change their password to one shorter than the minimum length")
+
+    def test_edit_password_other_missing_uppercase(self):
+        result_info = self.testTA.edit_password(self.editTA, "g1&g")
+        self.assertEqual(result_info['message'], "TAs can only edit their own password\n",
+                         msg="TA was able to change their password to one without uppercase letter")
+
+    def test_edit_password_other_missing_lowercase(self):
+        result_info = self.testTA.edit_password(self.editTA, "G1&G")
+        self.assertEqual(result_info['message'], "TAs can only edit their own password\n",
+                         msg="TA was able to change their password to one without lowercase letter")
+
+    def test_edit_password_other_missing_number(self):
+        result_info = self.testTA.edit_password(self.editTA, "G!&g")
+        self.assertEqual(result_info['message'], "TAs can only edit their own password\n",
+                         msg="TA was able to change their password to one without a number")
+
+    def test_edit_password_other_missing_special(self):
+        result_info = self.testTA.edit_password(self.editTA, "g18G")
+        self.assertEqual(result_info['message'], "TAs can only edit their own password\n",
+                         msg="TA was able to change their password to one without non-alphanumeric character")
+
     def test_edit_home_address_other_blank(self):
         result_info = self.testTA.edit_home_address(self.editTA, "")
-        self.assertEqual(result_info['message'], "Home address is missing\n",
+        self.assertEqual(result_info['message'], "TAs can only edit their own home address\n",
                          msg="TA was able to change other user\'s home address to an empty string")
 
     def test_edit_home_address_self_blank(self):
@@ -626,7 +693,7 @@ class EditAccountsAsTAWithInvalidData(TestCase):
 
     def test_edit_home_address_other_spaces(self):
         result_info = self.testTA.edit_home_address(self.editTA, "  ")
-        self.assertEqual(result_info['message'], "Home address must contain some non-space characters\n",
+        self.assertEqual(result_info['message'], "TAs can only edit their own home address\n",
                          msg="TA was able to change other user\'s home address to a string with only spaces in it")
 
     def test_edit_home_address_self_spaces(self):
@@ -637,7 +704,7 @@ class EditAccountsAsTAWithInvalidData(TestCase):
 
     def test_edit_phone_other_blank(self):
         result_info = self.testTA.edit_phone(self.editTA, "")
-        self.assertEqual(result_info['message'], "No phone number given\n",
+        self.assertEqual(result_info['message'], "TAs can only edit their own phone number\n",
                          msg="TA was able to change other user\'s phone number to an empty string")
 
     def test_edit_phone_self_blank(self):
@@ -648,18 +715,18 @@ class EditAccountsAsTAWithInvalidData(TestCase):
 
     def test_edit_phone_other_wrong_amount(self):
         result_info = self.testTA.edit_phone(self.editTA, "4145550123")
-        self.assertEqual(result_info['message'], "Phone number should have exactly 13 characters\n",
+        self.assertEqual(result_info['message'], "TAs can only edit their own phone number\n",
                          msg="TA was able to change other user\'s phone number to an string that doesn\'t have exactly 13 characters")
 
     def test_edit_phone_self_wrong_amount(self):
-        edit_self = User.objects.get(user_id=self.testTA.edit_user_id)
+        edit_self = User.objects.get(user_id=self.testTA.user_id)
         result_info = self.testTA.edit_phone(edit_self, "4145550123")
         self.assertEqual(result_info['message'], "Phone number should have exactly 13 characters\n",
                          msg="TA was able to change other user\'s phone number to an string that doesn\'t have exactly 13 characters")
 
     def test_edit_phone_other_misplaced(self):
         result_info = self.testTA.edit_phone(self.editTA, "(414)A55-0123")
-        self.assertEqual(result_info['message'], "Misplaced character in phone number entry\n",
+        self.assertEqual(result_info['message'], "TAs can only edit their own phone number\n",
                          msg="TA was able to change other user\'s phone number to one that has a non-digit in a place that one is expected")
 
     def test_edit_phone_self_misplaced(self):
@@ -670,7 +737,7 @@ class EditAccountsAsTAWithInvalidData(TestCase):
 
     def test_edit_phone_other_lead_parentheses(self):
         result_info = self.testTA.edit_phone(self.editTA, "1414)555-0123")
-        self.assertEqual(result_info['message'], "Missing lead parentheses in phone number entry\n",
+        self.assertEqual(result_info['message'], "TAs can only edit their own phone number\n",
                          msg="TA was able to change other user\'s phone number to one that doesn\'t have a lead parentheses")
 
     def test_edit_phone_self_lead_parentheses(self):
@@ -681,7 +748,7 @@ class EditAccountsAsTAWithInvalidData(TestCase):
 
     def test_edit_phone_other_trail_parentheses(self):
         result_info = self.testTA.edit_phone(self.editTA, "(4141555-0123")
-        self.assertEqual(result_info['message'], "Missing trailing parentheses in phone number entry\n",
+        self.assertEqual(result_info['message'], "TAs can only edit their own phone number\n",
                          msg="TA was able to change other user\'s phone number to one that doesn\'t have a trailing parentheses in its expected place")
 
     def test_edit_phone_self_trail_parentheses(self):
@@ -692,7 +759,7 @@ class EditAccountsAsTAWithInvalidData(TestCase):
 
     def test_edit_phone_other_dash(self):
         result_info = self.testTA.edit_phone(self.editTA, "(414)55510123")
-        self.assertEqual(result_info['message'], "Missing dash between prefix and suffix in phone number entry\n",
+        self.assertEqual(result_info['message'], "TAs can only edit their own phone number\n",
                          msg="TA was able to change other user\'s phone number to one that doesn\'t have a dash in its expected place")
 
     def test_edit_phone_self_dash(self):
@@ -702,25 +769,25 @@ class EditAccountsAsTAWithInvalidData(TestCase):
                          msg="TA was able to change their phone number to one that doesn\'t have a dash in its expected place")
 
     def test_edit_role_other_default(self):
-        result_info = self.testTA.edit_role(self.editTA, AccountType.DEFAULT)
-        self.assertEqual(result_info['message'], "User can\'t be changed to default role\n",
+        result_info = self.testTA.edit_role(self.editTA, AccountType.DEFAULT.value)
+        self.assertEqual(result_info['message'], "TAs can\'t change anyone\'s role\n",
                          msg="TA was somehow able to change other user to default role")
 
     def test_edit_role_self_default(self):
         edit_self = User.objects.get(user_id=self.testTA.user_id)
-        result_info = self.testTA.edit_role(edit_self, AccountType.DEFAULT)
-        self.assertEqual(result_info['message'], "User can\'t be changed to default role\n",
+        result_info = self.testTA.edit_role(edit_self, AccountType.DEFAULT.value)
+        self.assertEqual(result_info['message'], "TAs can\'t change anyone\'s role\n",
                          msg="TA was somehow able to change themselves to default role")
 
     def test_edit_role_other_not_account_type(self):
-        result_info = self.testTA.edit_role(self.editTA, self.testTA.role.value + 1)
-        self.assertEqual(result_info['message'], "User can\'t be changed to invalid role\n",
+        result_info = self.testTA.edit_role(self.editTA, self.testTA.role.value+3)
+        self.assertEqual(result_info['message'], "TAs can\'t change anyone\'s role\n",
                          msg="TA was somehow able to change other user to invalid role")
 
     def test_edit_role_self_not_account_type(self):
         edit_self = User.objects.get(user_id=self.testTA.user_id)
-        result_info = self.testTA.edit_role((edit_self, self.testTA.role.value + 1))
-        self.assertEqual(result_info['message'], "User can\'t be changed to invalid role\n",
+        result_info = self.testTA.edit_role(edit_self, self.testTA.role.value+3)
+        self.assertEqual(result_info['message'], "TAs can\'t change anyone\'s role\n",
                          msg="TA was somehow able to change themselves to invalid role")
 
     def tearDown(self):
@@ -729,9 +796,9 @@ class EditAccountsAsTAWithInvalidData(TestCase):
 
 class DropDownListPopulation(TestCase):
     def setUp(self):
-        self.listedAdmin= User(user_id=1, name="listedAdmin", email="listedAdmin@test.com", password="p2BNl$",
-                               home_address="Address to be edited later", phone="(414)555-9999",
-                               role=AccountType.ADMIN.value)
+        self.listedAdmin = User(user_id=1, name="listedAdmin", email="listedAdmin@test.com", password="p2BNl$",
+                                home_address="Address to be edited later", phone="(414)555-9999",
+                                role=AccountType.ADMIN.value)
         self.listedInstructor = User(user_id=2, name="listedInstructor", email="listedInstructor@test.com",
                                      password="p2BNl$", home_address="Address to be edited later",
                                      phone="(414)555-9999", role=AccountType.INSTRUCTOR.value)
@@ -743,33 +810,24 @@ class DropDownListPopulation(TestCase):
         self.listedTA.save()
 
     def test_dropdown_as_admin(self):
-        an_admin = User.objects.get(user_id=1)
-        test_admin = UserAdmin(id_number=an_admin.user_id, name=an_admin.name, email=an_admin.email,
-                               password=an_admin.password, address=an_admin.home_address, phone=an_admin.phone)
-        list_of_users = list(test_admin.list_of_editable_users())
-        self.assertEqual(list_of_users.count, 3, msg="Editable user lists didn\'t load up all users in database")
-
-    def test_dropdown_as_admin(self):
-        an_admin = User.objects.get(user_id=1)
-        test_admin = UserAdmin(id_number=an_admin.user_id, name=an_admin.name, email=an_admin.email,
-                               password=an_admin.password, address=an_admin.home_address, phone=an_admin.phone)
-        actual_list = list(test_admin.list_of_editable_users())
+        test_admin = UserAdmin(id_number=self.listedAdmin.user_id, name=self.listedAdmin.name,
+                               email=self.listedAdmin.email, password=self.listedAdmin.password,
+                               address=self.listedAdmin.home_address, phone=self.listedAdmin.phone)
+        actual_list = test_admin.list_of_editable_users()
         expected_list = [self.listedAdmin, self.listedInstructor, self.listedTA]
         self.assertEqual(actual_list, expected_list, msg="Editable user lists didn\'t load up all users in database")
 
     def test_dropdown_as_instructor(self):
-        an_instructor = User.objects.get(user_id=2)
-        test_instructor = Instructor(id_number=an_instructor.user_id, name=an_instructor.name, email=an_instructor.email,
-                                     password=an_instructor.password, address=an_instructor.home_address,
-                                     phone=an_instructor.phone)
-        actual_list = list(test_instructor.list_of_editable_users())
+        test_instructor = Instructor(id_number=self.listedInstructor.user_id, name=self.listedInstructor.name,
+                                     email=self.listedInstructor.email, password=self.listedInstructor.password,
+                                     address=self.listedInstructor.home_address, phone=self.listedInstructor.phone)
+        actual_list = test_instructor.list_of_editable_users()
         expected_list = [self.listedInstructor]
         self.assertEqual(actual_list, expected_list, msg="Editable user lists didn\'t just consist of the calling user")
 
     def test_dropdown_as_ta(self):
-        a_ta = User.objects.get(user_id=3)
-        test_ta = TA(id_number=a_ta.user_id, name=a_ta.name, email=a_ta.email, password=a_ta.password,
-                     address=a_ta.home_address, phone=a_ta.phone)
-        actual_list = list(test_ta.list_of_editable_users())
+        test_ta = TA(id_number=self.listedTA.user_id, name=self.listedTA.name, email=self.listedTA.email,
+                     password=self.listedTA.password, address=self.listedTA.home_address, phone=self.listedTA.phone)
+        actual_list = test_ta.list_of_editable_users()
         expected_list = [self.listedTA]
         self.assertEqual(actual_list, expected_list, msg="Editable user lists didn\'t just consist of the calling user")

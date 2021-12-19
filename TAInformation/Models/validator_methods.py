@@ -1,5 +1,5 @@
 # Validator Method Module by: Terence Lee (12/17/2021)
-
+from TAInformation.Models.account_type import AccountType
 from TAInformation.Models.base_user import BaseUser
 from curses.ascii import isupper, islower, isdigit
 from django.core.exceptions import ValidationError
@@ -28,7 +28,7 @@ def name_validator(new_user):
 
 def password_validator(new_user):
     if len(new_user.password) < 4:
-        return {'result': True, 'errorMsg': "Password must be at least 4 characters long\n"}
+        return {'result': False, 'errorMsg': "Password must be at least 4 characters long\n"}
 
     uppercase_missing = True
     lowercase_missing = True
@@ -156,17 +156,17 @@ def setup_database(test_user: BaseUser, test_user_model: User):
     all_tests_setup(test_user_model, test_user.user_id, test_user.name, test_user.password, test_user.email,
                     test_user.home_address, test_user.phone)
 
-    skill_collection = {}
-    skill_to_add = Skill()
-    for skill in test_user.skills:
-        if skill not in skill_collection:
-            skill_collection[skill] = 1
-        else:
-            skill_collection[skill] += 1
-
-        skill_to_add.name = skill
-        skill_to_add.count = skill_collection[skill]
-        skill_to_add.save()
-        test_user_model.skills.add(skill)
-
     test_user_model.save()
+
+
+def role_validator(new_user):
+    valid_role_set = set()
+    for role in range(AccountType.TA.value, AccountType.ADMIN.value+1):
+        valid_role_set.add(role)
+
+    the_result = new_user.role in valid_role_set
+    error_msg = ""
+    if not the_result:
+        error_msg = "Given role wasn\'t valid\n"
+
+    return {'result': the_result, 'errorMsg': error_msg}

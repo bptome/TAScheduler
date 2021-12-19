@@ -13,7 +13,7 @@ class BaseUser(ABC):
         self.home_address = address
         self.phone = phone
         self.role = AccountType.DEFAULT
-        self.skills = User.objects.get(user_id=self.user_id).skills.all()
+        self.skills: set[str] = set(User.objects.filter(user_id=self.user_id).values_list('skills__name', flat=True))
 
     # post condition: return an array of Course specific to the user
     @abstractmethod
@@ -78,7 +78,7 @@ class BaseUser(ABC):
     # pre: Data in user_to_edit is of an existing user
     # post: Returns a dict object with the result and message about result
     # side: Record in User table is updated with new role, if validation succeeds
-    def edit_role(self, user_to_edit: User, new_role: AccountType):
+    def edit_role(self, user_to_edit: User, new_role: int):
         pass
 
     # pre: Data in user_to_edit is of an existing user
