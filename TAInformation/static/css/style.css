@@ -272,3 +272,10 @@ form.form1 {
     margin-top: 10px;
     font-family: 'Ubuntu', sans-serif;
 }
+.header-default {
+        color: #8C55AA;
+        font-family: 'Ubuntu', sans-serif;
+        font-weight: bold;
+        font-size: 35px;
+
+    }

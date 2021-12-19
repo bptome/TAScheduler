@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 from TAInformation.Models.account_type import AccountType
+from TAInformation.models import Course, User, Lab
 
 
 class BaseUser(ABC):
@@ -37,7 +38,7 @@ class BaseUser(ABC):
     def create_user(self, new_user):
         return {'result': False, 'message': "Only admins can create new users\n"}
 
-    def create_lab(self, lab_name, has_grader, description, course):
+    def create_lab(self, lab_name, description, course):
         return "You must be an Admin to add Labs"
 
     def assign_ta_to_lab(self, lab, user):
@@ -45,3 +46,28 @@ class BaseUser(ABC):
 
     def assign_ta_to_course(self, user, course):
         return "You must be an Admin to add TA to a course"
+
+    def avaliableInstructors(self):
+        arr = []
+        for val in User.objects.filter(role=AccountType.INSTRUCTOR.value).values():
+            arr.append(val["name"])
+        return arr
+
+    def avaliableTAs(self):
+            arr = []
+            for val in User.objects.filter(role=AccountType.TA.value).values():
+                arr.append(val["name"])
+            return arr
+
+    def avaliableCourses(self):
+            arr = []
+            for val in Course.objects.all().values():
+                arr.append(val["course_name"])
+            return arr
+    def avaliableLabs(self):
+            arr = []
+            for val in Lab.objects.all().values():
+                arr.append(val["lab_name"])
+
+            print(arr)
+            return arr

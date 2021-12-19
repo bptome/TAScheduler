@@ -28,7 +28,6 @@ class Course(models.Model):
 class Lab(models.Model):
     lab_id = models.BigAutoField(primary_key=True, serialize=False, verbose_name='ID')
     lab_name = models.CharField(max_length=20)
-    has_grader = models.BooleanField()
     description = models.CharField(max_length=200)
 
 

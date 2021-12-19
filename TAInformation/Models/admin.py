@@ -73,12 +73,12 @@ class UserAdmin(BaseUser):
     # pre: lab_name is a String, has_grader is a boolean, description is a String, course is a valid Course
     # post: message
     # side: if lab name is not unique, saves a new lab to the DB, saves a new lab to course junction to the DB
-    def create_lab(self, lab_name, has_grader, description, course):
+    def create_lab(self, lab_name, description, course):
         if Lab.objects.filter(lab_name=lab_name).exists():
             for junction in LabCourseJunction.objects.filter(course_id=course):
                 if LabCourseJunction.objects.filter(lab_id=junction.lab_id, course_id=course):
                     return "Lab name already created for this course"
-        lab = Lab.objects.create(lab_name=lab_name, has_grader=has_grader, description=description)
+        lab = Lab.objects.create(lab_name=lab_name, description=description)
         LabCourseJunction.objects.create(lab_id=lab, course_id=course)
         return "Lab saved to course"
 
