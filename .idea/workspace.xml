@@ -4,16 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="68c36039-8adc-42d3-963c-c57117e2f839" name="Changes" comment="(commit with Ayenew) Added view TA Assignments page and styling&#10;&#10;Ayenew and I peer-programmed this, but i am committing it due to unresolved pycharm errors">
-      <change afterPath="$PROJECT_DIR$/LearnDjango/tests/testEditAccount.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/LearnDjango/tests/testTaAssignment.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TAInformation/migrations/0002_remove_lab_has_grader.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/virtualenv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/LearnDjango.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/LearnDjango.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="68c36039-8adc-42d3-963c-c57117e2f839" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TAInformation/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/TAInformation/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/virtualenv" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,7 +74,7 @@
     <property name="run.code.analysis.last.selected.profile" value="aDefault" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
-  <component name="RunManager" selected="Django tests.Test: LearnDjango.tests.testTaAssignment">
+  <component name="RunManager" selected="Django Server.LearnDjango">
     <configuration name="Test: LearnDjango.tests.TestAdminDataAccess" type="DjangoTestsConfigurationType" temporary="true">
       <module name="LearnDjango" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -243,6 +237,7 @@
       <workItem from="1638808879272" duration="1331000" />
       <workItem from="1639629328719" duration="15086000" />
       <workItem from="1639853371891" duration="22302000" />
+      <workItem from="1639951610043" duration="361000" />
     </task>
     <task id="LOCAL-00001" summary="Refactor tests and added class stubs">
       <created>1638491832180</created>
@@ -363,7 +358,14 @@
       <option name="project" value="LOCAL" />
       <updated>1639937542842</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="added TA Assignment test">
+      <created>1639949594746</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1639949594746</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -398,7 +400,8 @@
     <MESSAGE value="Added styling to Create User" />
     <MESSAGE value="Added more styling and fixed error message" />
     <MESSAGE value="(commit with Ayenew) Added view TA Assignments page and styling&#10;&#10;Ayenew and I peer-programmed this, but i am committing it due to unresolved pycharm errors" />
-    <option name="LAST_COMMIT_MESSAGE" value="(commit with Ayenew) Added view TA Assignments page and styling&#10;&#10;Ayenew and I peer-programmed this, but i am committing it due to unresolved pycharm errors" />
+    <MESSAGE value="added TA Assignment test" />
+    <option name="LAST_COMMIT_MESSAGE" value="added TA Assignment test" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
