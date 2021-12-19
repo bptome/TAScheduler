@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
-from TAInformation.views import Home, Courses, People, DashBoard, Labs,  CreateUser
+from TAInformation.views import Home, Courses, People, DashBoard, Labs,  CreateUser, taAssignment
 
 urlpatterns = [
     path('', Home.as_view()),
@@ -26,4 +26,5 @@ urlpatterns = [
     path('TAInformation/', include('TAInformation.urls')),
     path('create_user/', CreateUser.as_view()),
     path('dashboard/', DashBoard.as_view()),
+    path('ta_assign/', taAssignment.as_view()),
 ]
