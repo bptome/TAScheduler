@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="68c36039-8adc-42d3-963c-c57117e2f839" name="Changes" comment="(commit with Ayenew) Added view TA Assignments page and styling&#10;&#10;Ayenew and I peer-programmed this, but i am committing it due to unresolved pycharm errors">
+      <change afterPath="$PROJECT_DIR$/LearnDjango/tests/testEditAccount.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearnDjango/tests/testTaAssignment.py" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/TAInformation/migrations/0002_remove_lab_has_grader.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/virtualenv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/LearnDjango.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/LearnDjango.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TAInformation/static/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/TAInformation/static/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TAInformation/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/TAInformation/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/courses.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/courses.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/create_user.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/create_user.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/labs.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/labs.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/people.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/people.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/ta_assign.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/ta_assign.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,7 +34,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="styling_and_combining" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -74,10 +73,14 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/venv" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="run.code.analysis.last.selected.profile" value="aDefault" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
-  <component name="RunManager" selected="Django Server.LearnDjango">
+  <component name="RunManager" selected="Django tests.Test: LearnDjango.tests.testTaAssignment">
     <configuration name="Test: LearnDjango.tests.TestAdminDataAccess" type="DjangoTestsConfigurationType" temporary="true">
       <module name="LearnDjango" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -98,7 +101,7 @@
       <option name="OPTIONS" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Test: LearnDjango.tests.TestAdminDataAccess.TestDisplayPeople" type="DjangoTestsConfigurationType" temporary="true">
+    <configuration name="Test: LearnDjango.tests.testEditAccount" type="DjangoTestsConfigurationType" temporary="true">
       <module name="LearnDjango" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -111,14 +114,14 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="TARGET" value="LearnDjango.tests.TestAdminDataAccess.TestDisplayPeople" />
+      <option name="TARGET" value="LearnDjango.tests.testEditAccount" />
       <option name="SETTINGS_FILE" value="" />
       <option name="CUSTOM_SETTINGS" value="false" />
       <option name="USE_OPTIONS" value="false" />
       <option name="OPTIONS" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Test: LearnDjango.tests.test_account_type_enum.TestStr.test_outside_rage" type="DjangoTestsConfigurationType" temporary="true">
+    <configuration name="Test: LearnDjango.tests.testTaAssignment" type="DjangoTestsConfigurationType" temporary="true">
       <module name="LearnDjango" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -131,7 +134,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="TARGET" value="LearnDjango.tests.test_account_type_enum.TestStr.test_outside_rage" />
+      <option name="TARGET" value="LearnDjango.tests.testTaAssignment" />
       <option name="SETTINGS_FILE" value="" />
       <option name="CUSTOM_SETTINGS" value="false" />
       <option name="USE_OPTIONS" value="false" />
@@ -202,13 +205,21 @@
       <option name="customRunCommand" value="" />
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="Django Server.LearnDjango" />
+      <item itemvalue="Django tests.Test: LearnDjango.tests.test_courses_page.AdminAccess" />
+      <item itemvalue="Django tests.Test: LearnDjango.tests.test_people_page.AdminAccess" />
+      <item itemvalue="Django tests.Test: LearnDjango.tests.TestAdminDataAccess" />
+      <item itemvalue="Django tests.Test: LearnDjango.tests.testTaAssignment" />
+      <item itemvalue="Django tests.Test: LearnDjango.tests.testEditAccount" />
+    </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Django tests.Test: LearnDjango.tests.testTaAssignment" />
+        <item itemvalue="Django tests.Test: LearnDjango.tests.testEditAccount" />
         <item itemvalue="Django tests.Test: LearnDjango.tests.TestAdminDataAccess" />
         <item itemvalue="Django tests.Test: LearnDjango.tests.test_people_page.AdminAccess" />
         <item itemvalue="Django tests.Test: LearnDjango.tests.test_courses_page.AdminAccess" />
-        <item itemvalue="Django tests.Test: LearnDjango.tests.TestAdminDataAccess.TestDisplayPeople" />
-        <item itemvalue="Django tests.Test: LearnDjango.tests.test_account_type_enum.TestStr.test_outside_rage" />
       </list>
     </recent_temporary>
   </component>
@@ -397,25 +408,49 @@
           <line>97</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/LearnDjango/tests/testEditAccount.py</url>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/LearnDjango$Test__LearnDjango_tests_TestAdminDataAccess_TestDisplayCourses.coverage" NAME="Test: LearnDjango.tests.TestAdminDataAccess.TestDisplayCourses Coverage Results" MODIFIED="1638411452383" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/LearnDjango$Test__LearnDjango_tests_test_account_type_enum_TestStr.coverage" NAME="Test: LearnDjango.tests.test_account_type_enum.TestStr Coverage Results" MODIFIED="1638724133520" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/LearnDjango$Test__LearnDjango_tests_TestAdminDataAccess_TestDisplayUsers_test_zero_users.coverage" NAME="Test: LearnDjango.tests.TestAdminDataAccess.TestDisplayUsers.test_zero_users Coverage Results" MODIFIED="1638409185100" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/LearnDjango$Test__LearnDjango_tests_TestAdminDataAccess_TestDisplayPeople_test_zero_users.coverage" NAME="Test: LearnDjango.tests.TestAdminDataAccess.TestDisplayPeople.test_zero_users Coverage Results" MODIFIED="1638414975690" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/LearnDjango$Test__LearnDjango_tests_test_courses_page_AdminAccess.coverage" NAME="Test: LearnDjango.tests.test_courses_page.AdminAccess Coverage Results" MODIFIED="1638756627062" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/LearnDjango$Test__LearnDjango_tests_TestAdminDataAccess.coverage" NAME="Test: LearnDjango.tests.TestAdminDataAccess Coverage Results" MODIFIED="1638396197622" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/TAScheduler$Test__LearnDjango_tests_TestCoursePage_TestCreateCourses_test_no_role.coverage" NAME="Test: LearnDjango.tests.TestCoursePage.TestCreateCourses.test_no_role Coverage Results" MODIFIED="1638473064963" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/LearnDjango$Test__LearnDjango_tests_TestAdminDataAccess_TestDisplayPeopleField.coverage" NAME="Test: LearnDjango.tests.TestAdminDataAccess.TestDisplayPeopleField Coverage Results" MODIFIED="1638416299724" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/TAScheduler$.coverage" NAME=" Coverage Results" MODIFIED="1638490609840" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LearnDjango/tests" />
-    <SUITE FILE_PATH="coverage/LearnDjango$Test__LearnDjango_tests_TestAdminDataAccess_TestDisplayPeople.coverage" NAME="Test: LearnDjango.tests.TestAdminDataAccess.TestDisplayPeople Coverage Results" MODIFIED="1638459598353" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/TAScheduler$manage.coverage" NAME="manage Coverage Results" MODIFIED="1639407210996" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/TAScheduler$Test__LearnDjango_tests_TestCoursePage_TestCreateCourses.coverage" NAME="Test: LearnDjango.tests.TestCoursePage.TestCreateCourses Coverage Results" MODIFIED="1638902658825" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/TAScheduler$Test__LearnDjango_tests_TestCoursePage_TestCreateCourses_test_default.coverage" NAME="Test: LearnDjango.tests.TestCoursePage.TestCreateCourses.test_default Coverage Results" MODIFIED="1638903854761" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/LearnDjango$Test__LearnDjango_tests_TestAdminDataAccess_TestDisplayPeople_test_invalid_role_id.coverage" NAME="Test: LearnDjango.tests.TestAdminDataAccess.TestDisplayPeople.test_invalid_role_id Coverage Results" MODIFIED="1638731908232" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/TAScheduler$test_create_accounts_acceptance.coverage" NAME="test_create_accounts_acceptance Coverage Results" MODIFIED="1639700741159" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LearnDjango/tests" />
+    <SUITE FILE_PATH="coverage/TAScheduler$Test__LearnDjango_tests_testTaAssignment.coverage" NAME="Test: LearnDjango.tests.testTaAssignment Coverage Results" MODIFIED="1639949246755" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/LearnDjango$Test__LearnDjango_tests_TestAdminDataAccess_TestDisplayPeopleField.coverage" NAME="Test: LearnDjango.tests.TestAdminDataAccess.TestDisplayPeopleField Coverage Results" MODIFIED="1638416299724" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/TAScheduler$Test__LearnDjango_tests_TestCoursePage.coverage" NAME="Test: LearnDjango.tests.TestCoursePage Coverage Results" MODIFIED="1639941783059" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/TAScheduler$Test__LearnDjango_tests_testEditAccount.coverage" NAME="Test: LearnDjango.tests.testEditAccount Coverage Results" MODIFIED="1639949239729" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/TAScheduler$Test__LearnDjango_tests_test_login_acceptance.coverage" NAME="Test: LearnDjango.tests.test_login_acceptance Coverage Results" MODIFIED="1639941801490" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/TAScheduler$.coverage" NAME=" Coverage Results" MODIFIED="1639943456412" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LearnDjango/tests" />
+    <SUITE FILE_PATH="coverage/TAScheduler$Test__LearnDjango_tests_test_courses_page.coverage" NAME="Test: LearnDjango.tests.test_courses_page Coverage Results" MODIFIED="1639406091087" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/TAScheduler$Test__LearnDjango_tests_test_people_page.coverage" NAME="Test: LearnDjango.tests.test_people_page Coverage Results" MODIFIED="1639406194910" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/LearnDjango$Test__LearnDjango_tests_test_people_page_AdminAccess.coverage" NAME="Test: LearnDjango.tests.test_people_page.AdminAccess Coverage Results" MODIFIED="1638757300758" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/TAScheduler$testEditAccount.coverage" NAME="testEditAccount Coverage Results" MODIFIED="1639944829594" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LearnDjango/tests" />
+    <SUITE FILE_PATH="coverage/LearnDjango$Test__LearnDjango_tests_test_courses_page_AdminAccess.coverage" NAME="Test: LearnDjango.tests.test_courses_page.AdminAccess Coverage Results" MODIFIED="1638756627062" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/TAScheduler$Test__LearnDjango_tests_test_assign_user_to_course.coverage" NAME="Test: LearnDjango.tests.test_assign_user_to_course Coverage Results" MODIFIED="1639941826675" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/TAScheduler$Test__LearnDjango_tests_TestCoursePage_TestCreateCourses_test_default.coverage" NAME="Test: LearnDjango.tests.TestCoursePage.TestCreateCourses.test_default Coverage Results" MODIFIED="1638903854761" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/TAScheduler$Test__LearnDjango_tests_TestCoursePage_TestCreateCourses_test_no_role.coverage" NAME="Test: LearnDjango.tests.TestCoursePage.TestCreateCourses.test_no_role Coverage Results" MODIFIED="1638473064963" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/LearnDjango$Test__LearnDjango_tests_test_account_type_enum_TestStr_test_outside_rage.coverage" NAME="Test: LearnDjango.tests.test_account_type_enum.TestStr.test_outside_rage Coverage Results" MODIFIED="1638732045189" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/TAScheduler$Test__LearnDjango_tests_TestAdminDataAccess.coverage" NAME="Test: LearnDjango.tests.TestAdminDataAccess Coverage Results" MODIFIED="1639497652668" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/TAScheduler$Test__LearnDjango.coverage" NAME="Test: LearnDjango Coverage Results" MODIFIED="1638987922630" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/TAScheduler$Test__LearnDjango_tests_test_create_accounts.coverage" NAME="Test: LearnDjango.tests.test_create_accounts Coverage Results" MODIFIED="1639938129032" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/TAScheduler$Test__LearnDjango_tests_test_assign_ta_to_lab.coverage" NAME="Test: LearnDjango.tests.test_assign_ta_to_lab Coverage Results" MODIFIED="1639941835123" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/TAScheduler$Test__LearnDjango_tests_testAssignment.coverage" NAME="Test: LearnDjango.tests.testAssignment Coverage Results" MODIFIED="1639548689073" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/LearnDjango$Test__LearnDjango_tests_TestAdminDataAccess.coverage" NAME="Test: LearnDjango.tests.TestAdminDataAccess Coverage Results" MODIFIED="1638803346469" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/LearnDjango$Test__LearnDjango_tests_TestAdminDataAccess_TestDisplayCourses.coverage" NAME="Test: LearnDjango.tests.TestAdminDataAccess.TestDisplayCourses Coverage Results" MODIFIED="1638730970829" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/TAScheduler$Test__LearnDjango_tests_test_create_lab.coverage" NAME="Test: LearnDjango.tests.test_create_lab Coverage Results" MODIFIED="1639938145345" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/TAScheduler$TestCoursePage.coverage" NAME="TestCoursePage Coverage Results" MODIFIED="1638913909711" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LearnDjango/tests" />
+    <SUITE FILE_PATH="coverage/LearnDjango$Test__LearnDjango_tests_test_account_type_enum_TestStr.coverage" NAME="Test: LearnDjango.tests.test_account_type_enum.TestStr Coverage Results" MODIFIED="1638731774831" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/LearnDjango$Test__LearnDjango_tests_TestAdminDataAccess_TestDisplayPeople_test_zero_users.coverage" NAME="Test: LearnDjango.tests.TestAdminDataAccess.TestDisplayPeople.test_zero_users Coverage Results" MODIFIED="1638414975690" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/TAScheduler$Test__LearnDjango_tests_test_create_accounts_acceptance.coverage" NAME="Test: LearnDjango.tests.test_create_accounts_acceptance Coverage Results" MODIFIED="1639941812783" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/TAScheduler$test_courses_page.coverage" NAME="test_courses_page Coverage Results" MODIFIED="1638913893876" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LearnDjango/tests" />
+    <SUITE FILE_PATH="coverage/LearnDjango$Test__LearnDjango_tests_TestAdminDataAccess_TestDisplayPeople_test_invalid_role_id.coverage" NAME="Test: LearnDjango.tests.TestAdminDataAccess.TestDisplayPeople.test_invalid_role_id Coverage Results" MODIFIED="1638731908232" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/TAScheduler$Test__LearnDjango_tests_testAssignment__1_.coverage" NAME="Test: LearnDjango.tests.testAssignment (1) Coverage Results" MODIFIED="1639406080312" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/LearnDjango$Test__LearnDjango_tests_TestAdminDataAccess_TestDisplayPeople.coverage" NAME="Test: LearnDjango.tests.TestAdminDataAccess.TestDisplayPeople Coverage Results" MODIFIED="1638732700635" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/TAScheduler$Test__LearnDjango_tests_test_account_type_enum.coverage" NAME="Test: LearnDjango.tests.test_account_type_enum Coverage Results" MODIFIED="1638935618514" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/TAScheduler$Test__LearnDjango_tests_TestAdminDataAccess.coverage" NAME="Test: LearnDjango.tests.TestAdminDataAccess Coverage Results" MODIFIED="1639945153037" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/LearnDjango$Test__LearnDjango_tests_TestAdminDataAccess_TestDisplayUsers_test_zero_users.coverage" NAME="Test: LearnDjango.tests.TestAdminDataAccess.TestDisplayUsers.test_zero_users Coverage Results" MODIFIED="1638409185100" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>
 </project>
