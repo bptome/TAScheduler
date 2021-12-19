@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from TAInformation.Models.account_type import AccountType
-from TAInformation.models import Course, User, Lab
+from TAInformation.models import Course, User, Lab, CourseTAJunction
 
 
 class BaseUser(ABC):
@@ -54,20 +54,36 @@ class BaseUser(ABC):
         return arr
 
     def avaliableTAs(self):
-            arr = []
-            for val in User.objects.filter(role=AccountType.TA.value).values():
-                arr.append(val["name"])
-            return arr
+        arr = []
+        for val in User.objects.filter(role=AccountType.TA.value).values():
+            arr.append(val["name"])
+        return arr
 
     def avaliableCourses(self):
-            arr = []
-            for val in Course.objects.all().values():
-                arr.append(val["course_name"])
-            return arr
-    def avaliableLabs(self):
-            arr = []
-            for val in Lab.objects.all().values():
-                arr.append(val["lab_name"])
+        arr = []
+        for val in Course.objects.all().values():
+            arr.append(val["course_name"])
+        return arr
 
-            print(arr)
-            return arr
+    def avaliableLabs(self):
+        arr = []
+        for val in Lab.objects.all().values():
+            arr.append(val["lab_name"])
+
+        print(arr)
+        return arr
+
+    def taAssignments(self):
+        assignments = []
+        for val in CourseTAJunction.objects.all().values():
+
+            arr = [val["user_id_id"], val["course_id_id"]]
+            assignments.append(arr)
+        # for val in User.objects.filter(role=AccountType.TA.value).values():
+        #     # m = CourseTAJunction.objects.get(val["user_id"])
+        #      if m.course_id:
+        #         arr = [val["name"]] # val["course_id"]
+        #         assignments.append(arr)
+
+
+        return assignments

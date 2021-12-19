@@ -276,3 +276,21 @@ class Labs(View):
                               {"message": m.create_lab(request.POST['lab'], request.POST['description'], course), "avaliableTAs": m.avaliableTAs, "avaliableCourses":m.avaliableCourses(), "avaliableLabs":m.avaliableLabs})
             return render(request, "labs.html",
                           {"message": "Course not found"})
+
+class taAssignment(View):
+
+    def get(self, request):
+        m = get_user(request.session["user_id"])
+        return render(request, "ta_assign.html", {"taAssign": self.getTAassign(m.taAssignments())})
+
+    def post(self, request):
+        pass
+
+    def getTAassign(self, arr):
+        assignments = []
+        for val in arr:
+            print(val)
+            temp = [get_user(val[0]).name, Course.objects.get(course_id=val[1]).course_name]
+            assignments.append(temp)
+
+        return assignments

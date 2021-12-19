@@ -1,13 +1,12 @@
-{% load extras %}
 <!DOCTYPE html>
 <html lang="en">
 {% load static %}
- <link rel="stylesheet"  href="{%  static  'css/style.css'  %}">
+<link rel="stylesheet" href="{% static  'css/style.css' %}">
 <head>
     <meta charset="UTF-8">
-    <title>Courses</title>
+    <title>TA Assignments</title>
 </head>
-    <div class="topnav-container">
+<div class="topnav-container">
 <header class="page-header">
     <div class="container">
         <h1><a>UW-Milwaukee Course Management</a></h1>
@@ -28,23 +27,23 @@
         </li>
 </div>
 </div>
-<div class="error">{{ message }} </div>
+<p class="header-create-course">View TA Assignments</p>
 <body>
-    <h1>People for {{ role }}: {{ name }}</h1>
-{% for person in people %}
-        <div class="container">
+{% for class in taAssign %}
+    <div class="container">
         <div class="course-square">
-        {%  for data, label in person|zip:labels %}
+            {% for data in class %}
+
                 {% if forloop.first %}
                     <div class="course-name">
-                        {{ person.0 }}
+                        {{ class.0 }}
                     </div>
-                {%  else %}
+                {% else %}
                     <div class="course-info">
-                        <li>{{ label }} : {{ data }}</li>
+                        <li> {{ data }}</li>
                     </div>
-                {%  endif %}
-        {% endfor %}
+                {% endif %}
+            {% endfor %}
         </div>
     </div>
 {% endfor %}

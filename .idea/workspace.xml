@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="68c36039-8adc-42d3-963c-c57117e2f839" name="Changes" comment="Moved validator methods to own module">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+    <list default="true" id="68c36039-8adc-42d3-963c-c57117e2f839" name="Changes" comment="(commit with Ayenew) Added view TA Assignments page and styling&#10;&#10;Ayenew and I peer-programmed this, but i am committing it due to unresolved pycharm errors">
+      <change afterPath="$PROJECT_DIR$/TAInformation/migrations/0002_remove_lab_has_grader.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/LearnDjango.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/LearnDjango.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TAInformation/Models/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/TAInformation/Models/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TAInformation/Models/base_user.py" beforeDir="false" afterPath="$PROJECT_DIR$/TAInformation/Models/base_user.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TAInformation/Models/instructor.py" beforeDir="false" afterPath="$PROJECT_DIR$/TAInformation/Models/instructor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TAInformation/Models/ta.py" beforeDir="false" afterPath="$PROJECT_DIR$/TAInformation/Models/ta.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TAInformation/Models/validator_methods.py" beforeDir="false" afterPath="$PROJECT_DIR$/TAInformation/Models/validator_methods.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TAInformation/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/TAInformation/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TAInformation/static/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/TAInformation/static/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/courses.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/courses.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/create_user.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/create_user.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/labs.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/labs.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/people.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/people.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/ta_assign.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/ta_assign.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,15 +27,15 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="HTML File" />
         <option value="Python Script" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="styling_and_combining" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -54,6 +58,7 @@
   </component>
   <component name="ProjectId" id="21h0Es4phpNb3QwWWQQtrXutwSz" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <OptionsSetting value="false" id="Update" />
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectViewState">
@@ -63,6 +68,7 @@
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="Git.Branch.Popup.ShowAllRemotes" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
@@ -71,7 +77,7 @@
     <property name="run.code.analysis.last.selected.profile" value="aDefault" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
-  <component name="RunManager" selected="Django tests.Test: LearnDjango.tests.TestAdminDataAccess">
+  <component name="RunManager" selected="Django Server.LearnDjango">
     <configuration name="Test: LearnDjango.tests.TestAdminDataAccess" type="DjangoTestsConfigurationType" temporary="true">
       <module name="LearnDjango" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -182,7 +188,7 @@
       </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
+      <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="launchJavascriptDebuger" value="false" />
@@ -224,7 +230,8 @@
       <workItem from="1638741420899" duration="15070000" />
       <workItem from="1638803204110" duration="453000" />
       <workItem from="1638808879272" duration="1331000" />
-
+      <workItem from="1639629328719" duration="15086000" />
+      <workItem from="1639853371891" duration="22302000" />
     </task>
     <task id="LOCAL-00001" summary="Refactor tests and added class stubs">
       <created>1638491832180</created>
@@ -261,7 +268,91 @@
       <option name="project" value="LOCAL" />
       <updated>1638745613940</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Added cards to view courses">
+      <created>1639595573737</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1639595573737</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Fixed card formatting and Added cards to view people">
+      <created>1639597536028</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1639597536028</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Added Styles for Course data and user information">
+      <created>1639673412395</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1639673412395</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Added logic and styles for choosing an instructor from dropdown when creating course">
+      <created>1639682069548</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1639682069548</updated>
+    </task>
+    <task id="LOCAL-00010" summary="fixed lint">
+      <created>1639690497010</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1639690497010</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Update views.py&#10;&#10;re-added comment">
+      <created>1639847968515</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1639847968515</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Fixed errors and styling">
+      <created>1639859710238</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1639859710238</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Added Create User to navbar">
+      <created>1639860156164</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1639860156164</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Added styling to Create User">
+      <created>1639860626256</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1639860626256</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Added more styling and fixed error message">
+      <created>1639863477524</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1639863477524</updated>
+    </task>
+    <task id="LOCAL-00016" summary="(commit with Ayenew) Added view TA Assignments page and styling&#10;&#10;Ayenew and I peer-programmed this, but i am committing it due to unresolved pycharm errors">
+      <created>1639936781949</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1639936781949</updated>
+    </task>
+    <task id="LOCAL-00017" summary="(commit with Ayenew) Added view TA Assignments page and styling&#10;&#10;Ayenew and I peer-programmed this, but i am committing it due to unresolved pycharm errors">
+      <created>1639937542842</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1639937542842</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -285,20 +376,46 @@
     <MESSAGE value="Added enum class for roles and edit units based on how they work" />
     <MESSAGE value="Fixed User phone number to string, made new migrations, adjusted Access Data suite, added str for account type enum, added tests for account type enum" />
     <MESSAGE value="Moved validator methods to own module" />
-    <option name="LAST_COMMIT_MESSAGE" value="Moved validator methods to own module" />
+    <MESSAGE value="Added cards to view courses" />
+    <MESSAGE value="Fixed card formatting and Added cards to view people" />
+    <MESSAGE value="Added Styles for Course data and user information" />
+    <MESSAGE value="Added logic and styles for choosing an instructor from dropdown when creating course" />
+    <MESSAGE value="fixed lint" />
+    <MESSAGE value="Update views.py&#10;&#10;re-added comment" />
+    <MESSAGE value="Fixed errors and styling" />
+    <MESSAGE value="Added Create User to navbar" />
+    <MESSAGE value="Added styling to Create User" />
+    <MESSAGE value="Added more styling and fixed error message" />
+    <MESSAGE value="(commit with Ayenew) Added view TA Assignments page and styling&#10;&#10;Ayenew and I peer-programmed this, but i am committing it due to unresolved pycharm errors" />
+    <option name="LAST_COMMIT_MESSAGE" value="(commit with Ayenew) Added view TA Assignments page and styling&#10;&#10;Ayenew and I peer-programmed this, but i am committing it due to unresolved pycharm errors" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/TAInformation/views.py</url>
+          <line>97</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/LearnDjango$Test__LearnDjango_tests_TestAdminDataAccess_TestDisplayCourses.coverage" NAME="Test: LearnDjango.tests.TestAdminDataAccess.TestDisplayCourses Coverage Results" MODIFIED="1638411452383" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/LearnDjango$Test__LearnDjango_tests_test_account_type_enum_TestStr.coverage" NAME="Test: LearnDjango.tests.test_account_type_enum.TestStr Coverage Results" MODIFIED="1638724133520" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/LearnDjango$Test__LearnDjango_tests_TestAdminDataAccess_TestDisplayUsers_test_zero_users.coverage" NAME="Test: LearnDjango.tests.TestAdminDataAccess.TestDisplayUsers.test_zero_users Coverage Results" MODIFIED="1638409185100" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/LearnDjango$Test__LearnDjango_tests_TestAdminDataAccess_TestDisplayPeopleField.coverage" NAME="Test: LearnDjango.tests.TestAdminDataAccess.TestDisplayPeopleField Coverage Results" MODIFIED="1638416299724" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/LearnDjango$Test__LearnDjango_tests_TestAdminDataAccess_TestDisplayCourses.coverage" NAME="Test: LearnDjango.tests.TestAdminDataAccess.TestDisplayCourses Coverage Results" MODIFIED="1638730970829" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/LearnDjango$Test__LearnDjango_tests_TestAdminDataAccess_TestDisplayPeople.coverage" NAME="Test: LearnDjango.tests.TestAdminDataAccess.TestDisplayPeople Coverage Results" MODIFIED="1638732700635" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/LearnDjango$Test__LearnDjango_tests_TestAdminDataAccess_TestDisplayPeople_test_zero_users.coverage" NAME="Test: LearnDjango.tests.TestAdminDataAccess.TestDisplayPeople.test_zero_users Coverage Results" MODIFIED="1638414975690" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/LearnDjango$Test__LearnDjango_tests_test_account_type_enum_TestStr_test_outside_rage.coverage" NAME="Test: LearnDjango.tests.test_account_type_enum.TestStr.test_outside_rage Coverage Results" MODIFIED="1638732045189" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/LearnDjango$Test__LearnDjango_tests_TestAdminDataAccess.coverage" NAME="Test: LearnDjango.tests.TestAdminDataAccess Coverage Results" MODIFIED="1638803346469" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/LearnDjango$Test__LearnDjango_tests_test_courses_page_AdminAccess.coverage" NAME="Test: LearnDjango.tests.test_courses_page.AdminAccess Coverage Results" MODIFIED="1638756627062" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/LearnDjango$Test__LearnDjango_tests_test_people_page_AdminAccess.coverage" NAME="Test: LearnDjango.tests.test_people_page.AdminAccess Coverage Results" MODIFIED="1638757300758" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/LearnDjango$Test__LearnDjango_tests_TestAdminDataAccess.coverage" NAME="Test: LearnDjango.tests.TestAdminDataAccess Coverage Results" MODIFIED="1638396197622" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/TAScheduler$Test__LearnDjango_tests_TestCoursePage_TestCreateCourses_test_no_role.coverage" NAME="Test: LearnDjango.tests.TestCoursePage.TestCreateCourses.test_no_role Coverage Results" MODIFIED="1638473064963" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/LearnDjango$Test__LearnDjango_tests_TestAdminDataAccess_TestDisplayPeopleField.coverage" NAME="Test: LearnDjango.tests.TestAdminDataAccess.TestDisplayPeopleField Coverage Results" MODIFIED="1638416299724" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/TAScheduler$.coverage" NAME=" Coverage Results" MODIFIED="1638490609840" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LearnDjango/tests" />
-    <SUITE FILE_PATH="coverage/LearnDjango$Test__LearnDjango_tests_test_account_type_enum_TestStr.coverage" NAME="Test: LearnDjango.tests.test_account_type_enum.TestStr Coverage Results" MODIFIED="1638731774831" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/LearnDjango$Test__LearnDjango_tests_TestAdminDataAccess_TestDisplayPeople.coverage" NAME="Test: LearnDjango.tests.TestAdminDataAccess.TestDisplayPeople Coverage Results" MODIFIED="1638459598353" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/TAScheduler$Test__LearnDjango_tests_TestCoursePage_TestCreateCourses.coverage" NAME="Test: LearnDjango.tests.TestCoursePage.TestCreateCourses Coverage Results" MODIFIED="1638902658825" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/TAScheduler$Test__LearnDjango_tests_TestCoursePage_TestCreateCourses_test_default.coverage" NAME="Test: LearnDjango.tests.TestCoursePage.TestCreateCourses.test_default Coverage Results" MODIFIED="1638903854761" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/LearnDjango$Test__LearnDjango_tests_TestAdminDataAccess_TestDisplayPeople_test_invalid_role_id.coverage" NAME="Test: LearnDjango.tests.TestAdminDataAccess.TestDisplayPeople.test_invalid_role_id Coverage Results" MODIFIED="1638731908232" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
- </component>
+    <SUITE FILE_PATH="coverage/LearnDjango$Test__LearnDjango_tests_test_people_page_AdminAccess.coverage" NAME="Test: LearnDjango.tests.test_people_page.AdminAccess Coverage Results" MODIFIED="1638757300758" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/LearnDjango$Test__LearnDjango_tests_test_account_type_enum_TestStr_test_outside_rage.coverage" NAME="Test: LearnDjango.tests.test_account_type_enum.TestStr.test_outside_rage Coverage Results" MODIFIED="1638732045189" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/TAScheduler$Test__LearnDjango_tests_TestAdminDataAccess.coverage" NAME="Test: LearnDjango.tests.TestAdminDataAccess Coverage Results" MODIFIED="1639497652668" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+  </component>
 </project>
