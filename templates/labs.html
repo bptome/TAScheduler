@@ -80,12 +80,21 @@
         <input type="submit" name="addTA" id="addTA" class="submit-course-input" >
     </form>
 
-{% for class in avaliableLabs %}
+{% for data in labAndCourse %}
     <div class="container">
         <div class="course-square">
-                    <div class="course-info">
-                         {{ class }}
+            {% for class in labAndCourse %}
+
+                {% if forloop.first %}
+                    <div class="course-name">
+                        {{ class.0 }}
                     </div>
+                {% else %}
+                    <div class="course-info">
+                        <li> {{ data.1 }}</li>
+                    </div>
+                {% endif %}
+            {% endfor %}
         </div>
     </div>
 {% endfor %}

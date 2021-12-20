@@ -1,7 +1,6 @@
 from abc import ABC, abstractmethod
 from TAInformation.Models.account_type import AccountType
-from TAInformation.models import Course, User, Lab, CourseTAJunction
-
+from TAInformation.models import Course, User, Lab, CourseTAJunction, LabTAJunction, LabCourseJunction
 
 
 class BaseUser(ABC):
@@ -37,7 +36,7 @@ class BaseUser(ABC):
     # post: Returns a dict object with the result and message about result
     # side: Creates new user of specified role if all data is valid and user doesn't already exist
     def create_user(self, new_user):
-      return {'result': False, 'message': "Only admins can create new users\n"}
+        return {'result': False, 'message': "Only admins can create new users\n"}
 
     # pre: Data in user_to_edit is of an existing user
     # post: Returns a dict object with the result and message about result
@@ -143,11 +142,28 @@ class BaseUser(ABC):
         print(arr)
         return arr
 
+
+
+    def avaliableLabsandCourses(self):
+        arr = []
+        for val in LabCourseJunction.objects.all().values():
+            if Lab.objects.filter(lab_id=val["lab_id_id"]).exists():
+                temp = [Lab.objects.get(lab_id=val["lab_id_id"]).lab_name, Course.objects.get(course_id=val["course_id_id"]).course_name]
+                arr.append(temp)
+
+        return arr
+
     def taAssignments(self):
         assignments = []
         for val in CourseTAJunction.objects.all().values():
 
             arr = [val["user_id_id"], val["course_id_id"]]
+            if LabTAJunction.objects.filter(user_id=val["user_id_id"]).exists():
+                lab = LabTAJunction.objects.get(user_id=val["user_id_id"]).lab_id.lab_name
+                print(lab)
+                arr.append(lab)
+            else:
+                arr.append("Grader")
             assignments.append(arr)
         # for val in User.objects.filter(role=AccountType.TA.value).values():
         #     # m = CourseTAJunction.objects.get(val["user_id"])
@@ -155,6 +171,4 @@ class BaseUser(ABC):
         #         arr = [val["name"]] # val["course_id"]
         #         assignments.append(arr)
 
-
         return assignments
-      

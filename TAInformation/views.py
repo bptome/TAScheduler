@@ -123,13 +123,7 @@ class Courses(View):
 
         noPermissions = canAccess(m.role, AccountType.ADMIN.value)  # User.objects.get('role')
         if noPermissions:
-            return render(request, "courses.html",
-                          {"message": "insufficent permissions to create a course. Please contact "
-                                      "your system administrator if you believe this is in error.",
-                           "avaliableInstructors": m.avaliableInstructors(), "avaliableTAs": m.avaliableTAs(),
-                           "avaliableCourses": m.avaliableCourses()})
-        else:
-            newCourse = addCourse(request.POST['name'], request.POST.get('instructor', False),
+            newCourse = addCourse(request.POST['name'], request.POST['instructor'],
                                   request.POST['meeting_time'], request.POST['semester'], request.POST['course_type'],
                                   request.POST['description'])
 
@@ -139,6 +133,12 @@ class Courses(View):
                                                     "avaliableInstructors": m.avaliableInstructors(),
                                                     "avaliableTAs": m.avaliableTAs(),
                                                     "avaliableCourses": m.avaliableCourses()})
+        else:
+            return render(request, "courses.html",
+                          {"message": "insufficent permissions to create a course. Please contact "
+                                      "your system administrator if you believe this is in error.",
+                           "avaliableInstructors": m.avaliableInstructors(), "avaliableTAs": m.avaliableTAs(),
+                           "avaliableCourses": m.avaliableCourses()})
 
 
 class People(View):
@@ -166,10 +166,12 @@ class CreateUser(View):
     # Postcondition: Creates new user, if data entered validates successfully and user doesn’t already exist.
     # Side Effects: Message indicating result is displayed at the bottom of the “Create Courses” form
     def post(self, request):
+
+
      #     Extract data from form
 
-         match request.session['role']:
-             case AccountType.ADMIN.value:
+        match request.session['role']:
+                case AccountType.ADMIN.value:
                  current_user = UserAdmin(
                     int(request.session['user_id']),
                    "",
@@ -178,32 +180,32 @@ class CreateUser(View):
                     "",
                     ""
                 )
-           case AccountType.INSTRUCTOR.value:
-                current_user = Instructor(
-                     int(request.session['user_id']),
-                   "",
-                    "",
-                     request.session['email'],
-                     "",
-                    ""
-                )
-            case AccountType.TA.value:
-                  current_user = TA(
-                      int(request.session['user_id']),
-                     "",
-                    "",
-                    request.session['email'],
-                    "",
-                     ""
-                  )
-              case _:
-                  current_user: BaseUser
+                case AccountType.INSTRUCTOR.value:
+                    current_user = Instructor(
+                         int(request.session['user_id']),
+                       "",
+                        "",
+                         request.session['email'],
+                         "",
+                        ""
+                    )
+                case AccountType.TA.value:
+                      current_user = TA(
+                          int(request.session['user_id']),
+                         "",
+                        "",
+                        request.session['email'],
+                        "",
+                         ""
+                      )
+                case _:
+                      current_user: BaseUser
 
-          result_dict = {}
-          the_id = -1 if request.POST.get('user_id') == "" else int(request.POST.get('user_id'))
+        result_dict = {}
+        the_id = -1 if request.POST.get('user_id') == "" else int(request.POST.get('user_id'))
 
-         match int(request.POST.get('role')):
-             case 1:
+        match int(request.POST.get('role')):
+            case 1:
                   new_user = TA(
                       the_id,
                      request.POST.get('name'),
@@ -212,7 +214,7 @@ class CreateUser(View):
                      request.POST.get('address'),
                       request.POST.get('phone'),
                   )
-              case 2:
+            case 2:
                   new_user = Instructor(
                       the_id,
                      request.POST.get('name'),
@@ -221,7 +223,7 @@ class CreateUser(View):
                      request.POST.get('address'),
                      request.POST.get('phone'),
                 )
-              case 3:
+            case 3:
                   new_user = UserAdmin(
                       the_id,
                       request.POST.get('name'),
@@ -230,10 +232,10 @@ class CreateUser(View):
                       request.POST.get('address'),
                      request.POST.get('phone')
                   )
-              case _:  # Enforcement of selection should never allow this case to be reached
+            case _:  # Enforcement of selection should never allow this case to be reached
                   new_user: BaseUser
 
-         result_dict = current_user.create_user(new_user)
+        result_dict = current_user.create_user(new_user)
 
         return render(request, "create_user.html", {'result': result_dict['result'], 'message': result_dict['message']})
 
@@ -241,13 +243,12 @@ class CreateUser(View):
      # this is a dummy method. will eventually use user_id and return a User() class of the user that matches the user_id
 def findUser(name):
     # b = User.objects.filter(name=name)
-    User(1, "Bryce Tome", "sfG76Fgh", "bptome@uwm.edu", "fake address 566", 1, "(414)546-3464").save()
-    return User(1, "Bryce Tome", "sfG76Fgh", "bptome@uwm.edu", "fake address 566", 1, "(414)546-3464")  # b.user_id
+    return User.objects.get(name=name)
 
 
 # this is a helper method. will eventually use role required & current role to return true if can be accessed, and false if insufficient permissions
 def canAccess(role, required_role):
-    return False
+    return True;
 
 
 # helper method to take all data from user and return a Course() class instance. This method also generates a user_id for each course
@@ -274,7 +275,7 @@ class Labs(View):
     def get(self, request):
         m = get_user(request.session["user_id"])
         return render(request, "labs.html", {"avaliableTAs": m.avaliableTAs, "avaliableCourses": m.avaliableCourses(),
-                                             "avaliableLabs": m.avaliableLabs})
+                                             "avaliableLabs": m.avaliableLabs, "labAndCourse": m.avaliableLabsandCourses()})
 
     def post(self, request):
         m = get_user(request.session["user_id"])
@@ -313,7 +314,7 @@ class taAssignment(View):
         assignments = []
         for val in arr:
             print(val)
-            temp = [get_user(val[0]).name, Course.objects.get(course_id=val[1]).course_name]
+            temp = [get_user(val[0]).name, Course.objects.get(course_id=val[1]).course_name, val[2] ]
             assignments.append(temp)
 
         return assignments
