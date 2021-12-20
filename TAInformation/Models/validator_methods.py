@@ -1,3 +1,5 @@
+# Validator Method Module by: Terence Lee (12/17/2021)
+from TAInformation.Models.account_type import AccountType
 from TAInformation.Models.base_user import BaseUser
 from curses.ascii import isupper, islower, isdigit
 from django.core.exceptions import ValidationError
@@ -7,26 +9,26 @@ from django.core.validators import validate_email
 # For all methods:
 # Pre: Argument passed is derived from BaseUser
 # Post: Returns dict object that indicates result of validation and error message, if needed
-from TAInformation.models import User
+from TAInformation.models import User, Skill
 
 
-def id_validator(new_user: BaseUser):
+def id_validator(new_user):
     if (not isinstance(new_user.user_id, int)) or new_user.user_id < 0:
         return {'result': False, 'errorMsg': "Invalid user id entered\n"}
 
     return {'result': True, 'errorMsg': ""}
 
 
-def name_validator(new_user: BaseUser):
+def name_validator(new_user):
     if len(new_user.name) < 5:
         return {'result': False, 'errorMsg': "Invalid name given\n"}
 
     return {'result': True, 'errorMsg': ""}
 
 
-def password_validator(new_user: BaseUser):
+def password_validator(new_user):
     if len(new_user.password) < 4:
-        return {'result': True, 'errorMsg': "Password must be at least 4 characters long\n"}
+        return {'result': False, 'errorMsg': "Password must be at least 4 characters long\n"}
 
     uppercase_missing = True
     lowercase_missing = True
@@ -63,7 +65,7 @@ def password_validator(new_user: BaseUser):
     return {'result': True, 'errorMsg': ""}
 
 
-def email_validator(new_user: BaseUser):
+def email_validator(new_user):
     try:
         validate_email(new_user.email)
     except ValidationError as errorMsg:
@@ -73,7 +75,7 @@ def email_validator(new_user: BaseUser):
     return {'result': True, 'errorMsg': ""}
 
 
-def address_validator(new_user: BaseUser):
+def address_validator(new_user):
     if new_user.home_address == "":
         return {'result': False, 'errorMsg': "Home address is missing\n"}
 
@@ -84,26 +86,26 @@ def address_validator(new_user: BaseUser):
     return {'result': True, 'errorMsg': ""}
 
 
-def phone_validator(new_user: BaseUser):
-    if new_user.phone_number == "":
+def phone_validator(new_user):
+    if new_user.phone == "":
         return {'result': False, 'errorMsg': "No phone number given\n"}
-    if len(new_user.phone_number) != 13:
+    if len(new_user.phone) != 13:
         return {'result': False, 'errorMsg': "Phone number should have exactly 13 characters\n"}
 
     char_set = {0, 4, 8}
     digit_set = set(range(13)) - char_set
 
     for index in range(13):
-        if index in digit_set and not isdigit(new_user.phone_number[index]):
+        if index in digit_set and not isdigit(new_user.phone[index]):
             return {'result': False, 'errorMsg': "Misplaced character in phone number entry\n"}
 
-        if index == 0 and new_user.phone_number[0] != '(':
+        if index == 0 and new_user.phone[0] != '(':
             return {'result': False, 'errorMsg': "Missing lead parentheses in phone number entry\n"}
 
-        if index == 4 and new_user.phone_number[4] != ')':
+        if index == 4 and new_user.phone[4] != ')':
             return {'result': False, 'errorMsg': "Missing trailing parentheses in phone number entry\n"}
 
-        if index == 8 and new_user.phone_number[8] != '-':
+        if index == 8 and new_user.phone[8] != '-':
             return {'result': False, 'errorMsg': "Missing dash between prefix and suffix in phone number entry\n"}
 
     return {'result': True, 'errorMsg': ""}
@@ -111,7 +113,7 @@ def phone_validator(new_user: BaseUser):
 
 def save_new_user(new_user: BaseUser):
     user_to_save = User(user_id=new_user.user_id, name=new_user.name, password=new_user.password,
-                        email=new_user.email, home_address=new_user.home_address, phone=new_user.phone_number,
+                        email=new_user.email, home_address=new_user.home_address, phone=new_user.phone,
                         role=new_user.role.value)
     user_to_save.save()
 
@@ -146,13 +148,25 @@ def all_tests_setup(test_user, id_number: int, name: str, password: str, email: 
     test_user.password = password
     test_user.email = email
     test_user.home_address = address
-    if test_user is type(User):
-        test_user.phone = phone
-    else:
-        test_user.phone_number = phone
+    test_user.phone = phone
+
 
 # Functions to setup database before all tests
 def setup_database(test_user: BaseUser, test_user_model: User):
     all_tests_setup(test_user_model, test_user.user_id, test_user.name, test_user.password, test_user.email,
-                    test_user.home_address, test_user.phone_number)
+                    test_user.home_address, test_user.phone)
+
     test_user_model.save()
+
+
+def role_validator(new_user):
+    valid_role_set = set()
+    for role in range(AccountType.TA.value, AccountType.ADMIN.value+1):
+        valid_role_set.add(role)
+
+    the_result = new_user.role in valid_role_set
+    error_msg = ""
+    if not the_result:
+        error_msg = "Given role wasn\'t valid\n"
+
+    return {'result': the_result, 'errorMsg': error_msg}

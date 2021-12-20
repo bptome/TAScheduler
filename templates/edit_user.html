@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<link rel="stylesheet" href="{% static  'css/style.css' %}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Edit User</title>
+</head>
+<div class="topnav-container">
+<header class="page-header">
+    <div class="container">
+        <h1><a>UW-Milwaukee Course Management</a></h1>
+    </div>
+</header>
+<div class="topnav">
+  <li><a class="active" href="/dashboard/">Home</a></li>
+    <li><a href="/courses/">Courses</a></li>
+    <li><a href="/labs/">Labs</a></li>
+    <li><a href="/people/">People</a></li>
+    <li><a href="/">Logout</a></li>
+     <li class="dropdown">
+            <a href="" class="dropbtn">Other</a>
+            <div class="dropdown-content">
+                <a href="/ta_assign/">View TA Assignments</a>
+                <a href="/create_user/">Create User</a>
+                <a href="/edit_user/">Edit User</a>
+            </div>
+        </li>
+</div>
+</div>
+<p class="header-create-course">Edit User</p>
+<body>
+    <form method="post">
+        {% csrf_token %}
+            {% if selected %}
+                <table>
+                <th>Account Type</th>
+                <td>
+                    {%if selected.role == 1%}
+                        <input type="radio" id="ta" name="role" value="1" required checked>
+                        <label for="ta">TA</label>
+                        <input type="radio" id="instructor" name="role" value="2">
+                        <label for="instructor">Instructor</label>
+                        <input type="radio" id="admin" name="role" value="3">
+                        <label for="admin">Admin</label>
+                    {%elif selected.role == 2%}
+                        <input type="radio" id="ta" name="role" value="1" required>
+                    <label for="ta">TA</label>
+                    <input type="radio" id="instructor" name="role" value="2" checked>
+                    <label for="instructor">Instructor</label>
+                    <input type="radio" id="admin" name="role" value="3" >
+                    <label for="admin">Admin</label>
+                    {% else %}
+                        <input type="radio" id="ta" name="role" value="1" required>
+                    <label for="ta">TA</label>
+                    <input type="radio" id="instructor" name="role" value="2">
+                    <label for="instructor">Instructor</label>
+                    <input type="radio" id="admin" name="role" value="3" checked>
+                    <label for="admin">Admin</label>
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th><label for="user_id">ID Number</label></th>
+                <td><input type="text" id="user_id" name="user_id" class="course-input" value="{{ selected.user_id}}" maxlength="9" required></td>
+            </tr>
+            <tr>
+                <th><label for="name">Full Name</label></th>
+                <td><input type="text" id="name" name="name" class="course-input" value="{{ selected.name}}" required></td>
+            </tr>
+            <tr>
+                <th><label for="password">Password</label></th>
+                <td><input type="password" id="password" name="password" class="course-input" value="{{ selected.password}}" required></td>
+            </tr>
+            <tr>
+                <th><label for="email">Email</label></th>
+                <td><input type="email" id="email" name="email" class="course-input" value="{{ selected.email}}" required></td>
+            </tr>
+            <tr>
+                <th><label for="address">Address</label></th>
+                <td><input type="text" id="address" name="address" class="course-input" value="{{ selected.home_address}}" required></td>
+            </tr>
+            <tr>
+                <th><label for="phone">Primary Phone</label></th>
+                <td><input type="text" id="phone" name="phone" class="course-input" value="{{ selected.phone}}" minlength="13" maxlength="13" required></td>
+            </tr>
+            <tr>
+                <select id="user-after" name="user-after" class="instructor-selector">
+                    <option value="{{ selected.name }}"  selected>{{ selected.name }}</option>
+                </select>
+            </tr>
+            {%  else %}
+
+                    <select id="user" name="user" class="instructor-selector">
+                    <option value="" disabled selected>Select a User</option>
+                      {% for users in editableUsers %}
+                      <option value="{{ users.name }}">{{ users.name }}</option>
+                      {% endfor %}
+                    </select>
+            {% endif %}
+        </table>
+        <input type="submit" value="Reset" name="reset"  name="id" class="submit-course-input">
+        <input type="submit" name="submit" class="submit-course-input" >
+        <div>{{ message }}</div>
+    </form>
+</body>
+</html>

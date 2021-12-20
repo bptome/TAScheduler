@@ -111,12 +111,15 @@ class Courses(View):
             if User.objects.filter(name=user_name).exists() & Course.objects.filter(course_name=course_name).exists():
                 user_object = User.objects.get(name=user_name)
                 course_object = Course.objects.get(course_name=course_name)
-                return render(request, "labs.html",
-                              {"message": m.assign_ta_to_course(user_object, course_object)})
+                return render(request, "courses.html",
+                              {"message": m.assign_ta_to_course(user_object, course_object),
+                               "avaliableInstructors": m.avaliableInstructors(), "avaliableTAs": m.avaliableTAs(),
+                               "avaliableCourses": m.avaliableCourses(), "name": m.name, "role": m.role, })
 
             return render(request, "courses.html",
                           {"message": "TA or Course not found", "avaliableInstructors": m.avaliableInstructors(),
-                           "avaliableTAs": m.avaliableTAs(), "avaliableCourses": m.avaliableCourses()})
+                           "avaliableTAs": m.avaliableTAs(), "avaliableCourses": m.avaliableCourses(), "name": m.name,
+                           "role": m.role, })
 
         noPermissions = canAccess(m.role, AccountType.ADMIN.value)  # User.objects.get('role')
         if noPermissions:
@@ -271,7 +274,7 @@ class Labs(View):
         m = get_user(request.session["user_id"])
         if 'ta' in request.POST:
             user_name = request.POST['ta']
-            lab_name = request.POST['lab']
+            lab_name = request.POST['labs']
             if User.objects.filter(name=user_name).exists() & Lab.objects.filter(lab_name=lab_name).exists():
                 user_object = User.objects.get(name=user_name)
                 lab_object = Lab.objects.get(lab_name=lab_name)
@@ -308,3 +311,41 @@ class taAssignment(View):
             assignments.append(temp)
 
         return assignments
+
+
+class EditUser(View):
+    selected = None
+
+    def get(self, request):
+        m = get_user(request.session["user_id"])
+        return render(request, "edit_user.html", {"editableUsers": m.list_of_editable_users(), "selected": None})
+
+    def post(self, request):
+        m = get_user(request.session["user_id"])
+        if request.POST.get('reset', False):
+            return render(request, "edit_user.html", {"editableUsers": m.list_of_editable_users(), "selected": None})
+        if request.POST.get('user-after', False):
+            oldUser = User.objects.get(name=request.POST['user-after'])
+            message = []
+            if request.POST['user_id'] != oldUser.user_id:
+                message.append(m.edit_user_id(oldUser, request.POST['user_id']));
+            if request.POST['name'] != oldUser.name:
+                message.append(m.edit_name(oldUser, request.POST['name']));
+            if request.POST['email'] != oldUser.email:
+                message.append(m.edit_email(oldUser, request.POST['email']));
+            if request.POST['password'] != oldUser.password:
+                message.append(m.edit_password(oldUser, request.POST['password']));
+            if request.POST['address'] != oldUser.home_address:
+                message.append(m.edit_home_address(oldUser, request.POST['address']));
+            if request.POST['phone'] != oldUser.phone:
+                message.append(m.edit_phone(oldUser, request.POST['phone']));
+            if request.POST['role'] != oldUser.role:
+                message.append(m.edit_role(oldUser, request.POST['role']));
+
+            return render(request, "edit_user.html", {"editableUsers": m.list_of_editable_users()})
+
+
+        else:
+            return render(request, "edit_user.html", {"editableUsers": m.list_of_editable_users(),
+                                                      "selected": User.objects.get(
+                                                          name=request.POST.get('user', False))})
