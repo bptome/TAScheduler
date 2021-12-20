@@ -35,9 +35,9 @@
     {% csrf_token %}
     <table>
         <tr>
-            <td><input type="text" id="name" name="name" class="course-input" placeholder="Course Name"></td>
+            <td><input type="text" id="name" name="name" class="course-input" placeholder="Course Name" required></td>
             <td>
-                <select name="instructor" id="instructor" class="instructor-selector">
+                <select name="instructor" id="instructor" class="instructor-selector" required>
                     <option value="" disabled selected>Select an instructor</option>
                     {% for data in avaliableInstructors %}
                         <option value="{{ data }}" > {{ data }}</option>
@@ -47,17 +47,17 @@
                 </select></td>
         </tr>
         <tr>
-            <td><input type="text" name="lab" id="lab" class="course-input" placeholder="Lab:"></td>
+            <td><input type="text" name="lab" id="lab" class="course-input" placeholder="Lab:" required></td>
             <td><input type="text" name="meeting_time" id="meeting_time" class="course-input"
-                       placeholder="Meeting Time:"></td>
+                       placeholder="Meeting Time:" required></td>
         </tr>
         <tr>
-            <td><input type="text" name="semester" id="semester" class="course-input" placeholder="Semester:"></td>
-            <td><input type="text" name="course_type" id="course_type" class="course-input" placeholder="Course Type:">
+            <td><input type="text" name="semester" id="semester" class="course-input" placeholder="Semester:" required></td>
+            <td><input type="text" name="course_type" id="course_type" class="course-input" placeholder="Course Type:" required>
             </td>
         </tr>
         <tr>
-            <td><input type="text" name="description" id="description" class="course-input" placeholder="Description:">
+            <td><input type="text" name="description" id="description" class="course-input" placeholder="Description:" required>
             </td>
         </tr>
     </table>
@@ -70,7 +70,7 @@
         <table>
             <tr>
                 <td>
-                <select name="ta" id="ta" class="instructor-selector">
+                <select name="ta" id="ta" class="instructor-selector" required>
                     <option value="" disabled selected>Select a TA</option>
                     {% for data in avaliableTAs %}
                         <option value="{{ data }}" > {{ data }}</option>
@@ -78,7 +78,7 @@
                 </select>
                 </td>
                 <td>
-                <select name="course" id="course" class="instructor-selector">
+                <select name="course" id="course" class="instructor-selector" required>
                     <option value="" disabled selected>Select a Course to add TA to</option>
                     {% for data in avaliableCourses %}
                         <option value="{{ data }}" > {{ data }}</option>

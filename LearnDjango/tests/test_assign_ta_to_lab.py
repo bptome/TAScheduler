@@ -12,7 +12,7 @@ class TestAdminAssignTAToLab(TestCase):
         self.test_admin = add_admin() # instantiates a test_admin object
         self.course1 = Course(1, "CS337", 97, "W 5:00-6:00", "Spring", "Graduate", "hard")
         self.course1.save()
-        self.lab1 = Lab(1, "My Lab", False, "My Lab for Course 1")
+        self.lab1 = Lab(1, "My Lab", "My Lab for Course 1")
         self.lab1.save()
         self.user_ta = User(90, "Omar", "", "", "", 1, "")
         self.user_ta.save()
@@ -27,7 +27,7 @@ class TestAdminAssignTAToLab(TestCase):
         failure_msg = "Incorrect message for valid assignment"
         self.assertEqual(self.test_admin.assign_ta_to_lab(self.user_ta, self.lab1), "TA assigned to lab and course", msg=failure_msg)
 
-    def test_valid_not_in_course(self):
+    def test_valid_not_in_course_now_in_course(self):
         self.test_admin.assign_ta_to_lab(self.user_ta, self.lab1)
         failure_msg = "TA should be assigned to the Lab"
         self.assertEqual(CourseTAJunction.objects.get(user_id=self.user_ta).course_id, self.course1, msg=failure_msg)
@@ -35,7 +35,7 @@ class TestAdminAssignTAToLab(TestCase):
     def test_valid_already_in_course(self):
         CourseTAJunction.objects.create(user_id=self.user_ta, course_id=self.course1)
         self.test_admin.assign_ta_to_lab(self.user_ta, self.lab1)
-        failure_msg = "TA should be assigned to the Lab"
+        failure_msg = "TA should not be assigned to a course twice"
         self.assertEqual(len(CourseTAJunction.objects.filter(user_id=self.user_ta)), 1, msg=failure_msg)
 
     def test_valid_already_in_course_message(self):
@@ -81,7 +81,7 @@ class TestTAOrInstructorAssignToLab(TestCase):
         User(97, "Bob Sorenson", "ter7asdfythg", "bob@uwm.edu", "Kenwoood ave", 2, "(414)173-4567").save()
         self.course1 = Course(1, "CS337", 97, "W 5:00-6:00", "Spring", "Graduate", "hard")
         self.course1.save()
-        self.lab1 = Lab(1, "My Lab", False, "My Lab for Course 1")
+        self.lab1 = Lab(1, "My Lab", "My Lab for Course 1")
         self.lab1.save()
         self.error_message = "You must be an Admin to add a TA to a Lab"
         self.test_ta = TA(90, "Omar", "", "", "", "")
@@ -89,12 +89,12 @@ class TestTAOrInstructorAssignToLab(TestCase):
 
     def test_instructor_attempt_message(self):
         message = self.test_instr.assign_ta_to_lab(self.test_ta.user_id, self.lab1.pk)
-        failure_msg = "Correct error message not returned"
+        failure_msg = "Incorrect error message returned for instructor trying to assign a TA to a lab"
         self.assertEqual(message, self.error_message, msg=failure_msg)
 
     def test_TA_attempt_message(self):
         message = self.test_instr.assign_ta_to_lab(self.test_ta.user_id, self.lab1.pk)
-        failure_msg = "Correct error message not returned"
+        failure_msg = "Incorrect error message returned for instructor trying to assign a TA to a lab"
         self.assertEqual(message, self.error_message, msg=failure_msg)
 
     def test_instructor_attempt_db_changes(self):

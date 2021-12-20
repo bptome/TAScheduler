@@ -264,6 +264,12 @@ def validatePassword(self, password):
     return True
 
 
+# helper method to merge dictionaries
+def Merge(dict1, dict2):
+    dict2.update(dict1)
+    return dict2
+
+
 class Labs(View):
     def get(self, request):
         m = get_user(request.session["user_id"])
@@ -272,6 +278,8 @@ class Labs(View):
 
     def post(self, request):
         m = get_user(request.session["user_id"])
+        add_to_dict = {"avaliableTAs": m.avaliableTAs, "avaliableCourses": m.avaliableCourses(),
+                       "avaliableLabs": m.avaliableLabs}
         if 'ta' in request.POST:
             user_name = request.POST['ta']
             lab_name = request.POST['labs']
@@ -279,22 +287,20 @@ class Labs(View):
                 user_object = User.objects.get(name=user_name)
                 lab_object = Lab.objects.get(lab_name=lab_name)
                 return render(request, "labs.html",
-                              {"message": m.assign_ta_to_lab(user_object,
-                                                             lab_object), "avaliableTAs": m.avaliableTAs,
-                               "avaliableCourses": m.avaliableCourses(), "avaliableLabs": m.avaliableLabs})
-            return render(request, "labs.html", {"message": "user or lab not found", "avaliableTAs": m.avaliableTAs,
-                                                 "avaliableCourses": m.avaliableCourses(),
-                                                 "avaliableLabs": m.avaliableLabs})
+                              Merge(add_to_dict, {"message": m.assign_ta_to_lab(user_object,
+                                                                                lab_object)}))
+            return render(request, "labs.html", Merge(add_to_dict, {"message": "user or lab not found"}))
         else:
 
             if Course.objects.filter(course_name=request.POST.get('course', False)).exists():
                 course = Course.objects.get(course_name=request.POST['course'])
                 return render(request, "labs.html",
-                              {"message": m.create_lab(request.POST['lab'], request.POST['description'], course),
-                               "avaliableTAs": m.avaliableTAs, "avaliableCourses": m.avaliableCourses(),
-                               "avaliableLabs": m.avaliableLabs})
+                              Merge(add_to_dict,
+                                    {"message": m.create_lab(request.POST['lab'], request.POST['description'],
+                                                             course)}))
             return render(request, "labs.html",
-                          {"message": "Course not found"})
+                          Merge(add_to_dict, {"message": "Course not found"}))
+
 
 
 class taAssignment(View):

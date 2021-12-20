@@ -39,7 +39,7 @@ def get_course_zero_lab():
 def get_course_one_lab():
     User(99, "Jayson Rock", "jbusbf435", "jrock@uwm.edu", "Kenwood ave", 2, "(414)123-4567").save()
     Course(2, "CS361", 99, "T 5:00-6:00", "Fall", "Undergrad", "fun").save()
-    Lab(1, "Lab 900", False, "boring lab").save()
+    Lab(1, "Lab 900", "boring lab").save()
     LabCourseJunction(1, 1, 2).save()
     return ["CS361", "Jayson Rock", " Lab 900", "T 5:00-6:00", "Fall", "Undergrad", "fun"]
 
@@ -47,9 +47,9 @@ def get_course_one_lab():
 def get_course_two_lab():
     User(98, "Henry Trimbach", "ter7ythg", "trimbach@uwm.edu", "Downer ave", 2, "(414)143-4867").save()
     Course(3, "CS351", 98, "W 900:00-6:00", "Fall", "Graduate", "EZ").save()
-    Lab(1, "Lab 900", False, "boring lab").save()
+    Lab(1, "Lab 900", "boring lab").save()
     LabCourseJunction(2, 1, 3).save()
-    Lab(2, "Lab 901", False, "not boring lab").save()
+    Lab(2, "Lab 901", "not boring lab").save()
     LabCourseJunction(3, 2, 3).save()
     return ["CS351", "Henry Trimbach", " Lab 900 Lab 901", "W 900:00-6:00", "Fall", "Graduate", "EZ"]
 
