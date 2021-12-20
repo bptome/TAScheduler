@@ -1,50 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
 {% load static %}
- <link rel="stylesheet"  href="{%  static  'css/style.css'  %}">
+<link rel="stylesheet" href="{% static  'css/style.css' %}">
 <head>
     <meta charset="UTF-8">
     <title>Courses</title>
 </head>
-    <header class="page-header">
-        <div class="container">
-            <h1><a>UW-Milwaukee Course Management</a></h1>
-        </div>
-    </header>
+<div class="topnav-container">
+<header class="page-header">
+    <div class="container">
+        <h1><a>UW-Milwaukee Course Management</a></h1>
+    </div>
+</header>
 <div class="topnav">
-  <a class="active" href="/dashboard/">Home</a>
-    <a href="/courses/">Courses</a>
-    <a href="/labs/">Labs</a>
-    <a href="/people/">People</a>
-    <a href="/">Logout</a>
+  <li><a class="active" href="/dashboard/">Home</a></li>
+    <li><a href="/courses/">Courses</a></li>
+    <li><a href="/labs/">Labs</a></li>
+    <li><a href="/people/">People</a></li>
+    <li><a href="/">Logout</a></li>
+     <li class="dropdown">
+            <a href="" class="dropbtn">Other</a>
+            <div class="dropdown-content">
+                <a href="/ta_assign/">View TA Assignments</a>
+                <a href="/create_user/">Create User</a>
+            </div>
+        </li>
 </div>
-
+</div>
+<div class="error">{{ message }} </div>
 <body>
-  <p class="header-create-course" >Add a new course</p>
+<p class="header-create-course">Add a new course</p>
 <form action="" method="post">
     {% csrf_token %}
     <table>
-        <tr><td><input type="text" id="name" name="name" class = "course-input" placeholder="Course Name"></td> <td><input type="text" id="instructor" name="instructor" class = "course-input" placeholder="Instructor"></td></tr>
-        <tr><td><input type="text" name="lab" id="lab" class = "course-input" placeholder="Lab:"></td><td><input type="text" name="meeting_time" id="meeting_time" class = "course-input" placeholder="Meeting Time:"></td></tr>
-        <tr><td><input type="text" name="semester" id="semester" class = "course-input" placeholder="Semester:"></td><td><input type="text" name="course_type" id="course_type" class = "course-input" placeholder="Course Type:"></td></tr>
-        <tr><td><input type="text" name="description" id="description" class = "course-input" placeholder="Description:"></td></tr>
+        <tr>
+            <td><input type="text" id="name" name="name" class="course-input" placeholder="Course Name"></td>
+            <td>
+                <select name="instructor" id="instructor" class="instructor-selector">
+                    <option value="" disabled selected>Select an instructor</option>
+                    {% for data in avaliableInstructors %}
+                        <option value="{{ data }}" > {{ data }}</option>
+                    {% endfor %}
+
+
+                </select></td>
+        </tr>
+        <tr>
+            <td><input type="text" name="lab" id="lab" class="course-input" placeholder="Lab:"></td>
+            <td><input type="text" name="meeting_time" id="meeting_time" class="course-input"
+                       placeholder="Meeting Time:"></td>
+        </tr>
+        <tr>
+            <td><input type="text" name="semester" id="semester" class="course-input" placeholder="Semester:"></td>
+            <td><input type="text" name="course_type" id="course_type" class="course-input" placeholder="Course Type:">
+            </td>
+        </tr>
+        <tr>
+            <td><input type="text" name="description" id="description" class="course-input" placeholder="Description:">
+            </td>
+        </tr>
     </table>
-    <input type="submit" class="submit-course-input" >
+    <input type="submit" class="submit-course-input">
 </form>
+
+<p class="header-create-course">Add a TA to a course</p>
+    <form action="" method="post">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <td>
+                <select name="ta" id="ta" class="instructor-selector">
+                    <option value="" disabled selected>Select a TA</option>
+                    {% for data in avaliableTAs %}
+                        <option value="{{ data }}" > {{ data }}</option>
+                    {% endfor %}
+                </select>
+                </td>
+                <td>
+                <select name="course" id="course" class="instructor-selector">
+                    <option value="" disabled selected>Select a Course to add TA to</option>
+                    {% for data in avaliableCourses %}
+                        <option value="{{ data }}" > {{ data }}</option>
+                    {% endfor %}
+                </select>
+        </td></tr>
+        </table>
+        <input type="submit" name="addToCourse" class="submit-course-input" >
+    </form>
 {{ message }}
 
-    <h1>Courses for admin: {{ name }}</h1>
+
+    <h1>Courses for {{ role }}: {{ name }}</h1>
+
 {% for class in courses %}
-    <ul>
-        {%  for data in class %}
+    <div class="container">
+        <div class="course-square">
+            {% for data in class %}
+
                 {% if forloop.first %}
-                    <h4>{{ class.0 }}</h4>
-                {%  else %}
-                    <li> {{ data }}</li>
-                {%  endif %}
-        {% endfor %}
-    </ul>
+                    <div class="course-name">
+                        {{ class.0 }}
+                    </div>
+                {% else %}
+                    <div class="course-info">
+                        <li> {{ data }}</li>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
 {% endfor %}
+
+
 </body>
 </html>
 

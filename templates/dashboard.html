@@ -6,19 +6,29 @@
     <meta charset="UTF-8">
     <title>Home</title>
 </head>
-    <header class="page-header">
-        <div class="container">
-            <h1><a>UW-Milwaukee Course Management</a></h1>
-        </div>
-    </header>
+<div class="topnav-container">
+<header class="page-header">
+    <div class="container">
+        <h1><a>UW-Milwaukee Course Management</a></h1>
+    </div>
+</header>
 <div class="topnav">
-  <a class="active" href="/dashboard/">Home</a>
-    <a href="/courses/">Courses</a>
-    <a href="/labs/">Labs</a>
-    <a href="/people/">People</a>
-    <a href="/">Logout</a>
+  <li><a class="active" href="/dashboard/">Home</a></li>
+    <li><a href="/courses/">Courses</a></li>
+    <li><a href="/labs/">Labs</a></li>
+    <li><a href="/people/">People</a></li>
+    <li><a href="/">Logout</a></li>
+     <li class="dropdown">
+            <a href="" class="dropbtn">Other</a>
+            <div class="dropdown-content">
+                <a href="/ta_assign/">View TA Assignments</a>
+                <a href="/create_user/">Create User</a>
+            </div>
+        </li>
 </div>
+</div>
+    <h1 class="header-default "> {{ name }}'s Dashboard</h1>
+<div class="error">{{ message }} </div>
 <body>
-{{ message }}
 </body>
 </html>

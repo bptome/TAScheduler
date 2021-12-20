@@ -25,7 +25,7 @@ class User(models.Model):
 class Course(models.Model):
     course_id = models.IntegerField(primary_key=True)
     course_name = models.CharField(max_length=20)
-    instructor_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    instructor_id = models.ForeignKey(User, on_delete=models.DO_NOTHING, default=0)
     meeting_time = models.CharField(max_length=20)
     semester = models.CharField(max_length=20)
     course_type = models.CharField(max_length=20)
@@ -33,9 +33,8 @@ class Course(models.Model):
 
 
 class Lab(models.Model):
-    lab_id = models.IntegerField(primary_key=True)
+    lab_id = models.BigAutoField(primary_key=True, serialize=False, verbose_name='ID')
     lab_name = models.CharField(max_length=20)
-    has_grader = models.BooleanField()
     description = models.CharField(max_length=200)
 
 
@@ -46,4 +45,9 @@ class LabCourseJunction(models.Model):
 
 class LabTAJunction(models.Model):
     lab_id = models.ForeignKey(Lab, on_delete=models.CASCADE)
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+
+
+class CourseTAJunction(models.Model):
+    course_id = models.ForeignKey(Course, on_delete=models.CASCADE)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
