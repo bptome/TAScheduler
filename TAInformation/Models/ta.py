@@ -43,9 +43,7 @@ class TA(BaseUser):
         for my_user in all_users:
             user_information = [
                 my_user.name,
-                my_user.password,
                 my_user.email,
-                my_user.home_address,
                 AccountType(my_user.role).__str__(),
                 my_user.phone
             ]
