@@ -1,7 +1,7 @@
 from django.test import TestCase, Client
 
+from LearnDjango.tests.TestAdminDataAccess import add_user_to_test_database, add_second_admin, add_instructor, add_ta
 from TAInformation.Models.admin import UserAdmin
-from tests.TestAdminDataAccess import add_user_to_test_database, add_second_admin, add_instructor, add_ta
 
 
 class AdminAccess(TestCase):

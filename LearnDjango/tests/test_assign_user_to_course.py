@@ -31,24 +31,45 @@ class TestAdminAssignTAToCourse(TestCase):
             tas.append(j.user_id)
         self.assertEqual(tas, [self.user_ta, user_ta_2], msg=failure_msg)
 
-    def test_attempt_add_admin(self):
+    def test_attempt_add_admin_message(self):
         new_admin = User(800, "some admin", "", "", "", 3, "")
         new_admin.save()
         message = self.test_admin.assign_ta_to_course(new_admin, self.course1)
-        failure_msg = "Should not be able to add an admin to a lab"
+        failure_msg = "Incorrect message for not being able to add an admin to a lab"
         self.assertEqual(message, "Only TA can be added to a course", msg=failure_msg)
 
-    def test_attempt_add_instructor(self):
+    def test_attempt_add_admin_db(self):
+        new_admin = User(800, "some admin", "", "", "", 3, "")
+        new_admin.save()
+        self.test_admin.assign_ta_to_course(new_admin, self.course1)
+        failure_msg = "Incorrect DB for not being able to add an admin to a lab"
+        self.assertEqual(0, len(CourseTAJunction.objects.all()), msg=failure_msg)
+
+    def test_attempt_add_instructor_message(self):
         user_instr = User(952, "Terrance", "", "", "", 2, "")
         user_instr.save()
         message = self.test_admin.assign_ta_to_course(user_instr, self.course1)
-        failure_msg = "Should not be able to add an instructor to a course"
+        failure_msg = "Incorrect message for not being able to add an instructor to a course"
         self.assertEqual(message, "Only TA can be added to a course", msg=failure_msg)
 
-    def test_TA_already_added(self):
+    def test_attempt_add_instructor_db(self):
+        user_instr = User(952, "Terrance", "", "", "", 2, "")
+        user_instr.save()
+        self.test_admin.assign_ta_to_course(user_instr, self.course1)
+        failure_msg = "Incorrect DB for not being able to add an instructor to a course"
+        self.assertEqual(0, len(CourseTAJunction.objects.all()), msg=failure_msg)
+
+    def test_TA_already_added_message(self):
         self.test_admin.assign_ta_to_course(self.user_ta, self.course1)
-        failure_msg = "Should not be able to add the same TA twice to the same course"
+        failure_msg = "Incorrect message for adding the same TA twice to the same course"
         self.assertEqual(self.test_admin.assign_ta_to_course(self.user_ta, self.course1), "TA already in this course",
+                         msg=failure_msg)
+
+    def test_TA_already_added_db(self):
+        self.test_admin.assign_ta_to_course(self.user_ta, self.course1)
+        self.test_admin.assign_ta_to_course(self.user_ta, self.course1)
+        failure_msg = "Incorrect DB for adding the same TA twice to the same course"
+        self.assertEqual(self.user_ta, CourseTAJunction.objects.get(course_id=self.course1).user_id,
                          msg=failure_msg)
 
 
@@ -64,12 +85,12 @@ class TestTAOrInstructorAssignToLab(TestCase):
 
     def test_instructor_attempt_message(self):
         message = self.test_instr.assign_ta_to_course(self.test_ta.user_id, self.course1.pk)
-        failure_msg = "Correct error message not returned"
+        failure_msg = "Correct error message not returned for instructor trying to assign TA to a course"
         self.assertEqual(message, self.error_message, msg=failure_msg)
 
     def test_TA_attempt_message(self):
         message = self.test_instr.assign_ta_to_course(self.test_ta.user_id, self.course1.pk)
-        failure_msg = "Correct error message not returned"
+        failure_msg = "Correct error message not returned for TA trying to assign TA to a course"
         self.assertEqual(message, self.error_message, msg=failure_msg)
 
     def test_instructor_attempt_db_changes(self):

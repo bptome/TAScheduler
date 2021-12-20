@@ -36,17 +36,17 @@
         <table>
             <tr>
                 <td>
-                    <select name="course" id="course" class="instructor-selector">
+                    <select name="course" id="course" class="instructor-selector" required>
                     <option value="" disabled selected>Select a Course to add Lab to</option>
                     {% for data in avaliableCourses %}
                         <option value="{{ data }}" > {{ data }}</option>
                     {% endfor %}
                 </select>
                 </td>
-                <td><input type="text" id="lab" name="lab" class = "course-input" placeholder="Lab Name"></td>
+                <td><input type="text" id="lab" name="lab" class = "course-input" placeholder="Lab Name" required></td>
             </tr>
             <tr>
-                <td><input type="text" id="description" name="description" class = "course-input" placeholder="Description"></td>
+                <td><input type="text" id="description" name="description" class = "course-input" placeholder="Description" required></td>
             </tr>
         </table>
         <input type="submit" class="submit-course-input" >
@@ -57,7 +57,7 @@
         <table>
             <tr>
                 <td>
-                    <select name="ta" id="ta" class="instructor-selector">
+                    <select name="ta" id="ta" class="instructor-selector" required>
                     <option value="" disabled selected>Select a TA</option>
                     {% for data in avaliableTAs %}
                         <option value="{{ data }}" > {{ data }}</option>
@@ -65,7 +65,7 @@
                 </select>
                 </td>
                             <td>
-                    <select name="labs" id="labs" class="instructor-selector">
+                    <select name="labs" id="labs" class="instructor-selector" required>
                     <option value="" disabled selected>Select a Lab</option>
                     {% for data in avaliableLabs %}
                         <option value="{{ data }}" > {{ data }}</option>
