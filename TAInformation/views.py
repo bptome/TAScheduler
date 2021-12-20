@@ -114,12 +114,7 @@ class Courses(View):
 
             return render(request, "courses.html", {"message": "TA or Course not found", "avaliableInstructors": m.avaliableInstructors(),"avaliableTAs":m.avaliableTAs(), "avaliableCourses":m.avaliableCourses(), "name": m.name, "role": m.role,})
 
-        noPermissions = canAccess(m.role, AccountType.ADMIN.value)  # User.objects.get('role')
-        if noPermissions:
-            return render(request, "courses.html",
-                          {"message": "insufficent permissions to create a course. Please contact "
-                                      "your system administrator if you believe this is in error.", "avaliableInstructors": m.avaliableInstructors(),"avaliableTAs":m.avaliableTAs(), "avaliableCourses":m.avaliableCourses()})
-        else:
+        if canAccess(m.role, AccountType.ADMIN.value):
             newCourse = addCourse(request.POST['name'], request.POST.get('instructor', False),
                                   request.POST['meeting_time'], request.POST['semester'], request.POST['course_type'],
                                   request.POST['description'])
@@ -127,6 +122,12 @@ class Courses(View):
             newCourse.save()
             return render(request, "courses.html", {"name": m.name, "role": m.role, "courses": m.display_courses(),
                                                     "message": "Course Created Successfully", "avaliableInstructors": m.avaliableInstructors(),"avaliableTAs":m.avaliableTAs(), "avaliableCourses":m.avaliableCourses()})
+        else:
+            return render(request, "courses.html",
+                          {"message": "insufficent permissions to create a course. Please contact "
+                                      "your system administrator if you believe this is in error.",
+                           "avaliableInstructors": m.avaliableInstructors(), "avaliableTAs": m.avaliableTAs(),
+                           "avaliableCourses": m.avaliableCourses(), "name": m.name, "role": m.role, })
 
 
 class People(View):
@@ -234,7 +235,7 @@ def findUser(name):
 
 # this is a helper method. will eventually use role required & current role to return true if can be accessed, and false if insufficient permissions
 def canAccess(role, required_role):
-    return False
+    return role == required_role
 
 
 # helper method to take all data from user and return a Course() class instance. This method also generates a user_id for each course
