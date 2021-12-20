@@ -1,10 +1,54 @@
 from django.test import TestCase
 
 from LearnDjango.tests.TestAdminDataAccess import add_admin
+#from TAInformation.Models import instructor
 from TAInformation.Models.instructor import Instructor
 from TAInformation.Models.ta import TA
 from TAInformation.models import Course, User, CourseTAJunction, Lab
 
+class TestDisplayInstructor(TestCase):
+    def setUp(self):
+        self.test_instructor = Instructor(97, "Bob Sorenson", "ter7asdfythg", "bob@uwm.edu", "Kenwoood ave","(414)173-4567")
+        User(97, "Bob Sorenson", "ter7asdfythg", "bob@uwm.edu", "Kenwoood ave",3,"(414)173-4567").save()
+        self.test_admin = add_admin()
+        self.test_admin = User(80, "Robert Sorenson", "ter7asdg", "boba@uwm.edu", "Kenwood ave", 2, "(414)173-4567").save()
+        self.course1 = Course(1, "CS337", 97, "W 5:00-6:00", "Spring", "Graduate", "hard")
+        self.course1.save()
+        self.course2 = Course(2, "CS351", 80, "TR 5:00-6:00", "Spring", "Graduate", "time intensive")
+        self.course2.save()
+    def test_display_self_courses(self):
+        failure_msg = "Instructor should see one course that only instructor teaches"
+        self.assertEqual([['CS337', 'Bob Sorenson', '', 'W 5:00-6:00', 'Spring', 'Graduate', 'hard']], self.test_instructor.display_courses(), msg=failure_msg)
+
+    def test_display_self_people(self):
+        failure_msg = "Instructor should see two courses that only instructor teaches"
+        self.assertEqual([['Robert Sorenson','boba@uwm.edu','Instructor', '(414)173-4567'], ['Bob Sorenson',"bob@uwm.edu",'Admin',"(414)173-4567"]], self.test_instructor.display_people(), msg=failure_msg)
+
+    def test_display_self_people_categories(self):
+        failure_msg = "Instructor should see two courses that only instructor teaches"
+        self.assertEqual(["name", "email", "role", "phone"], self.test_instructor.display_people_fields(), msg=failure_msg)
+
+class TestDisplayTA(TestCase):
+    def setUp(self):
+        self.test_ta = TA(97, "Bob Sorenson", "ter7asdfythg", "bob@uwm.edu", "Kenwoood ave","(414)173-4567")
+        User(97, "Bob Sorenson", "ter7asdfythg", "bob@uwm.edu", "Kenwoood ave",1,"(414)173-4567").save()
+        self.test_admin = add_admin()
+        self.test_admin = User(80, "Robert Sorenson", "ter7asdg", "boba@uwm.edu", "Kenwood ave", 2, "(414)173-4567").save()
+        self.course1 = Course(1, "CS337", 97, "W 5:00-6:00", "Spring", "Graduate", "hard")
+        self.course1.save()
+        self.course2 = Course(2, "CS351", 80, "TR 5:00-6:00", "Spring", "Graduate", "time intensive")
+        self.course2.save()
+    def test_display_self_courses(self):
+        failure_msg = "TA should see one course that only instructor teaches"
+        self.assertEqual([['CS337', 'Bob Sorenson', '', 'W 5:00-6:00', 'Spring', 'Graduate', 'hard']], self.test_TA.display_courses(), msg=failure_msg)
+
+    def test_display_self_people(self):
+        failure_msg = "TA should see two courses that only instructor teaches"
+        self.assertEqual([['Robert Sorenson','boba@uwm.edu','TA', '(414)173-4567'], ['Bob Sorenson',"bob@uwm.edu",'Admin',"(414)173-4567"]], self.test_instructor.display_people(), msg=failure_msg)
+
+    def test_display_self_people_categories(self):
+        failure_msg = "TA should see two courses that only instructor teaches"
+        self.assertEqual(["name", "email", "role", "phone"], self.test_TA.display_people_fields(), msg=failure_msg)
 
 class TestAdminAssignTAToCourse(TestCase):
     def setUp(self):
