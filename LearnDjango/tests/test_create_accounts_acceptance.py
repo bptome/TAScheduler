@@ -334,7 +334,7 @@ class CreateDuplicateAccounts(TestCase):
             'password': self.testAdmin.password,
             'email': self.testAdmin.email,
             'address': self.testAdmin.home_address,
-            'phone': self.testAdmin.phone_number,
+            'phone': self.testAdmin.phone,
             'role': self.testAdmin.role.value
         })
         failure_msg = "Somehow created a duplicate account"
@@ -373,7 +373,7 @@ class CreateDuplicateAccounts(TestCase):
             'password': self.testAdmin.password,
             'email': "testAdmin4@test.com",
             'address': self.testAdmin.home_address,
-            'phone': self.testAdmin.phone_number,
+            'phone': self.testAdmin.phone,
             'role': self.testAdmin.role.value
         })
         failure_msg = "Admin account not created despite unique email and id"
