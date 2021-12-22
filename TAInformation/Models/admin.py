@@ -54,7 +54,7 @@ class UserAdmin(BaseUser):
     def display_people_fields(self):
         return ["name", "password", "email", "home address", "role", "phone"]
 
-    def create_user(self, user_to_add: BaseUser):
+    def create_user(self, user_to_add):
         error_msg = build_error_message(user_to_add)
 
         if error_msg != "":

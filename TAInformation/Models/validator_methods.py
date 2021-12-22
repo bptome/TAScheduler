@@ -118,7 +118,7 @@ def save_new_user(new_user: BaseUser):
     user_to_save.save()
 
 
-def build_error_message(new_user: BaseUser) -> str:
+def build_error_message(new_user) -> str:
     return_dict = {}
 
     return_dict = id_validator(new_user)

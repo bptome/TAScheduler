@@ -15,16 +15,16 @@ from TAInformation.models import User, Course, Lab, LabCourseJunction
 
 def get_user(my_user_id: int):
     m = User.objects.get(user_id=my_user_id)
-    role = m.role
-    if role == AccountType.DEFAULT.value:
-        return BaseUser(m.user_id, m.name, m.password, m.email, m.home_address, m.phone)
-    elif role == AccountType.TA.value:
-        return TA(m.user_id, m.name, m.password, m.email, m.home_address, m.phone)
-    elif role == AccountType.INSTRUCTOR.value:
-        return Instructor(m.user_id, m.name, m.password, m.email, m.home_address, m.phone)
-    elif role == AccountType.ADMIN.value:
-        return UserAdmin(m.user_id, m.name, m.password, m.email, m.home_address, m.phone)
-    return AccountType.ADMIN.value
+
+    match m.role:
+        case AccountType.TA.value:
+            return TA(m.user_id, m.name, m.password, m.email, m.home_address, m.phone)
+        case AccountType.INSTRUCTOR.value:
+            return Instructor(m.user_id, m.name, m.password, m.email, m.home_address, m.phone)
+        case AccountType.ADMIN.value:
+            return UserAdmin(m.user_id, m.name, m.password, m.email, m.home_address, m.phone)
+        case _:
+            return BaseUser(m.user_id, m.name, m.password, m.email, m.home_address, m.phone)
 
 
 def index(request):
@@ -166,81 +166,57 @@ class CreateUser(View):
     # Postcondition: Creates new user, if data entered validates successfully and user doesn’t already exist.
     # Side Effects: Message indicating result is displayed at the bottom of the “Create Courses” form
     def post(self, request):
-
-
-     #     Extract data from form
-
+        # Extract data from form
         match request.session['role']:
-                case AccountType.ADMIN.value:
-                 current_user = UserAdmin(
+            case AccountType.ADMIN.value:
+                current_user = UserAdmin(
                     int(request.session['user_id']),
-                   "",
-                   "",
-                  request.session['email'],
+                    "",
+                    "",
+                    request.session['email'],
                     "",
                     ""
                 )
-                case AccountType.INSTRUCTOR.value:
-                    current_user = Instructor(
-                         int(request.session['user_id']),
-                       "",
-                        "",
-                         request.session['email'],
-                         "",
-                        ""
-                    )
-                case AccountType.TA.value:
-                      current_user = TA(
-                          int(request.session['user_id']),
-                         "",
-                        "",
-                        request.session['email'],
-                        "",
-                         ""
-                      )
-                case _:
-                      current_user: BaseUser
+            case AccountType.INSTRUCTOR.value:
+                current_user = Instructor(
+                    int(request.session['user_id']),
+                    "",
+                    "",
+                    request.session['email'],
+                    "",
+                    ""
+                )
+            case AccountType.TA.value:
+                current_user = TA(
+                    int(request.session['user_id']),
+                    "",
+                    "",
+                    request.session['email'],
+                    "",
+                    ""
+                )
+            case _:
+                current_user: BaseUser
 
         result_dict = {}
         the_id = -1 if request.POST.get('user_id') == "" else int(request.POST.get('user_id'))
 
-        match int(request.POST.get('role')):
-            case 1:
-                  new_user = TA(
-                      the_id,
-                     request.POST.get('name'),
-                      request.POST.get('password'),
-                      request.POST.get('email'),
-                     request.POST.get('address'),
-                      request.POST.get('phone'),
-                  )
-            case 2:
-                  new_user = Instructor(
-                      the_id,
-                     request.POST.get('name'),
-                      request.POST.get('password'),
-                      request.POST.get('email'),
-                     request.POST.get('address'),
-                     request.POST.get('phone'),
-                )
-            case 3:
-                  new_user = UserAdmin(
-                      the_id,
-                      request.POST.get('name'),
-                      request.POST.get('password'),
-                      request.POST.get('email'),
-                      request.POST.get('address'),
-                     request.POST.get('phone')
-                  )
-            case _:  # Enforcement of selection should never allow this case to be reached
-                  new_user: BaseUser
+        new_user = User(
+            user_id=the_id,
+            name=request.POST.get('name'),
+            password=request.POST.get('password'),
+            email=request.POST.get('email'),
+            address=request.POST.get('address'),
+            phone=request.POST.get('phone'),
+        )
 
         result_dict = current_user.create_user(new_user)
 
         return render(request, "create_user.html", {'result': result_dict['result'], 'message': result_dict['message']})
 
+    # this is a dummy method. will eventually use user_id and return a User() class of the user that matches the user_id
 
-     # this is a dummy method. will eventually use user_id and return a User() class of the user that matches the user_id
+
 def findUser(name):
     # b = User.objects.filter(name=name)
     return User.objects.get(name=name)
@@ -275,7 +251,8 @@ class Labs(View):
     def get(self, request):
         m = get_user(request.session["user_id"])
         return render(request, "labs.html", {"avaliableTAs": m.avaliableTAs, "avaliableCourses": m.avaliableCourses(),
-                                             "avaliableLabs": m.avaliableLabs, "labAndCourse": m.avaliableLabsandCourses()})
+                                             "avaliableLabs": m.avaliableLabs,
+                                             "labAndCourse": m.avaliableLabsandCourses()})
 
     def post(self, request):
         m = get_user(request.session["user_id"])
@@ -303,7 +280,6 @@ class Labs(View):
                           Merge(add_to_dict, {"message": "Course not found"}))
 
 
-
 class taAssignment(View):
 
     def get(self, request):
@@ -314,7 +290,7 @@ class taAssignment(View):
         assignments = []
         for val in arr:
             print(val)
-            temp = [get_user(val[0]).name, Course.objects.get(course_id=val[1]).course_name, val[2] ]
+            temp = [get_user(val[0]).name, Course.objects.get(course_id=val[1]).course_name, val[2]]
             assignments.append(temp)
 
         return assignments
